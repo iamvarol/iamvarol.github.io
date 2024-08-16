@@ -42,7 +42,7 @@ socialLinks:
 
 - name: LinkedIn
   icon: "fab fa-linkedin"
-  url: "https://www.linkedin.com/in/ali-emre-varol-012989193/"
+  url: "https://www.linkedin.com/ali-emre-varol-012989193/"
 
 - name: Twitter
   icon: "fab fa-twitter"
@@ -72,37 +72,48 @@ resourceLinks:
 # You can also show a circular bar indicating the level of expertise on a certain skill
 badges:
 - type: certification
-  name: Certified Kubernetes Security Specialist
-  url: "https://www.credly.com/org/the-linux-foundation/badge/exam-developer-certified-kubernetes-security-specialist"
-  badge: "https://images.credly.com/size/680x680/images/f4bf92ed-8985-40b2-bc07-2f9308780854/kubernetes-security-specialist-logo-examdev.png"
+  name: Neo4j Certified Professional
+  url: "https://graphacademy.neo4j.com/c/6936d3de-c29a-4f58-8360-a59bb4792c91/"
+  badge: "https://dist.neo4j.com/wp-content/uploads/20201022124658/Neo4j4.jpg"
 
 - type: certification
-  name: Istio and IBM Cloud Kubernetes Service
-  url: "https://www.credly.com/org/the-linux-foundation/badge/exam-developer-certified-kubernetes-security-specialist"
-  badge: "https://images.credly.com/size/680x680/images/8d34d489-84bf-4861-a4a0-9e9d68318c5c/Beyond_basics_of_Istio_on_Cloud_v2.png"
+  name: Neo4j Graph Data Science Certification
+  url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR36IoJ1LYqmNMNqPj638p5BfcV6PNJy0sytA&s"
+  badge: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR36IoJ1LYqmNMNqPj638p5BfcV6PNJy0sytA&s"
 
 - type: certification
-  name: Artificial Intelligence and Machine Learning
-  url: "https://www.credly.com/org/grupo-bancolombia/badge/artificial-intelligence-and-machine-learning"
-  badge: "https://images.credly.com/size/680x680/images/e027514f-9d07-4b29-862f-fe21a8aaebf1/ae.png"
+  name: Spark NLP Healthcare Data Scientist
+  url: "files/aliemrevarol_sparknlp_healthcare_datascientist.png"
+  badge: "https://media.licdn.com/dms/image/v2/C510BAQFT1HLZor5NGA/company-logo_200_200/company-logo_200_200/0/1631305457019?e=2147483647&v=beta&t=-lhCWGvUJnuI9UstMyfNcb-OPfChagigdPDeJ1Pn6A0"
 
 - type: soft-skill-indicator
-  name: Leadership
-  percentage: 85
-  color: blue
-
-- type: soft-skill-indicator
-  name: Team Work
-  percentage: 90
+  name: Team Work & Collaboration
+  percentage: 95
   color: yellow
 
 - type: soft-skill-indicator
+  name: Adaptability
+  percentage: 95
+  color: blue
+
+- type: soft-skill-indicator
+  name: Problem Solving
+  percentage: 95
+  color: white
+
+- type: soft-skill-indicator
+  name: Leadership
+  percentage: 90
+  color: green
+
+- type: soft-skill-indicator
   name: Hard Working
-  percentage: 85
+  percentage: 95
   color: orange
 
 # you can also provide color code instead of the color name
-# - type: soft-skill-indicator
-#   name: Example 1
-#   percentage: 75
-#   color: "#00adb5"
+- type: soft-skill-indicator
+  name: Communication
+  percentage: 85
+  color: "#00adb5"
+

@@ -11,29 +11,49 @@ section:
 # Your Skills.
 # Give a summary of you each skill in the summary section.
 skills:
-- name: Kubernetes
-  logo: /images/sections/skills/kubernetes.png
-  summary: "Capable of deploying, managing application on Kubernetes. Experienced in writing Kubernetes controllers for CRDs."
+- name: BigQuery
+  logo: /images/sections/skills/bigquery.svg
+  summary: "Adept at utilizing Google BigQuery for large-scale data analytics. Experienced in writing efficient SQL queries for big data processing, designing scalable data warehouses, and integrating BigQuery with other Google Cloud services."
   url: "https://kubernetes.io/"
 
-- name: Go Development
-  logo: /images/sections/skills/go.png
-  summary: "Using as the main language for professional development. Capable of writing scalable, testable, and maintainable program."
+- name: PostgreSQL
+  logo: /images/sections/skills/postgresql-plain-wordmark.svg
+  summary: "Skilled in designing, optimizing, and managing PostgreSQL databases. Proficient in writing complex SQL queries, stored procedures, and triggers. Experienced in performance tuning, replication, and high-availability setups."
+  url: "https://golang.org/"
+
+- name: Neo4j
+  logo: /images/sections/skills/neo4j.svg
+  summary: "Certified Neo4j professional. Proficient in designing and implementing graph databases. Experienced in developing applications leveraging Neo4j's powerful query language, Cypher, for complex relationship-based data modeling and analysis."
+  url: "https://kubernetes.io/"
+
+- name: FastAPI
+  logo: /images/sections/skills/fastapi.svg
+  summary: "Proficient in developing high-performance APIs using FastAPI framework. Experienced in creating RESTful services with automatic API documentation. Skilled in leveraging FastAPI's asynchronous capabilities for building scalable and efficient web applications."
+  url: "https://golang.org/"
+
+- name: Python
+  logo: /images/sections/skills/python.svg
+  summary: "Highly skilled in Python programming for various applications including web development, data analysis, and machine learning. Proficient in writing clean, efficient, and maintainable Python code. Experienced with popular Python libraries and frameworks such as Pandas, Numpy, FastAPI, and Streamlit."
+  url: "https://kubernetes.io/"
+
+- name: LangChain
+  logo: /images/sections/skills/langchain.svg
+  summary: "Adept at utilizing LangChain for building applications with large language models (LLMs). Experienced in creating chains and agents for complex language tasks, integrating various LLMs, and developing custom tools and prompts. Proficient in leveraging LangChain's capabilities for document analysis, question-answering systems, and conversational AI."
+  url: "https://golang.org/"
+
+- name: LlamaIndex
+  logo: /images/sections/skills/llamaindex.png
+  summary: "Skilled in using LlamaIndex (formerly GPT Index) for building and deploying LLM-powered information retrieval systems. Experienced in creating and querying various types of indices for efficient data retrieval and augmentation. Proficient in integrating LlamaIndex with other LLM frameworks and customizing indexing strategies for specific use cases."
   url: "https://golang.org/"
 
 - name: Cloud Computing
   logo: /images/sections/skills/cloud.png
-  summary: "Worked with most of the major clouds such as GCP, AWS, Azure etc."
+  summary: "Worked with most of the major clouds such as GCP, DataBricks, Azure etc."
 
 - name: Docker
   logo: /images/sections/skills/docker.svg
   summary: "Write most of the programs as dockerized container. Experienced with multi-stage, multi-arch build process."
   url: "https://www.docker.com/"
-
-- name: Prometheus
-  logo: /images/sections/skills/prometheus.png
-  summary: "Capable of setup, configure Prometheus metrics. Experienced with PromQL, AlertManager. Also, experienced with writing metric exporters."
-  url: "https://prometheus.io/"
 
 - name: Linux
   logo: /images/sections/skills/linux.png
@@ -44,6 +64,16 @@ skills:
   summary: "Experienced with git-based development. Mostly, use Github. Also, have experience in working with GitLab."
   url: "https://git-scm.com/"
 
-- name: C++
-  logo: /images/sections/skills/c++.png
-  summary: "Know basic C/C++ programming. Used for contest programming and problem solving."
+# - name: Google Cloud Platform
+#   logo: /images/sections/skills/google-cloud-platform.svg
+#   summary: "Capable of deploying, managing application on Kubernetes. Experienced in writing Kubernetes controllers for CRDs."
+#   url: "https://cloud.google.com/"
+
+# - name: Prometheus
+#   logo: /images/sections/skills/prometheus.png
+#   summary: "Capable of setup, configure Prometheus metrics. Experienced with PromQL, AlertManager. Also, experienced with writing metric exporters."
+#   url: "https://prometheus.io/"
+
+# - name: C++
+#   logo: /images/sections/skills/c++.png
+#   summary: "Know basic C/C++ programming. Used for contest programming and problem solving."
