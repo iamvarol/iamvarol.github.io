@@ -8,60 +8,64 @@ section:
   template: sections/about.html
 
 # your designation
-designation: Software Engineer
+designation: Data Scientist
 # your company information
 company:
-  name: Example Co.
-  url: "https://www.example.com"
+  name: Berlin Tires
+  url: "https://www.berlintires.com"
 
 # your resume. this file path should be relative to you "static" directory
 # Dreprecated. Use resourceLinks instead.
 # resume: "files/resume.pdf"
 
 # a summary about you
-summary: 'I am a passionate software engineer with x years of working experience. I built OSS tools for [Kubernetes](https://kubernetes.io/) using GO. My tools help people to deploy their workloads in Kubernetes. Sometimes, I work on some fun projects such as writing a theme, etc.'
+summary: > 
+  Based in Istanbul 🇹🇷, I work remotely with global teams and currently at <a target='_blank' href='https://berlintires.com/'>Berlin Tires</a> to deliver advanced AI-driven solutions. 
+  My passion lies in transforming complex data into actionable insights, improving decision-making processes across various industries. 
+  With a background in Industrial Engineering and a Ph.D. candidate, I specialize in integrating machine learning, NLP, and generative AI to solve real-world challenges. 
+  I am dedicated to mentoring emerging talent and continuously advancing my expertise in the latest technologies.
 
 # your social links
 # give as many as you want. use font-awesome for the icons.
 socialLinks:
 - name: Email
   icon: "fas fa-envelope"
-  url: "example@gmail.com"
+  url: "a.emrevarol@gmail.com"
 
 - name: Github
   icon: "fab fa-github"
-  url: "https://www.github.com/example"
+  url: "https://www.github.com/iamvarol"
 
 - name: Stackoverflow
   icon: "fab fa-stack-overflow"
-  url: "#"
+  url: "https://stackoverflow.com/users/12928224/iamvarol"
 
 - name: LinkedIn
   icon: "fab fa-linkedin"
-  url: "#"
+  url: "https://www.linkedin.com/in/ali-emre-varol-012989193/"
 
 - name: Twitter
   icon: "fab fa-twitter"
-  url: "#"
+  url: "https://x.com/iamvarol"
 
-- name: Facebook
-  icon: "fab fa-facebook"
-  url: "#"
-
-- name: Mastadon
-  icon: "fab fa-mastodon"
-  url: "#"
-  rel: "me noopener"
-
-- name: ResearchGate
-  icon: "fab fa-researchgate"
-  url: "https://www.researchgate.net/profile/john-doe"
+# - name: Facebook
+#   icon: "fab fa-facebook"
+#   url: "#"
+# 
+# - name: Mastadon
+#   icon: "fab fa-mastodon"
+#   url: "#"
+#   rel: "me noopener"
+# 
+# - name: ResearchGate
+#   icon: "fab fa-researchgate"
+#   url: "https://www.researchgate.net/profile/john-doe"
 
 # You can put custom buttons to link your relevant resources.
 # For example, you can put link for your resume.
 resourceLinks:
 - title: "My Resume"
-  url: "files/resume.pdf"
+  url: "files/aliemrevarol_datascientist.pdf"
 
 # Show your badges
 # You can show your verifiable certificates from https://www.credly.com.
