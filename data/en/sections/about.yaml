@@ -67,29 +67,46 @@ resourceLinks:
 - title: "My Resume"
   url: "files/aliemrevarol_datascientist.pdf"
 
-# Show your badges
-# You can show your verifiable certificates from https://www.credly.com.
-# You can also show a circular bar indicating the level of expertise on a certain skill
 badges:
-- type: certification
-  name: Neo4j Certified Professional
-  url: "https://graphacademy.neo4j.com/c/6936d3de-c29a-4f58-8360-a59bb4792c91/"
-  badge: "https://dist.neo4j.com/wp-content/uploads/20201022124658/Neo4j4.jpg"
+# # Show your badges
+# # You can show your verifiable certificates from https://www.credly.com.
+# # You can also show a circular bar indicating the level of expertise on a certain skill
 
-- type: certification
-  name: Neo4j Graph Data Science Certification
-  url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR36IoJ1LYqmNMNqPj638p5BfcV6PNJy0sytA&s"
-  badge: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR36IoJ1LYqmNMNqPj638p5BfcV6PNJy0sytA&s"
+# - type: certification
+#   name: Neo4j Certified Professional
+#   url: "https://graphacademy.neo4j.com/c/6936d3de-c29a-4f58-8360-a59bb4792c91/"
+#   badge: "https://dist.neo4j.com/wp-content/uploads/20201022124658/Neo4j4.jpg"
+# 
+# - type: certification
+#   name: Neo4j Graph Data Science Certification
+#   url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR36IoJ1LYqmNMNqPj638p5BfcV6PNJy0sytA&s"
+#   badge: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR36IoJ1LYqmNMNqPj638p5BfcV6PNJy0sytA&s"
+# 
+# - type: certification
+#   name: Spark NLP Healthcare Data Scientist
+#   url: "files/aliemrevarol_sparknlp_healthcare_datascientist.png"
+#   badge: "https://media.licdn.com/dms/image/v2/C510BAQFT1HLZor5NGA/company-logo_200_200/company-logo_200_200/0/1631305457019?e=2147483647&v=beta&t=-lhCWGvUJnuI9UstMyfNcb-OPfChagigdPDeJ1Pn6A0"
 
-- type: certification
-  name: Spark NLP Healthcare Data Scientist
-  url: "files/aliemrevarol_sparknlp_healthcare_datascientist.png"
-  badge: "https://media.licdn.com/dms/image/v2/C510BAQFT1HLZor5NGA/company-logo_200_200/company-logo_200_200/0/1631305457019?e=2147483647&v=beta&t=-lhCWGvUJnuI9UstMyfNcb-OPfChagigdPDeJ1Pn6A0"
+
+- type: soft-skill-indicator
+  name: Natural Language Processing (NLP)
+  percentage: 95
+  color: "#00b4d8"
+
+- type: soft-skill-indicator
+  name: Knowledge Graphs
+  percentage: 95
+  color: "#c1121f"
+
+- type: soft-skill-indicator
+  name: Generative AI
+  percentage: 95
+  color: "#fca311"
 
 - type: soft-skill-indicator
   name: Team Work & Collaboration
   percentage: 95
-  color: yellow
+  color: "#f4acb7"
 
 - type: soft-skill-indicator
   name: Adaptability

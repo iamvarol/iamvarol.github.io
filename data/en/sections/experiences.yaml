@@ -18,21 +18,20 @@ experiences:
     # Can optionally show a different logo for dark theme
     # darkLogo: /images/sections/experiences/company1.jpg
     # company overview
-    overview: Example Co. is a widely recognized company for cloud-native development. It builds tools for Kubernetes.
+    overview: An AI-powered and data driven umbrella company that is responsible for the progressive development of six brands in the tire, rim, and e-bike industry. 
   positions:
-  - designation: Head of BI & Sr.Data Scientist
+  - designation: Head of BI (Sr.Data Scientist)
     start: Feb 2023
     # don't provide end date if you are currently working there. It will be replaced by "Present"
     # end: Dec 2020
     # give some points about what was your responsibilities at the company.
     responsibilities:
-      - Led the generation of advanced forecasting models that revolutionized inventory management across Production & Sales, resulting in a significant reduction of excess stock and cost savings by accurately predicting demand.
-      - Developed dynamic, real-time dashboards for various departments, providing critical insights that enhanced data-driven decisions and fostered collaborative efforts, significantly improving operational efficiency.
-      - Pioneered an AI-powered Q&A assistant for Sales and Customer Support, boosting self-service capabilities and streamlining interactions, which led to faster query resolution and improved customer satisfaction.
-      - Executed in-depth analytics on application data, uncovering key insights that drove strategic business decisions, optimized processes, and enhanced customer engagement through a data-centric approach.
-      - Overhauled 25 years of historical data, ensuring integrity and reliability through rigorous cleaning, setting a solid foundation for future analytics and strategic decision-making.
-      - Achieved a groundbreaking 95% accuracy rate in quarterly forecasting models, significantly surpassing previous projections by 30% and setting a new standard for forecasting precision within the company.
-
+      - Lead the development of advanced forecasting models for inventory management
+      - Create and maintain dynamic, real-time dashboards for various departments
+      - Develop and implement AI-powered Q&A assistant for Sales and Customer Support
+      - Conduct in-depth analytics on application data to drive strategic business decisions
+      - Oversee the cleaning and maintenance of historical data for analytics purposes
+      - Manage and improve quarterly forecasting models to achieve high accuracy rates
   # - designation: Senior Data Scientist
   #   start: Feb 2023
   #   end: Oct 2023
@@ -44,34 +43,106 @@ experiences:
 
 - company:
     name: Eyva (Datazeit)
-    url: "https://www.eyva.io"
+    url: "https://www.eyva.ai"
     location: Cologne, Germany (Remote)
     logo: /images/sections/experiences/eyva.png
     # Can optionally show a different logo for dark theme
     # darkLogo: /images/sections/experiences/company2.jpg
-    overview: PreExample Co. is a gateway company to enter into Example co. So, nothing special here.
+    overview: Eyva is an AI powered company in beauty and cosmetics sector to identify trending ingredients and product claims to align your product with consumer pain points and demand.
   positions:
   - designation: Senior Data Scientist
     start: Jun 2022
     end: Dec 2022
     responsibilities:
-    - Write lots of example codes.
-    - Read lots of examples.
-    - See lots of example videos.
+    - Develop NLP-based Voice of Customer models for customer insight extraction
+    - Create and maintain Concept Models using Neo4j Knowledge Graph for Beauty Product strategies
+    - Implement advanced forecasting models for Beauty Products and search terms
+    - Apply Sentence BERT Transformers in Classification Models to optimize search term relevancy
+    - Customize and improve sentiment analysis models for enhanced customer feedback analysis
 
 - company:
-    name: Intern Counting Company (ICC).
+    name: John Snow Labs.
+    url: "https://www.johnsnowlabs.com/"
+    location: Deleware, USA (Remote)
+    logo: /images/sections/experiences/johnsnowlabs.png
+    # Can optionally show a different logo for dark theme
+    # darkLogo: /images/sections/experiences/company3.jpg
+    overview: John Snow Labs is an award-winning AI company that helps healthcare and life science organizations put AI to work faster, providing high-compliance AI platform, SOTA NLP libraries, and data market.
+  positions:
+  - designation: Healthcare Senior Data Scientist
+    start: Aug 2021
+    end: Jun 2022
+    responsibilities:
+    - Lead the development and deployment of NLP and AI solutions for healthcare clients
+    - Apply advanced NLP techniques to build real-time healthcare solutions
+    - Collaborate with cross-functional teams to address diverse NLP use cases in healthcare
+    - Develop medical question-and-answer applications using medical knowledge graphs
+    - Engineer FastAPI-based solutions for serving Spark NLP as an AutoNLP platform
+    - Conduct data analysis and visualization using various ML tools and technologies
+    - Implement image processing techniques using OpenCV for Spark OCR
+    - Perform text preprocessing, entity recognition, and relation extraction using NLP tools
+    - Apply and fine-tune various Transformer models for healthcare text processing
+    - Implement MLOps principles for model serving and experiment tracking
+    - Engage in sales engineering across Healthcare, Pharma, Payer, and Provider segments
+    - Collaborate with stakeholders to design tailored healthcare solutions
+
+- company:
+    name: Two Desperados
+    url: "https://twodesperados.com/"
+    location: Belgrade, Serbia (Remote)
+    logo: /images/sections/experiences/twodesperados.png
+    # Can optionally show a different logo for dark theme
+    # darkLogo: /images/sections/experiences/company3.jpg
+    overview: Two Desperados is an independent game development studio based in Belgrade. Well known for creating Number 1 marble shooter games.
+  positions:
+  - designation: Data Scientist
+    start: Mar 2020
+    end: Feb 2021
+    responsibilities:
+    - Design and implement machine learning models for user churn prediction, customer segmentation, and lifetime value forecasting
+    - Create personalized offers for video game users to improve retention and in-app purchases
+    - Develop analytic dashboards using Plotly, Plotly Dash, and Google Data Studio
+    - Establish and maintain artificial intelligence architecture and data pipelines
+    - Collaborate with user acquisition team to optimize ad campaigns using ROI/ROAS analyses
+    - Work cross-functionally with User Acquisition, Monetization, and Product Teams to align data-driven strategies
+
+- company:
+    name: DataJarLabs
     url: "https://www.example.com"
-    location: Intern Land
+    location: Ankara, Turkey (Remote)
     logo: /images/sections/experiences/company3.jpg
     # Can optionally show a different logo for dark theme
     # darkLogo: /images/sections/experiences/company3.jpg
-    overview: Intern counting Company (ICC) is responsible for counting worldwide intern Engineers.
+    overview: Datajarlabs is a research laboratory operating in the fields of "Artificial Intelligence" and "Data Science" and offers training and consulting services.
   positions:
-  - designation: Intern
-    start: Jun 2015
-    end: Jan 2016
+  - designation: Data Scientist
+    start: Mar 2019
+    end: Jun 2020
     responsibilities:
-    - Count lost of interns.
-    - Count more interns.
-    - Count me as an intern.
+    - Lead machine learning projects, focusing on model development and optimization
+    - Mentor and guide aspiring data scientists, fostering a culture of continuous learning
+    - Provide consultation on data science projects to drive data-driven initiatives
+    - Contribute to data science training bootcamps as a mentor
+    - Present lectures on data science, with a focus on machine learning
+    - Conduct comprehensive statistical analyses to inform business decisions
+    - Manage data scientist hiring events, such as Datathons, for client companies
+
+- company:
+    name: Government
+    url: "https://www.tsk.tr/"
+    location: Kocaeli & Ankara & Istanbul, Turkey
+    logo: /images/sections/experiences/taf.png
+    # Can optionally show a different logo for dark theme
+    # darkLogo: /images/sections/experiences/company3.jpg
+    overview: The Turkish Armed Forces are the military forces of the Republic of Turkey.
+  positions:
+  - designation: Operations Research Specialist & Data Analyst (Naval Officer)
+    start: Aug 2015
+    end: Mar 2019
+    responsibilities:
+    - Develop and deploy an enterprise-level decision support system using industrial engineering and operations research techniques
+    - Conduct analyses and planning for inventory management to optimize stock levels and minimize costs
+    - Create and present analytic dashboards for C-level managers to facilitate informed decision-making
+    - Serve as a key member of the Project Management Board and lead the Computer Software Test Group
+    - Prepare software requirement analyses and design computer software units
+    - Coordinate and execute confidential "Stealth Projects"
