@@ -148,7 +148,7 @@ params:
       services:
         # Google Analytics
         google:
-          id: G-KR24Q508W7
+          id: G-WT3KCXYT7Z
         # # CounterDev
         # counterDev:
         #   id: <your counterdev id>
