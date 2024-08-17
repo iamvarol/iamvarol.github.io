@@ -110,7 +110,7 @@ experiences:
     name: DataJarLabs
     url: "https://www.example.com"
     location: Ankara, Turkey (Remote)
-    logo: /images/sections/experiences/company3.jpg
+    logo: /images/sections/experiences/datajarlabs_logo.png
     # Can optionally show a different logo for dark theme
     # darkLogo: /images/sections/experiences/company3.jpg
     overview: Datajarlabs is a research laboratory operating in the fields of "Artificial Intelligence" and "Data Science" and offers training and consulting services.
