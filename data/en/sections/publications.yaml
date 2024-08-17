@@ -12,71 +12,124 @@ section:
 buttons:
 - name: All
   filter: "all"
-- name: "Machine Learning"
-  filter: "machinelearning"
-- name: "Image Processing"
-  filter: "image-processing"
-- name: Security
-  filter: "security"
+- name: "Simulation"
+  filter: "simulation"
+- name: "Natural Language Processing"
+  filter: "natural language processing"
+- name: Military
+  filter: "military"
 
 # your publications
 publications:
-- title: An Example Paper on Machine Learning
+- title: Understanding COVID-19 News Coverage using Medical NLP
   publishedIn:
-    name: 2020 IEEE Region Symposium (TENSYMP)
-    date: 7 June 2020
-    url: https://example.com
+    name: Proceedings of the Text2Story'22 Workshop, Stavanger (Norway), 10-April-2022
+    date: 19 Mar 2022
+    url: https://doi.org/10.1057/jors.2015.34
   authors:
-  - name: Dr. Madman
-    url: https://example.com
-  - name: Dr. Lessmad
-    url: https://example.com
-  - name: Dr. Moremad
-    url: https://example.com
-  - name: Dr. Goodman
-    url: https://example.com
+  - name: Ali Emre Varol
+    url: https://arxiv.org/search/cs?searchtype=author&query=Varol,+A+E
+  - name: PhD Veysel Kocaman
+    url: https://arxiv.org/search/cs?searchtype=author&query=Kocaman%2C+V
+  - name: Hasham UI Haq
+    url: https://arxiv.org/search/cs?searchtype=author&query=Haq%2C+H+U
+  - name: PhD David Talby
+    url: https://arxiv.org/search/cs?searchtype=author&query=Talby%2C+D
   paper:
-    summary: Voluptate in id id voluptate laboris. Minim mollit aliquip sit aliqua ut exercitation voluptate eiusmod consequat pariatur sunt enim veniam. Velit esse tempor laboris anim tempor officia. Magna non labore duis do esse sit do ipsum culpa. Officia consequat id non duis culpa dolor. Excepteur magna non nostrud cupidatat aute aliqua aliquip.
-    url: https://example.com
-  categories: ["machinelearning","image-processing"]
-  tags: ["Machine Learning", "Autonomous Driving", "Computer Vision"]
+    summary: >
+      Being a global pandemic, the COVID-19 outbreak received global media attention. 
+      In this study, we analyze news publications from CNN and The Guardian - two of the world's most influential media organizations. 
+      The dataset includes more than 36,000 articles, analyzed using the clinical and biomedical Natural Language Processing (NLP) models from the Spark NLP for Healthcare library, which enables a deeper analysis of medical concepts than previously achieved. 
+      The analysis covers key entities and phrases, observed biases, and change over time in news coverage by correlating mined medical symptoms, procedures, drugs, and guidance with commonly mentioned demographic and occupational groups. 
+      Another analysis is of extracted Adverse Drug Events about drug and vaccine manufacturers, which when reported by major news outlets has an impact on vaccine hesitancy. 
+    url: https://doi.org/10.1057/jors.2015.34
+  categories: ["nlp", "covid-19","spark nlp","natural language processing", "vaccine", "adverse drug effects"]
+  tags: ["NLP", "COVID-19", "Spark NLP","Natural Language Processing", "Vaccine","Adverse Drug Effects"]
 
-- title: An Sample Paper on Image Processing
+- title: Simulating prevention operations at sea against maritime piracy
   publishedIn:
-    name: 2020 IEEE Region Symposium (TENSYMP)
-    date: 7 June 2020
-    url: https://example.com
+    name: Journal of the Operational Research Society
+    date: 21 Dec 2017
+    url: https://doi.org/10.1057/jors.2015.34
   authors:
-  - name: Dr. Madman
-    url: https://example.com
-  - name: Dr. Lessmad
-    url: https://example.com
-  - name: Dr. Moremad
-    url: https://example.com
-  - name: Dr. Goodman
-    url: https://example.com
+  - name: Ali Emre Varol
+    url: https://iamvarol.netlify.app
+  - name: Associate Professor Murat Gunal
+    url: https://scholar.google.com.tr/citations?user=Y98YZSIAAAAJ&hl=tr
   paper:
-    summary: Ullamco magna minim cupidatat Lorem ea ex aliqua fugiat et. Dolor quis cillum ea duis irure et commodo aliquip consectetur ullamco labore ut anim nisi. Commodo reprehenderit est consectetur tempor adipisicing occaecat exercitation amet do aliquip dolor do irure. Labore officia ut magna pariatur reprehenderit et ex sit sunt. Magna proident ullamco adipisicing sit.
-    url: https://example.com
-  categories: ["image-processing"]
-  tags: ["Image Processing", "Computer Vision"]
+    summary: >
+      Maritime piracy has been a major issue for the international community in the last decade and affected the global economy. 
+      As a reaction to this issue, international organizations have deployed naval forces to protect maritime transportation in the affected regions. 
+      In this study, we present a simulation-based analysis tool to evaluate the effectiveness of operations to prevent piracy. 
+      In our model, we consider three stakeholders' views (pirates, maritime transporters, and naval forces) and modelled their behaviours separately, using Discrete Event Simulation (DES) and Agent-Based Simulation (ABS) approaches. 
+      Our hybrid DES and ABS model is used to simulate hypothetical scenarios on the Gulf of Aden for understanding the cause and effect relationship between naval resource allocation and piracy prevention. 
+      Our experimental results showed that, first, helicopters are most valuable in prevention and, second, either patrolling or escorting naval ships must carry a helicopter for effective prevention.
+    url: https://doi.org/10.1057/jors.2015.34
+  categories: ["discrete event simulation", "agent based simulation","simulation","practice of OR", "military", "sea transportation"]
+  tags: ["Simulation", "Naval Operations", "Military"]
 
-- title: An Example Paper on Security
+- title: Simulation Modeling of Maritime Piracy using Discrete Event and Agent-Based Approaches
   publishedIn:
-    name: 2020 IEEE Region Symposium (TENSYMP)
-    date: 7 June 2020
-    url: https://example.com
+    name: Simultech 2013 Conference
+    date: 31 Jul 2013
+    url: https://www.simulationmodel.com/murat.gunal/papers/SIMULTECH_2013_29_CR.pdf
   authors:
-  - name: Dr. Madman
-    url: https://example.com
-  - name: Dr. Lessmad
-    url: https://example.com
-  - name: Dr. Moremad
-    url: https://example.com
-  - name: Dr. Goodman
-    url: https://example.com
+  - name: Ali Emre Varol
+    url: https://iamvarol.netlify.app
+  - name: Associate Professor Murat Gunal
+    url: https://scholar.google.com.tr/citations?user=Y98YZSIAAAAJ&hl=tr
   paper:
-    summary: Dolor ad cupidatat pariatur nulla ipsum ex ullamco nisi anim ullamco. Dolore elit esse in exercitation minim aliqua. Amet velit incididunt magna laboris. Proident reprehenderit deserunt ad officia duis dolor. Tempor nostrud ullamco ullamco sint deserunt cupidatat irure minim consectetur nulla adipisicing sunt.
-    url: https://example.com
-  categories: ["security"]
-  tags: ["Machine Learning", "Autonomous Driving", "Machine Vision"]
+    summary: >
+      In the last decade, maritime piracy has affected the global economy that forced the countries to react. Most
+      of the reaction is regarding force deployment in the affected regions. In this study, we present a simulation
+      based analysis tool that aims at understanding the relationship between naval forces deployment and
+      preventing piracy. We consider three stakeholders' views; pirates, maritime transportation, and naval forces.
+      We initially created a classical Discrete Event Simulation (DES) model and adopted event scheduling
+      approach. However, later, we discovered that since the behaviours of entities, interaction between entities,
+      and the autonomy properties of entities are significant, Agent Based Simulation (ABS) concepts are
+      appropriate for modeling. Finally, we ended up with a hybrid DES and ABS model. Our conceptual model
+      is created using event graphs and the model is implemented using SharpSim DES library. Additionally, we
+      coupled an open source Geographic Information System (GIS), GreatMap, with SharpSim. 
+    url: https://www.simulationmodel.com/murat.gunal/papers/SIMULTECH_2013_29_CR.pdf
+  categories: ["maritime piracy", "discrete event", "agent based","hybrid", "simulation", "agent based simulation","practice of OR", "military", "sea transportation"]
+  tags: ["Simulation", "Naval Operations", "Military"]
+
+# - title: An Sample Paper on Image Processing
+#   publishedIn:
+#     name: 2020 IEEE Region Symposium (TENSYMP)
+#     date: 7 June 2020
+#     url: https://example.com
+#   authors:
+#   - name: Dr. Madman
+#     url: https://example.com
+#   - name: Dr. Lessmad
+#     url: https://example.com
+#   - name: Dr. Moremad
+#     url: https://example.com
+#   - name: Dr. Goodman
+#     url: https://example.com
+#   paper:
+#     summary: Ullamco magna minim cupidatat Lorem ea ex aliqua fugiat et. Dolor quis cillum ea duis irure et commodo aliquip consectetur ullamco labore ut anim nisi. Commodo reprehenderit est consectetur tempor adipisicing occaecat exercitation amet do aliquip dolor do irure. Labore officia ut magna pariatur reprehenderit et ex sit sunt. Magna proident ullamco adipisicing sit.
+#     url: https://example.com
+#   categories: ["image-processing"]
+#   tags: ["Image Processing", "Computer Vision"]
+
+# - title: An Example Paper on Security
+#   publishedIn:
+#     name: 2020 IEEE Region Symposium (TENSYMP)
+#     date: 7 June 2020
+#     url: https://example.com
+#   authors:
+#   - name: Dr. Madman
+#     url: https://example.com
+#   - name: Dr. Lessmad
+#     url: https://example.com
+#   - name: Dr. Moremad
+#     url: https://example.com
+#   - name: Dr. Goodman
+#     url: https://example.com
+#   paper:
+#     summary: Dolor ad cupidatat pariatur nulla ipsum ex ullamco nisi anim ullamco. Dolore elit esse in exercitation minim aliqua. Amet velit incididunt magna laboris. Proident reprehenderit deserunt ad officia duis dolor. Tempor nostrud ullamco ullamco sint deserunt cupidatat irure minim consectetur nulla adipisicing sunt.
+#     url: https://example.com
+#   categories: ["security"]
+#   tags: ["Machine Learning", "Autonomous Driving", "Machine Vision"]
