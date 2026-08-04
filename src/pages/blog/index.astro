@@ -1,0 +1,111 @@
+---
+import Base from '../../layouts/Base.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import PostListItem from '../../components/PostListItem.astro';
+import { getPosts, getTags } from '../../lib/posts';
+import { site } from '../../lib/site';
+
+const posts = await getPosts();
+const tags = await getTags();
+---
+
+<Base title={`Blog — ${site.shortName}`} description={`Writing by ${site.name}.`}>
+  <div class="wrap page">
+    <SectionHeading as="h1" size="display" eyebrow="Writing">Blog</SectionHeading>
+
+    {
+      tags.length > 0 && (
+        <ul class="taglist">
+          {tags.map(({ tag, count }) => (
+            <li>
+              <a href={`/tags/${tag}/`} class="tag">
+                {tag} <span class="count">{count}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    {
+      posts.length > 0 ? (
+        <div class="list">
+          {posts.map((post) => (
+            <PostListItem post={post} />
+          ))}
+        </div>
+      ) : (
+        /* Visitor-facing copy. Authoring instructions belong in CLAUDE.md and the
+           post template, not on a page a recruiter might land on. */
+        <p class="empty">Nothing published yet.</p>
+      )
+    }
+
+    <p class="feed"><a href="/rss.xml">RSS feed</a></p>
+  </div>
+</Base>
+
+<style>
+  .page {
+    padding-block: var(--s-section);
+  }
+
+  .taglist {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    margin-block-start: var(--s-6);
+    padding: 0;
+    list-style: none;
+  }
+
+  .tag {
+    font-family: var(--face-mono);
+    font-size: var(--t-meta);
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .tag::before {
+    content: '#';
+    opacity: 0.6;
+  }
+
+  .tag:hover {
+    color: var(--accent);
+  }
+
+  .count {
+    color: var(--faint);
+  }
+
+  .list {
+    margin-block-start: var(--s-7);
+  }
+
+  .empty {
+    margin-block-start: var(--s-7);
+    padding-block-start: var(--s-6);
+    border-block-start: 1px solid var(--rule);
+    max-width: var(--w-text);
+    color: var(--muted);
+  }
+
+  .empty code {
+    color: var(--fg);
+  }
+
+  .feed {
+    margin-block-start: var(--s-7);
+    font-size: var(--t-small);
+  }
+
+  .feed a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .feed a:hover {
+    color: var(--accent);
+  }
+</style>

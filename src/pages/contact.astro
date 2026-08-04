@@ -1,0 +1,122 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { site, socials } from '../lib/site';
+
+// No form, by request. A form on a static site needs a third-party endpoint,
+// which means a network request, a privacy surface and a thing that can break
+// silently between a recruiter hitting send and Emre not receiving it.
+const links = socials.filter((s) => s.href.startsWith('http'));
+---
+
+<Base
+  title={`Contact — ${site.shortName}`}
+  description={`How to reach ${site.name} — email, LinkedIn and GitHub.`}
+>
+  <div class="wrap page">
+    <SectionHeading as="h1" size="display" eyebrow="Contact">Get in touch</SectionHeading>
+
+    <p class="lead intro">
+      Based in {site.location}, working with teams across Europe and the US. Email is the
+      surest way to reach me; I read everything.
+    </p>
+
+    <dl class="channels">
+      <div class="channel">
+        <dt>Email</dt>
+        <dd><a class="primary" href={`mailto:${site.email}`}>{site.email}</a></dd>
+      </div>
+
+      {
+        links.map((link) => (
+          <div class="channel">
+            <dt>{link.label}</dt>
+            <dd>
+              <a href={link.href} rel="me noopener">
+                {link.href.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}
+              </a>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <p class="aside">
+      Looking for the CV? The <a href="/resume/">resume</a> is on this site, and there is a
+      PDF if you need something to forward.
+    </p>
+  </div>
+</Base>
+
+<style>
+  .page {
+    padding-block: var(--s-section);
+  }
+
+  .intro {
+    margin-block-start: var(--s-5);
+    max-width: var(--w-text);
+  }
+
+  .channels {
+    margin-block-start: var(--s-7);
+  }
+
+  .channel {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: var(--s-4);
+    padding-block: var(--s-4);
+    border-block-start: 1px solid var(--rule);
+  }
+
+  @media (max-width: 32rem) {
+    .channel {
+      grid-template-columns: 1fr;
+      gap: var(--s-1);
+    }
+  }
+
+  dt {
+    font-family: var(--face-mono);
+    font-size: var(--t-eyebrow);
+    font-weight: var(--w-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tr-eyebrow);
+    line-height: 1.9;
+    color: var(--faint);
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  dd a {
+    color: var(--fg);
+    text-decoration: none;
+    border-block-end: 1px solid var(--rule-strong);
+    padding-block-end: 2px;
+    /* Long handles must not push the page wide on a phone. */
+    overflow-wrap: anywhere;
+  }
+
+  dd a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .primary {
+    font-size: var(--t-lead);
+  }
+
+  .aside {
+    margin-block-start: var(--s-7);
+    max-width: var(--w-text);
+    font-size: var(--t-small);
+    color: var(--muted);
+  }
+
+  .aside a {
+    color: var(--accent);
+  }
+</style>

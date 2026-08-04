@@ -1,0 +1,49 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../lib/site';
+
+import '../styles/tokens.css';
+import '../styles/base.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+  type?: 'website' | 'article';
+}
+
+const { title, description, noindex, type } = Astro.props;
+---
+
+{/* data-theme is stamped pre-paint by the inline script in BaseHead. The dark
+    default here is what a no-JS visitor gets, matching the design intent. */}
+<html lang={site.locale} data-theme="dark">
+  <head>
+    <BaseHead title={title} description={description} noindex={noindex} type={type} />
+  </head>
+
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <Header />
+
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  main {
+    flex: 1;
+  }
+
+  /* The skip link moves focus here; the ring belongs on the heading, not on a
+     full-page outline. */
+  main:focus {
+    outline: none;
+  }
+</style>

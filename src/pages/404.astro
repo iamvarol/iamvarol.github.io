@@ -1,0 +1,57 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { site, readyNav } from '../lib/site';
+
+// GitHub Pages serves dist/404.html for any unmatched path automatically.
+const items = readyNav();
+---
+
+<Base title={`Not found — ${site.shortName}`} noindex>
+  <div class="wrap page">
+    <SectionHeading as="h1" size="display" eyebrow="404">This page doesn’t exist</SectionHeading>
+
+    <p class="lead intro">
+      The link may be out of date. The site was rebuilt in 2026, and paths from the previous
+      version did not survive.
+    </p>
+
+    <ul class="links">
+      <li><a href="/">Home</a></li>
+      {items.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+    </ul>
+  </div>
+</Base>
+
+<style>
+  .page {
+    padding-block: var(--s-section);
+  }
+
+  .intro {
+    margin-block-start: var(--s-5);
+    max-width: var(--w-text);
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3) var(--s-5);
+    margin-block-start: var(--s-6);
+    padding: 0;
+    list-style: none;
+  }
+
+  .links a {
+    font-size: var(--t-small);
+    color: var(--fg);
+    text-decoration: none;
+    border-block-end: 1px solid var(--rule-strong);
+    padding-block-end: 2px;
+  }
+
+  .links a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+</style>

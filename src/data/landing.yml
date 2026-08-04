@@ -1,0 +1,53 @@
+# Landing page copy (Phase 2).
+#
+# Derived from src/data/resume.yml — every claim below traces to a bullet there.
+# If a number changes in the resume, change it here too; nothing enforces that
+# link, because the two say it at different lengths for different readers.
+
+hero:
+  statement: >-
+    I build the forecasting, optimization and data-quality systems that enterprise
+    retailers run their supply chains on — and I answer for the numbers.
+
+  cta:
+    label: Read the resume
+    href: '/resume/'
+
+# The numbered sequence — the 01 / 02 / 03 element from the reference design.
+# Current work first, since the first item renders as the active one; the defense
+# years come last because they are the differentiator, not the headline.
+#
+# `basics.focus` in resume.yml is the shorthand version of this, with one
+# difference: data quality gets its own item here because it is most of the
+# current role, and operations research gets one because fourteen years of it is
+# unusual for a data scientist.
+work:
+  - title: Retail Supply Chain AI
+    detail: >-
+      Demand forecasting, replenishment, assortment and price optimization for
+      enterprise retailers — owned from raw data ingestion through the production
+      model to the financial and KPI movement it produces.
+
+  - title: Forecasting
+    detail: >-
+      Demand models that hold up in production rather than in a notebook: 95%
+      quarterly accuracy at Berlin Tires cut excess stock by 22% and saved roughly
+      €1.2M a year.
+
+  - title: Data Quality & Validation
+    detail: >-
+      The validation platform I built at invent.ai gates every active client
+      project, turning days of manual SQL triage into an automated GO / NO-GO
+      decision before any dataset reaches a model.
+
+  - title: NLP & Knowledge Graphs
+    detail: >-
+      Review mining, clinical language models and Neo4j knowledge graphs — a
+      medical Q&A system for US healthcare clients, and the voice-of-customer
+      engine behind a beauty-analytics product.
+
+  - title: Decision Support & Operations Research
+    detail: >-
+      Fourteen years in the defense sector building simulation and decision-support
+      systems, including an enterprise platform serving 50,000+ personnel and an
+      inventory redesign that cut costs 17%.

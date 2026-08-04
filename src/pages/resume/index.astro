@@ -1,0 +1,306 @@
+---
+import Base from '../../layouts/Base.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import Eyebrow from '../../components/Eyebrow.astro';
+import ExperienceEntry from '../../components/resume/ExperienceEntry.astro';
+import SkillGroup from '../../components/resume/SkillGroup.astro';
+import ReferenceEntry from '../../components/resume/ReferenceEntry.astro';
+import { getResume, formatYears } from '../../lib/resume';
+import { site } from '../../lib/site';
+
+const r = await getResume();
+const b = r.basics;
+
+// Filename is stable so a recruiter's saved copy keeps a sensible name, and so
+// the CI parity check and the download link cannot disagree about the path.
+const PDF = '/emre-varol-resume.pdf';
+---
+
+<Base title={`Resume — ${site.shortName}`} description={b.summary.slice(0, 197)}>
+  <div class="wrap page">
+    <header class="masthead">
+      <SectionHeading as="h1" size="display" eyebrow="Resume">{b.name}</SectionHeading>
+
+      <p class="label">{b.label} <span class="focus">{b.focus.join(' · ')}</span></p>
+
+      <ul class="contact">
+        <li>{b.location}</li>
+        <li><a href={`mailto:${b.email}`}>{b.email}</a></li>
+        <li><a href={b.linkedin} rel="me noopener">LinkedIn</a></li>
+        <li><a href={b.github} rel="me noopener">GitHub</a></li>
+      </ul>
+
+      <p class="summary">{b.summary}</p>
+
+      <p class="actions">
+        <a class="btn" href={PDF} download>Download PDF</a>
+      </p>
+    </header>
+
+    <section class="block" aria-labelledby="experience">
+      <SectionHeading eyebrow="01" id="experience">Experience</SectionHeading>
+      <div class="entries">
+        {
+          r.experience.map((role) => (
+            <ExperienceEntry
+              company={role.company}
+              role={role.role}
+              location={role.location}
+              start={role.start}
+              end={role.end}
+              context={role.context}
+              highlights={role.highlights}
+              stack={role.stack}
+            />
+          ))
+        }
+      </div>
+    </section>
+
+    {
+      r.skills.length > 0 && (
+        <section class="block" aria-labelledby="skills">
+          <SectionHeading eyebrow="02" id="skills">
+            Skills
+          </SectionHeading>
+          <dl class="skills">
+            {r.skills.map((group) => (
+              <SkillGroup group={group.group} items={group.items} />
+            ))}
+          </dl>
+        </section>
+      )
+    }
+
+    {
+      r.education.length > 0 && (
+        <section class="block" aria-labelledby="education">
+          <SectionHeading eyebrow="03" id="education">
+            Education
+          </SectionHeading>
+          <div class="entries">
+            {r.education.map((e) => (
+              <article class="edu">
+                <h3 class="edu-degree">{e.degree}</h3>
+                <p class="edu-where">
+                  {e.institution}
+                  {e.location && <> · {e.location}</>}
+                </p>
+                <p class="edu-meta">
+                  {formatYears(e.start, e.end)}
+                  {e.gpa && <> · {e.gpa}</>}
+                  {e.note && <> · {e.note}</>}
+                </p>
+                {e.detail && <p class="edu-detail">{e.detail}</p>}
+              </article>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      r.publications.length > 0 && (
+        <section class="block" aria-labelledby="publications">
+          <SectionHeading eyebrow="04" id="publications">
+            Publications
+          </SectionHeading>
+          <ul class="refs">
+            {r.publications.map((p) => (
+              <ReferenceEntry {...p} />
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      r.writing.length > 0 && (
+        <section class="block" aria-labelledby="writing">
+          <SectionHeading eyebrow="05" id="writing">
+            Selected writing
+          </SectionHeading>
+          <ul class="refs">
+            {r.writing.map((w) => (
+              <ReferenceEntry {...w} />
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      r.certifications.length > 0 && (
+        <section class="block" aria-labelledby="certifications">
+          <SectionHeading eyebrow="06" id="certifications">
+            Certifications
+          </SectionHeading>
+          <ul class="certs">
+            {r.certifications.map((c) => (
+              <li>{c}</li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    <p class="actions actions-end">
+      <a class="btn" href={PDF} download>Download PDF</a>
+      <Eyebrow>Same source as this page</Eyebrow>
+    </p>
+  </div>
+</Base>
+
+<style>
+  .page {
+    padding-block: var(--s-section);
+  }
+
+  .label {
+    margin-block-start: var(--s-5);
+    font-size: var(--t-lead);
+    color: var(--fg);
+  }
+
+  .focus {
+    display: block;
+    margin-block-start: var(--s-1);
+    font-family: var(--face-mono);
+    font-size: var(--t-meta);
+    color: var(--faint);
+  }
+
+  .contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    margin-block-start: var(--s-4);
+    padding: 0;
+    list-style: none;
+    font-size: var(--t-small);
+    color: var(--muted);
+  }
+
+  .contact a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .contact a:hover {
+    color: var(--accent);
+  }
+
+  .summary {
+    margin-block-start: var(--s-5);
+    max-width: var(--w-text);
+    font-size: var(--t-lead);
+    color: var(--muted);
+    text-wrap: pretty;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-4);
+    margin-block-start: var(--s-6);
+  }
+
+  .actions-end {
+    margin-block-start: var(--s-8);
+    padding-block-start: var(--s-6);
+    border-block-start: 1px solid var(--rule);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--s-2) var(--s-5);
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-size: var(--t-small);
+    font-weight: var(--w-semibold);
+    text-decoration: none;
+  }
+
+  .btn:hover {
+    background: var(--accent-strong);
+    color: var(--on-accent);
+  }
+
+  .block {
+    margin-block-start: var(--s-9);
+  }
+
+  .entries,
+  .skills {
+    margin-block-start: var(--s-5);
+  }
+
+  .skills {
+    margin-block-end: 0;
+  }
+
+  /* Education ---------------------------------------------------------- */
+  .edu {
+    padding-block: var(--s-5);
+    border-block-start: 1px solid var(--rule);
+  }
+
+  .edu-degree {
+    font-size: var(--t-body);
+    font-weight: var(--w-semibold);
+    color: var(--fg);
+  }
+
+  .edu-where {
+    margin-block-start: var(--s-1);
+    color: var(--muted);
+  }
+
+  .edu-meta {
+    margin-block-start: var(--s-1);
+    font-family: var(--face-mono);
+    font-size: var(--t-meta);
+    color: var(--faint);
+  }
+
+  .edu-detail {
+    margin-block-start: var(--s-2);
+    max-width: var(--w-text);
+    font-size: var(--t-small);
+    color: var(--muted);
+  }
+
+  /* Publications & writing --------------------------------------------- */
+  /* The list only; the row itself is styled in ReferenceEntry.astro, which is
+     where the <li> lives — a scoped `.refs li` here would no longer match it. */
+  .refs {
+    margin-block-start: var(--s-5);
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Certifications ------------------------------------------------------ */
+  .certs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: var(--s-2) var(--s-5);
+    margin-block-start: var(--s-5);
+    padding-block-start: var(--s-5);
+    border-block-start: 1px solid var(--rule);
+    padding-inline-start: 0;
+    list-style: none;
+    color: var(--muted);
+    font-size: var(--t-small);
+  }
+
+  /* Browser print path. The download button points at the Typst PDF; this is
+     just so Cmd+P produces something respectable. */
+  @media print {
+    .actions {
+      display: none;
+    }
+  }
+</style>

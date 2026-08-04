@@ -1,0 +1,90 @@
+---
+import { Font } from 'astro:assets';
+import { site } from '../lib/site';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Suppress indexing — used by /404 and by any draft post. */
+  noindex?: boolean;
+  /** Set on blog posts so the OG type is `article` rather than `website`. */
+  type?: 'website' | 'article';
+}
+
+const { title, description = site.description, noindex = false, type = 'website' } = Astro.props;
+
+// Astro.site is guaranteed here because `site` is set in astro.config.mjs.
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+
+// Generated at build time from og/card.typ, which reads the same resume.yml as
+// the CV — so the name and title on a LinkedIn share cannot drift from the site.
+// Must be absolute: crawlers do not resolve relative OG URLs.
+const ogImage = new URL('/og/default.png', Astro.site).href;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<meta property="og:type" content={type} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content="en_US" />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={`${site.name} — ${site.tagline}`} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content={ogImage} />
+
+{/* Matches the browser chrome to the page in both themes. */}
+<meta name="theme-color" content="#0a0a0b" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="alternate" type="application/rss+xml" title={site.name} href="/rss.xml" />
+
+{/*
+  Both families are self-hosted with size-adjusted local fallbacks, so a swap
+  does not shift layout.
+
+  Only the Latin sans subset is preloaded (47 KB). Preloading is deliberately
+  narrow: `preload` defeats the whole point of unicode-range, and preloading
+  every subset of both families would force 183 KB on every visit to fetch
+  latin-ext glyphs that most pages never use. The rest is declared in CSS and
+  fetched on demand — latin-ext only when a Turkish glyph like ğ or ş actually
+  appears, and mono only because eyebrow labels reference it.
+*/}
+<Font cssVariable="--font-sans" preload={[{ subset: 'latin' }]} />
+<Font cssVariable="--font-mono" />
+
+{/*
+  Runs before first paint, so the correct theme is applied with no flash.
+  `is:inline` keeps Astro from hoisting it into a deferred bundle, which would
+  defeat the point. Order: explicit choice → OS preference → dark.
+*/}
+<script is:inline>
+  (() => {
+    try {
+      const stored = localStorage.getItem('theme');
+      const theme =
+        stored === 'light' || stored === 'dark'
+          ? stored
+          : window.matchMedia('(prefers-color-scheme: light)').matches
+            ? 'light'
+            : 'dark';
+      document.documentElement.dataset.theme = theme;
+    } catch {
+      // Private mode can throw on localStorage. Dark is the default anyway.
+      document.documentElement.dataset.theme = 'dark';
+    }
+    // Gates the theme toggle: without JS it cannot work, so it is never shown.
+    document.documentElement.classList.add('js');
+  })();
+</script>

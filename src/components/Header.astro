@@ -1,0 +1,102 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import { site, readyNav, isActive } from '../lib/site';
+import { getPosts } from '../lib/posts';
+import { aboutIsDraft } from '../lib/about';
+
+const pathname = Astro.url.pathname;
+
+// Two links appear on their own rather than needing a flag flipped by hand:
+// an empty blog linked from every page reads worse than no blog at all, and
+// About stays hidden while its copy is still an unapproved draft.
+const hasPosts = (await getPosts()).length > 0;
+const items = readyNav().filter((item) => {
+  if (item.href === '/blog/') return hasPosts;
+  if (item.href === '/about/') return !aboutIsDraft;
+  return true;
+});
+---
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a href="/" class="wordmark" aria-label={`${site.shortName} — home`}>
+      {site.shortName}
+    </a>
+
+    <nav aria-label="Primary">
+      <ul class="nav">
+        {
+          items.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class:list={['nav-link', isActive(item.href, pathname) && 'is-current']}
+                aria-current={isActive(item.href, pathname) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+        <li><ThemeToggle /></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  /* Deliberately not sticky. A fixed bar costs a compositor layer and a blur on
+     every scroll frame, and the pages here are short enough not to need it. */
+  .site-header {
+    border-block-end: 1px solid var(--rule);
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-5);
+    min-block-size: 4rem;
+  }
+
+  .wordmark {
+    font-size: var(--t-small);
+    font-weight: var(--w-semibold);
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: var(--s-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Four items plus a toggle fit on a 320px screen at this size, so there is no
+     hamburger — which keeps the header at zero JavaScript. */
+  @media (max-width: 26rem) {
+    .nav {
+      gap: var(--s-4);
+    }
+  }
+
+  .nav-link {
+    font-size: var(--t-meta);
+    font-weight: var(--w-medium);
+    color: var(--muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .nav-link:hover {
+    color: var(--fg);
+  }
+
+  .is-current {
+    color: var(--fg);
+  }
+</style>

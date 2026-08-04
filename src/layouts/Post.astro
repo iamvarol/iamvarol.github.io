@@ -1,0 +1,133 @@
+---
+import Base from './Base.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import { readingTime, type Post } from '../lib/posts';
+import '../styles/prose.css';
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const { title, date, description, tags, draft } = post.data;
+const minutes = readingTime(post.body);
+---
+
+<Base title={`${title} — Ali Emre Varol`} description={description} type="article" noindex={draft}>
+  <article class="wrap post">
+    <header class="head">
+      {draft && <Eyebrow accent>Draft — not published</Eyebrow>}
+
+      <h1 class="title">{title}</h1>
+
+      <p class="meta">
+        <FormattedDate date={date} />
+        <span aria-hidden="true">·</span>
+        <span>{minutes} min read</span>
+      </p>
+    </header>
+
+    <div class="prose">
+      <slot />
+    </div>
+
+    {
+      tags.length > 0 && (
+        <footer class="foot">
+          <Eyebrow>Tagged</Eyebrow>
+          <ul class="tags">
+            {tags.map((tag) => (
+              <li>
+                <a href={`/tags/${tag}/`} class="tag">
+                  {tag}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </footer>
+      )
+    }
+
+    <p class="back"><a href="/blog/">← All posts</a></p>
+  </article>
+</Base>
+
+<style>
+  .post {
+    /* Narrower than --w-wide: a post is prose, so the measure governs. */
+    max-width: calc(var(--w-text) + var(--gutter) * 2);
+    padding-block: var(--s-section);
+  }
+
+  .head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-4);
+    padding-block-end: var(--s-6);
+  }
+
+  .title {
+    font-size: var(--t-display);
+    line-height: var(--lh-display);
+    letter-spacing: var(--tr-display);
+    color: var(--fg);
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    font-family: var(--face-mono);
+    font-size: var(--t-meta);
+    color: var(--faint);
+  }
+
+  .foot {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    margin-block-start: var(--s-8);
+    padding-block-start: var(--s-5);
+    border-block-start: 1px solid var(--rule);
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tag {
+    font-family: var(--face-mono);
+    font-size: var(--t-small);
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .tag::before {
+    content: '#';
+    opacity: 0.6;
+  }
+
+  .tag:hover {
+    color: var(--accent);
+  }
+
+  .back {
+    margin-block-start: var(--s-7);
+    font-size: var(--t-small);
+  }
+
+  .back a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .back a:hover {
+    color: var(--accent);
+  }
+</style>

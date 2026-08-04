@@ -1,0 +1,85 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import { Content as Bio } from '../data/bio.md';
+import { aboutIsDraft } from '../lib/about';
+import { site } from '../lib/site';
+import '../styles/prose.css';
+---
+
+<Base
+  title={`About — ${site.shortName}`}
+  description={`${site.name} — background, and how he works.`}
+  noindex={aboutIsDraft}
+>
+  <div class="wrap page">
+    {
+      aboutIsDraft && (
+        <p class="draft-note">
+          <Eyebrow accent>Draft — not published</Eyebrow>
+          <span>
+            This copy was drafted from <code>src/data/resume.yml</code> and has not been
+            approved. The page is hidden from the nav, the sitemap and search engines until
+            the marker in <code>src/data/bio.md</code> is removed.
+          </span>
+        </p>
+      )
+    }
+
+    <SectionHeading as="h1" size="display" eyebrow="About">{site.name}</SectionHeading>
+
+    <div class="prose body">
+      <Bio />
+    </div>
+
+    <p class="next">
+      <a href="/resume/">Full resume →</a>
+    </p>
+  </div>
+</Base>
+
+<style>
+  .page {
+    padding-block: var(--s-section);
+  }
+
+  .draft-note {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+    max-width: var(--w-text);
+    margin-block-end: var(--s-6);
+    padding: var(--s-4);
+    border: 1px dashed var(--accent-strong);
+    border-radius: 8px;
+    font-size: var(--t-small);
+    color: var(--muted);
+  }
+
+  .draft-note code {
+    font-family: var(--face-mono);
+    font-size: 0.9em;
+    color: var(--fg);
+  }
+
+  .body {
+    margin-block-start: var(--s-6);
+  }
+
+  .next {
+    margin-block-start: var(--s-8);
+    padding-block-start: var(--s-5);
+    border-block-start: 1px solid var(--rule);
+    font-size: var(--t-small);
+  }
+
+  .next a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .next a:hover {
+    color: var(--accent);
+  }
+</style>

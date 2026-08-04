@@ -1,0 +1,63 @@
+---
+import Base from '../../layouts/Base.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import PostListItem from '../../components/PostListItem.astro';
+import { getTags, getPostsByTag } from '../../lib/posts';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const tags = await getTags();
+  return tags.map(({ tag }) => ({ params: { tag } }));
+};
+
+const { tag } = Astro.params;
+const posts = await getPostsByTag(tag!);
+const count = `${posts.length} post${posts.length === 1 ? '' : 's'}`;
+---
+
+<Base
+  title={`#${tag} — Ali Emre Varol`}
+  description={`Posts tagged ${tag} — ${count}.`}
+>
+  <div class="wrap page">
+    <SectionHeading as="h1" size="display" eyebrow="Tag">#{tag}</SectionHeading>
+    <p class="count">{count}</p>
+
+    <div class="list">
+      {posts.map((post) => <PostListItem post={post} />)}
+    </div>
+
+    <p class="back"><a href="/blog/">← All posts</a></p>
+  </div>
+</Base>
+
+<style>
+  .page {
+    padding-block: var(--s-section);
+  }
+
+  .count {
+    margin-block-start: var(--s-4);
+    font-family: var(--face-mono);
+    font-size: var(--t-meta);
+    color: var(--faint);
+  }
+
+  .list {
+    margin-block-start: var(--s-7);
+  }
+
+  .back {
+    margin-block-start: var(--s-7);
+    font-size: var(--t-small);
+  }
+
+  .back a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .back a:hover {
+    color: var(--accent);
+  }
+</style>

@@ -1,0 +1,27 @@
+---
+interface Props {
+  date: Date;
+  /**
+   * `short` gives "2 Aug 2026"; `iso` gives "2026-08-02" for mono contexts;
+   * `day-month` gives "02 Aug" for lists already grouped under a year. The
+   * two-digit day keeps those aligned in a mono gutter.
+   */
+  format?: 'short' | 'iso' | 'day-month';
+  class?: string;
+}
+
+// `rest` carries the `data-astro-cid-*` scope attribute Astro passes down when a
+// parent styles this component through `class`. Without forwarding it, the
+// parent's scoped rule compiles to a selector the <time> element never matches.
+const { date, format = 'short', class: className, ...rest } = Astro.props;
+
+const label =
+  format === 'iso'
+    ? date.toISOString().slice(0, 10)
+    : format === 'day-month'
+      ? date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })
+      : date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+---
+
+{/* datetime carries the machine-readable value regardless of display format. */}
+<time datetime={date.toISOString()} class={className} {...rest}>{label}</time>

@@ -1,0 +1,148 @@
+---
+import FormattedDate from './FormattedDate.astro';
+import { groupByYear, type Post } from '../lib/posts';
+
+interface Props {
+  /** Already sorted newest-first — `getPosts()` output, optionally sliced. */
+  posts: Post[];
+}
+
+const { posts } = Astro.props;
+const years = groupByYear(posts);
+
+// The newest post overall, so exactly one node takes the accent — the same rule
+// the numbered sequences follow, rather than accenting the first of every year.
+const newest = posts[0];
+---
+
+<ol class="years">
+  {
+    years.map(({ year, posts: group }) => (
+      <li class="year-group">
+        {/* A marker, not a heading: these are the same posts the section heading
+            already covers, so adding an h3 per year would invent outline levels.
+            Deliberately NOT aria-hidden — the entries below show only "02 Aug",
+            and screen readers announce a <time> element's text, not its datetime
+            attribute, so hiding this would leave those dates with no year. */}
+        <span class="year">{year}</span>
+
+        <ol class="entries">
+          {group.map((post) => (
+            <li class="entry" data-active={post.id === newest?.id ? '' : undefined}>
+              <a class="link" href={`/blog/${post.id}/`}>
+                {/* datetime carries the full ISO value for machines; the year a
+                    human hears comes from the group marker above. */}
+                <FormattedDate date={post.data.date} format="day-month" class="when" />
+                <span class="title">{post.data.title}</span>
+                {post.data.draft && <span class="draft">Draft</span>}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .years,
+  .entries {
+    padding: 0;
+    list-style: none;
+  }
+
+  .year-group + .year-group {
+    margin-block-start: var(--s-6);
+  }
+
+  .year {
+    display: block;
+    font-family: var(--face-mono);
+    font-size: var(--t-eyebrow);
+    font-weight: var(--w-semibold);
+    letter-spacing: var(--tr-seq);
+    color: var(--faint);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* The rail. Every other list on the site separates with a horizontal rule, so
+     this stays a hairline in the same token to read as the quieter relative. */
+  .entries {
+    margin-block-start: var(--s-4);
+    border-inline-start: 1px solid var(--rule);
+  }
+
+  .entry {
+    position: relative;
+    padding-inline-start: var(--s-5);
+  }
+
+  .entry + .entry {
+    margin-block-start: var(--s-4);
+  }
+
+  /* The node, punched out of the rail by a ring of page background. Centred on
+     the first line rather than the whole entry, so a title that wraps to two
+     lines does not drag its node down the rail. */
+  .entry::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: -4px;
+    inset-block-start: calc((1em * var(--lh-body) - 7px) / 2);
+    inline-size: 7px;
+    block-size: 7px;
+    border-radius: 999px;
+    background: var(--faint);
+    box-shadow: 0 0 0 3px var(--bg);
+    transition: background var(--dur) var(--ease);
+  }
+
+  .entry[data-active]::before {
+    background: var(--accent);
+  }
+
+  .link {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--s-1) var(--s-4);
+    text-decoration: none;
+  }
+
+  .link:hover {
+    color: inherit;
+  }
+
+  .when {
+    font-family: var(--face-mono);
+    font-size: var(--t-eyebrow);
+    font-weight: var(--w-semibold);
+    letter-spacing: var(--tr-seq);
+    color: var(--faint);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .title {
+    color: var(--fg);
+    text-wrap: pretty;
+    transition: color var(--dur) var(--ease);
+  }
+
+  .link:hover .title {
+    color: var(--accent);
+  }
+
+  .entry:hover::before {
+    background: var(--accent);
+  }
+
+  .draft {
+    font-family: var(--face-mono);
+    font-size: var(--t-eyebrow);
+    font-weight: var(--w-semibold);
+    letter-spacing: var(--tr-seq);
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+</style>

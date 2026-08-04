@@ -1,0 +1,767 @@
+---
+import type { CareerStage } from '../lib/resume';
+
+interface Props {
+  /** Anchor ids are namespaced by getCareerStages(idBase), so two instances on
+   *  one page cannot fight over the same fragment targets. */
+  stages: CareerStage[];
+}
+
+const { stages } = Astro.props;
+---
+
+{/*
+  A horizontal career timeline, adapted from the replen.it stage carousel.
+
+  What is carried over: the rail of hairline-joined nodes, the marker that
+  accents only the active stop, and the centre card standing proud of dimmed
+  neighbours. What is not: the 01–0n numbering. The landing "What I work on"
+  list and the /resume section headings already own the ordinal register, and
+  ExperienceEntry deliberately refuses to number roles — a third zero-padded
+  sequence would read as competing systems. Years are also the truer axis for a
+  career, and they carry information an ordinal does not.
+
+  This works with JavaScript disabled. The track is a native scroll-snap
+  carousel, the rail stops are real fragment links, and the first stop is
+  rendered active because index 0 is the scroll origin. The script adds the
+  arrows, syncs the active state to free scrolling, and dims the off-centre
+  cards — nothing it adds is load-bearing for reading the content.
+*/}
+
+<div class="timeline" data-timeline style={`--n:${stages.length}`}>
+  <nav class="rail" aria-label="Career timeline">
+    <ol class="stops">
+      {
+        stages.map((s, i) => (
+          <li>
+            <a
+              href={`#${s.id}`}
+              class="stop"
+              data-stop
+              aria-label={`${s.year}, ${s.company}`}
+              aria-current={i === 0 ? 'true' : undefined}
+              data-active={i === 0 ? '' : undefined}
+            >
+              <span class="dot" aria-hidden="true" />
+              {/* aria-hidden because the link's aria-label already carries both,
+                  and below 40rem neither is rendered at all. */}
+              <span class="seq" data-active={i === 0 ? '' : undefined} aria-hidden="true">
+                {s.year}
+              </span>
+              <span class="eyebrow label" aria-hidden="true">
+                {s.label}
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </nav>
+
+  <div class="viewport">
+    {/* Never disabled: the carousel wraps, so there is no end to run out of. */}
+    <button type="button" class="arrow prev" data-prev aria-label="Previous role">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5 8 12l7 7" /></svg>
+    </button>
+
+    {/*
+      tabindex="0" because Chrome and WebKit do not make a scroll container
+      keyboard-focusable on their own, and an unreachable scroll region is a
+      WCAG 2.1.1 failure. A focusable element needs a name, hence the label.
+
+      Not a tablist: every card is present, scrollable and readable at all
+      times, which is the whole no-JS baseline. role="tab" would promise a
+      keyboard contract this does not honour and force hiding content that
+      stays tabbable.
+    */}
+    <ol class="track" data-track tabindex="0" aria-label="Career, most recent first">
+      {
+        stages.map((s, i) => (
+          <li
+            class="card"
+            id={s.id}
+            data-card
+            tabindex="-1"
+            data-state={i === 0 ? 'active' : i === 1 ? 'near' : 'far'}
+            {...i === 0 ? { 'data-current': '' } : {}}
+            style={`--card-bg: var(--tone-${Math.min(i + 1, 7)})`}
+          >
+            <p class="card-head">
+              <span class="seq">{s.year}</span>
+              <span class="card-range">{s.range}</span>
+            </p>
+            <h3 class="card-role">{s.role}</h3>
+            <p class="card-company">{s.company}</p>
+            <p class="card-blurb">{s.blurb}</p>
+            {s.stack.length > 0 && <p class="card-stack">{s.stack.join(' · ')}</p>}
+          </li>
+        ))
+      }
+    </ol>
+
+    <button type="button" class="arrow next" data-next aria-label="Next role">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7" /></svg>
+    </button>
+  </div>
+
+  {/*
+    WCAG 2.2.2: content that starts moving on its own and runs beyond five
+    seconds needs a mechanism to stop it. Hover and focus pause it too, but
+    neither is a substitute for a control a keyboard or switch user can reach.
+    Rendered only when the script is running, since it has nothing to pause
+    otherwise.
+  */}
+  <div class="controls">
+    <button type="button" class="play" data-toggle aria-label="Pause the timeline">
+      <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M9 5v14M15 5v14" />
+      </svg>
+      <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M8 5.5v13l11-6.5Z" />
+      </svg>
+      <span class="play-label" data-toggle-label>Pause</span>
+    </button>
+  </div>
+</div>
+
+<style>
+  .timeline {
+    --card-w: clamp(17rem, 62vw, 24rem);
+    margin-block-start: var(--s-6);
+  }
+
+  /* ---- Rail ------------------------------------------------------------ */
+
+  .stops {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(var(--n), 1fr);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* The hairline, inset by half a column at each end so it starts and stops at
+     the first and last node centres rather than running off the edge. */
+  .stops::before,
+  .stops::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 0.3125rem;
+    inset-inline: calc(50% / var(--n));
+    block-size: 1px;
+  }
+
+  .stops::before {
+    background: var(--rule);
+  }
+
+  /* The travelled portion. --fill is written by the script; with JS off it
+     stays 0 and the accent simply never appears, which is correct for a rail
+     sitting at its first stop. */
+  .stops::after {
+    inline-size: calc(var(--fill, 0) * (100% - 100% / var(--n)));
+    background: var(--accent);
+    transition: inline-size var(--dur) var(--ease);
+  }
+
+  /* Grid items default to min-width:auto, which lets a long label push its
+     column wider than 1fr and collide with its neighbour. Zeroing the minimum
+     is what makes the label wrap inside its own column instead. */
+  .stops > li,
+  .stop {
+    min-inline-size: 0;
+  }
+
+  .stop {
+    display: grid;
+    /* minmax(0, 1fr), not the implicit auto track: an auto track is sized to
+       max-content, so the label's own max-inline-size:100% would resolve
+       against the overflowing width and constrain nothing. */
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: var(--s-2);
+    padding-block-end: var(--s-2);
+    /* Comfortable target at the dots-only breakpoint. */
+    min-block-size: 2.75rem;
+    text-decoration: none;
+  }
+
+  /* The node, punched out of the rail by a ring of page background — the same
+     treatment as PostTimeline's, so the two timelines read as one family. */
+  .dot {
+    inline-size: 7px;
+    block-size: 7px;
+    border-radius: 999px;
+    background: var(--faint);
+    box-shadow: 0 0 0 3px var(--bg);
+    transition:
+      background var(--dur) var(--ease),
+      scale var(--dur) var(--ease);
+  }
+
+  .stop[data-past] .dot,
+  .stop[data-active] .dot {
+    background: var(--accent);
+  }
+
+  .stop[data-active] .dot {
+    scale: 1.45;
+  }
+
+  /* Capped below the column width rather than at 100%. Two adjacent labels that
+     each fill their column leave a gutter narrower than the 0.28em tracking
+     *inside* a word, so "JOHN SNOW LABS TWO DESPERADOS" reads as one string.
+     Forcing the wrap buys a guaranteed gutter of roughly a fifth of a column,
+     which is what keeps the stops legible as separate labels. */
+  .label {
+    max-inline-size: 78%;
+    color: var(--faint);
+    text-align: center;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+    transition: color var(--dur) var(--ease);
+  }
+
+  .stop:hover .label,
+  .stop[data-active] .label {
+    color: var(--fg);
+  }
+
+  /* ---- Track ----------------------------------------------------------- */
+
+  .viewport {
+    position: relative;
+    margin-block-start: var(--s-6);
+  }
+
+  .track {
+    display: flex;
+    /* Cards size to their own content. Stretching them all to the tallest left
+       the shortest with half a card of dead space, which is far more obvious
+       than ragged bottoms on cards that are dimmed and scaled down anyway. */
+    align-items: start;
+    gap: var(--s-5);
+    margin: 0;
+    /* Lets the first and last card reach the centre. */
+    padding-inline: calc(50% - var(--card-w) / 2);
+    /* overflow on the inline axis computes the block axis to non-visible, so
+       without this the active card's ring and shadow clip top and bottom. */
+    padding-block: var(--s-6);
+    list-style: none;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+  }
+
+  /* base.css resets scroll-behavior on html only, so this container needs its
+     own. Without it a reduced-motion visitor still gets a smooth slide. */
+  @media (prefers-reduced-motion: reduce) {
+    .track {
+      scroll-behavior: auto;
+    }
+  }
+
+  .card {
+    position: relative;
+    flex: 0 0 var(--card-w);
+    scroll-snap-align: center;
+    /* Frames the card under the header when a fragment link jumps to it with
+       JS off, instead of pinning it to the very top of the viewport. */
+    scroll-margin-block: var(--s-8);
+    padding: var(--s-5);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    /* One hue, seven tones, assigned by career index — not by carousel
+       position — so the current role stays the most saturated card wherever it
+       sits in the fan, and the tint reads as recency rather than decoration. */
+    background: var(--card-bg, var(--surface));
+    transition:
+      opacity var(--dur) var(--ease),
+      scale var(--dur) var(--ease),
+      border-color var(--dur) var(--ease);
+  }
+
+  /* Not gated behind [data-enhanced]: this state is server-rendered on the
+     first card and is correct with JS off. */
+  .card[data-state='active'] {
+    z-index: 1;
+    border-color: var(--accent-strong);
+    box-shadow:
+      0 0 0 1px var(--accent-strong),
+      0 1.5rem 3rem -1.5rem rgb(0 0 0 / 0.6);
+  }
+
+  /* The focus ring would be clipped by the scrollport at the default offset. */
+  .card:focus-visible {
+    outline-offset: -3px;
+  }
+
+  .card-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--s-1) var(--s-3);
+    margin: 0;
+  }
+
+  .card[data-state='active'] .seq {
+    color: var(--accent);
+  }
+
+  /* --muted, not --faint: --faint drops to 4.04 on --tone-1 and fails AA. The
+     ratios are noted per tone in tokens.css. */
+  .card-range {
+    font-family: var(--face-mono);
+    font-size: var(--t-meta);
+    color: var(--muted);
+  }
+
+  .card-role {
+    margin-block-start: var(--s-4);
+    font-size: var(--t-h3);
+    font-weight: var(--w-semibold);
+    line-height: 1.3;
+    letter-spacing: -0.012em;
+    color: var(--fg);
+  }
+
+  .card-company {
+    margin-block-start: var(--s-1);
+    color: var(--accent);
+  }
+
+  .card-blurb {
+    margin-block-start: var(--s-3);
+    font-size: var(--t-small);
+    color: var(--muted);
+    text-wrap: pretty;
+  }
+
+  .card-stack {
+    margin-block-start: var(--s-4);
+    font-family: var(--face-mono);
+    font-size: var(--t-meta);
+    color: var(--muted);
+  }
+
+  /* The current role, marked wherever it sits in the fan. The tone ramp already
+     makes it the most saturated card; this makes the emphasis explicit rather
+     than something you have to infer from a gradient. */
+  .card[data-current] {
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--rule));
+  }
+
+  /* ---- Arrows: the one thing that genuinely needs the script ------------ */
+
+  .arrow {
+    display: none;
+    position: absolute;
+    inset-block-start: 50%;
+    /* Above the whole fan: cards carry z-index up to the stage depth, and at
+       narrow widths the centre card reaches the arrows and would bury them. */
+    z-index: 20;
+    translate: 0 -50%;
+    align-items: center;
+    justify-content: center;
+    inline-size: 2.5rem;
+    block-size: 2.5rem;
+    border: 1px solid var(--rule-strong);
+    border-radius: 999px;
+    background: var(--bg);
+    color: var(--muted);
+    transition:
+      color var(--dur) var(--ease),
+      border-color var(--dur) var(--ease),
+      opacity var(--dur) var(--ease);
+  }
+
+  .timeline[data-enhanced] .arrow {
+    display: inline-flex;
+  }
+
+  .arrow:hover {
+    color: var(--fg);
+    border-color: var(--accent);
+  }
+
+  .prev {
+    inset-inline-start: 0;
+  }
+
+  .next {
+    inset-inline-end: 0;
+  }
+
+  .arrow svg {
+    inline-size: 1.1rem;
+    block-size: 1.1rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ---- Enhanced: the looping coverflow ---------------------------------- */
+  /*
+    A scroll container has two ends, so it cannot wrap around. The enhanced
+    layer therefore drops scrolling entirely and stacks every card in a single
+    grid cell, positioning each by transform from `--o` — its signed *circular*
+    distance from the active card. Because that distance wraps, the fan is full
+    on both sides at every position and there is no first or last card.
+
+    The grid cell is what sizes the stage: no measured height, no
+    ResizeObserver. `align-self: start` keeps each card its natural height.
+  */
+
+  .timeline[data-enhanced] .track {
+    display: grid;
+    padding-inline: 0;
+    /* Clips the fan at the section edges. The block padding above keeps this
+       from also clipping the active card's glow. */
+    overflow: hidden;
+    scroll-snap-type: none;
+  }
+
+  .timeline[data-enhanced] .card {
+    grid-area: 1 / 1;
+    justify-self: center;
+    /* Stretch, not start: stacked cards of ragged height read as a pile of
+       different objects. One height for all — the grid cell is already the
+       tallest card — is what makes it read as one deck being flipped through.
+       The cost is some empty space below the shortest card's copy. */
+    align-self: stretch;
+    inline-size: var(--card-w);
+    translate: calc(var(--o, 0) * var(--step, 55%));
+    scale: var(--sc, 1);
+    z-index: var(--z, 0);
+    transition:
+      translate var(--dur-move) var(--ease),
+      scale var(--dur-move) var(--ease),
+      border-color var(--dur) var(--ease);
+  }
+
+  /*
+    Depth is a scrim, NOT opacity. Fading the card itself makes it translucent,
+    so the card behind shows through the one in front and the whole fan turns to
+    mud where they overlap. An opaque card plus an overlay of page colour recedes
+    just as convincingly and keeps the stack occluding properly.
+  */
+  .timeline[data-enhanced] .card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--bg);
+    opacity: var(--dim, 0);
+    pointer-events: none;
+    transition: opacity var(--dur-move) var(--ease);
+  }
+
+  /* Only the centre card is interactive; the fan behind it must not swallow
+     clicks or show a text cursor over unreadable copy. */
+  .timeline[data-enhanced] .card:not([data-state='active']) {
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* Slower than --dur (160ms), which is tuned for hovers. A card travelling
+     60% of its width needs longer to read as movement rather than a jump.
+     base.css zeroes transition-duration under reduced motion, so this is
+     already covered there. */
+  .timeline {
+    --dur-move: 420ms;
+  }
+
+  /* ---- Responsive ------------------------------------------------------ */
+
+  /* Seven stops cannot carry three tiers of text on a narrow rail. The company
+     goes first, then the year; the link's aria-label keeps both for assistive
+     tech at every width, and the card always shows them in full. */
+  @media (max-width: 60rem) {
+    .label {
+      display: none;
+    }
+  }
+
+  @media (max-width: 40rem) {
+    .stop .seq {
+      display: none;
+    }
+
+    .timeline {
+      --card-w: min(78vw, 22rem);
+    }
+
+    /* The fan has to sit tighter when the card is most of the viewport, or the
+       neighbours leave the screen entirely and it stops reading as a stack. */
+    .timeline {
+      --step: 48%;
+    }
+  }
+
+  /* The enhanced layer handles horizontal swipes itself; pan-y keeps the page
+     scrolling vertically underneath. */
+  .timeline[data-enhanced] .track {
+    touch-action: pan-y;
+  }
+
+  /* ---- Autoplay control ------------------------------------------------ */
+
+  .controls {
+    display: none;
+    justify-content: center;
+    margin-block-start: var(--s-5);
+  }
+
+  .timeline[data-enhanced] .controls {
+    display: flex;
+  }
+
+  .play {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    padding: var(--s-2) var(--s-4);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    color: var(--muted);
+    transition:
+      color var(--dur) var(--ease),
+      border-color var(--dur) var(--ease);
+  }
+
+  .play:hover {
+    color: var(--fg);
+    border-color: var(--rule-strong);
+  }
+
+  .play-label {
+    font-family: var(--face-mono);
+    font-size: var(--t-eyebrow);
+    font-weight: var(--w-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tr-eyebrow);
+  }
+
+  .play svg {
+    inline-size: 0.85rem;
+    block-size: 0.85rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .i-play {
+    fill: currentColor;
+    stroke: none;
+  }
+
+  /* Show the icon for the state you are in, not the one you would move to —
+     this reads as a status plus its own control, which the text label confirms. */
+  .i-play,
+  .timeline[data-playing] .i-pause {
+    display: inline-block;
+  }
+
+  .i-pause,
+  .timeline[data-playing] .i-play {
+    display: none;
+  }
+</style>
+
+<script>
+  // Progressive enhancement, not the feature. Without this file the markup is a
+  // native CSS scroll-snap list and the rail stops are real fragment links —
+  // every card readable, in order, no dead controls.
+  //
+  // What it adds is the looping coverflow. A scroll container has two ends, so
+  // it can't wrap; this drops scrolling and positions each card by transform
+  // from its signed *circular* distance to the active one, which is what keeps
+  // the fan full on both sides and makes next-from-the-last return to the first.
+  //
+  // The second script on the site, after ThemeToggle. The bar for a third is the
+  // same one this clears: the feature has to work without it.
+
+  // How far the fan reaches before a card is parked and fully faded.
+  const DEPTH = 3;
+
+  for (const root of document.querySelectorAll<HTMLElement>('[data-timeline]')) {
+    try {
+      const track = root.querySelector<HTMLElement>('[data-track]');
+      const cards = [...root.querySelectorAll<HTMLElement>('[data-card]')];
+      const stops = [...root.querySelectorAll<HTMLElement>('[data-stop]')];
+      const n = cards.length;
+      if (!track || n === 0) continue;
+
+      // Must match the server-rendered state, or the first render is skipped as
+      // a no-op and leaves the DOM stale.
+      let active = 0;
+
+      const render = () => {
+        for (const [i, card] of cards.entries()) {
+          // Signed shortest distance around the ring: for n = 7 this is -3..3,
+          // so card 6 sits one step *left* of card 0 rather than six to the
+          // right. This single line is what makes the carousel loop.
+          const o = ((i - active + n + Math.floor(n / 2)) % n) - Math.floor(n / 2);
+          const d = Math.min(Math.abs(o), DEPTH);
+
+          card.style.setProperty('--o', String(o));
+          card.style.setProperty('--sc', String(1 - d * 0.07));
+          // Scrim, not opacity — see the ::after rule. Deep cards go almost to
+          // page colour, which is what makes the fan fade out at the edges
+          // instead of stacking legible text on legible text.
+          // Deep enough that only the centre card is readable. A half-legible
+          // neighbour competes with it; a clearly-recessed one frames it.
+          card.style.setProperty('--dim', String(d === 0 ? 0 : 0.46 + d * 0.16));
+          card.style.setProperty('--z', String(n - d));
+          card.dataset.state = o === 0 ? 'active' : Math.abs(o) === 1 ? 'near' : 'far';
+        }
+
+        for (const [i, stop] of stops.entries()) {
+          stop.toggleAttribute('data-active', i === active);
+          stop.toggleAttribute('data-past', i < active);
+          stop.querySelector('.seq')?.toggleAttribute('data-active', i === active);
+          if (i === active) stop.setAttribute('aria-current', 'true');
+          else stop.removeAttribute('aria-current');
+        }
+
+        root.style.setProperty('--fill', String(n < 2 ? 0 : active / (n - 1)));
+      };
+
+      // Modulo, so every entry point wraps: arrows, keys, swipes and rail clicks
+      // all go through here and none of them can run off an end.
+      const go = (i: number) => {
+        active = ((i % n) + n) % n;
+        render();
+      };
+
+      // ---- Autoplay ------------------------------------------------------
+      // Advances by +1, which in this newest-first order runs current role →
+      // oldest and then wraps.
+      const DELAY = 6000;
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+      const toggle = root.querySelector<HTMLElement>('[data-toggle]');
+      const toggleLabel = root.querySelector<HTMLElement>('[data-toggle-label]');
+
+      // Auto-motion is the thing prefers-reduced-motion exists to stop, so it
+      // does not start there. The button still offers it — that is the visitor's
+      // call to make, not ours to withhold.
+      let playing = !reduce.matches;
+      // Transient suspensions. Kept separate from `playing` so that leaving a
+      // hover resumes, while an explicit pause stays paused.
+      let hovered = false;
+      let onscreen = true;
+
+      const setPlaying = (value: boolean) => {
+        playing = value;
+        root.toggleAttribute('data-playing', value);
+        const label = value ? 'Pause the timeline' : 'Play the timeline';
+        toggle?.setAttribute('aria-label', label);
+        if (toggleLabel) toggleLabel.textContent = value ? 'Pause' : 'Play';
+      };
+
+      setInterval(() => {
+        if (!playing || hovered || !onscreen || document.hidden) return;
+        go(active + 1);
+      }, DELAY);
+
+      toggle?.addEventListener('click', () => setPlaying(!playing));
+
+      // mouseenter/leave rather than pointerenter: a touch tap fires the pointer
+      // events and would leave the carousel stuck in a hovered state.
+      root.addEventListener('mouseenter', () => (hovered = true));
+      root.addEventListener('mouseleave', () => (hovered = false));
+      root.addEventListener('focusin', () => (hovered = true));
+      root.addEventListener('focusout', () => (hovered = false));
+
+      // Don't rotate while scrolled past — the visitor would return to a card
+      // they never chose, and the work is wasted regardless.
+      new IntersectionObserver(
+        ([entry]) => {
+          onscreen = entry?.isIntersecting ?? true;
+        },
+        { threshold: 0.2 },
+      ).observe(root);
+
+      // Any deliberate navigation hands control over. Stopping rather than
+      // deferring means the button reflects the truth and nothing yanks the
+      // card away a moment after someone picked it.
+      const takeOver = () => setPlaying(false);
+
+      root.querySelector('[data-prev]')?.addEventListener('click', () => {
+        takeOver();
+        go(active - 1);
+      });
+      root.querySelector('[data-next]')?.addEventListener('click', () => {
+        takeOver();
+        go(active + 1);
+      });
+
+      for (const [i, stop] of stops.entries()) {
+        stop.addEventListener('click', (event) => {
+          // No hash, so seven clicks don't leave seven history entries behind.
+          event.preventDefault();
+          takeOver();
+          go(i);
+          // What the fragment link does natively with JS off; the enhanced path
+          // behaving differently from the baseline would be the bug.
+          cards[i]?.focus({ preventScroll: true });
+        });
+      }
+
+      track.addEventListener('keydown', (event) => {
+        // Don't swallow arrow keys aimed at something inside a card.
+        if (event.target !== track) return;
+        if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          takeOver();
+          go(active + 1);
+        } else if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          takeOver();
+          go(active - 1);
+        }
+      });
+
+      // Touch: the enhanced layer has no scroller left to swipe, so the gesture
+      // is handled here. touch-action: pan-y in the CSS keeps the page itself
+      // scrolling vertically. Threshold in px, not a fraction, so a small flick
+      // works the same on a phone as on a trackpad.
+      let startX: number | null = null;
+      track.addEventListener(
+        'pointerdown',
+        (event) => {
+          startX = event.pointerType === 'mouse' ? null : event.clientX;
+        },
+        { passive: true },
+      );
+      track.addEventListener(
+        'pointerup',
+        (event) => {
+          if (startX === null) return;
+          const dx = event.clientX - startX;
+          startX = null;
+          if (Math.abs(dx) > 40) {
+            takeOver();
+            go(active + (dx < 0 ? 1 : -1));
+          }
+        },
+        { passive: true },
+      );
+
+      render();
+      setPlaying(playing);
+      // Last, so the arrows, the fan and the autoplay control appear only once
+      // they are wired — the same principle as ThemeToggle's html.js gate.
+      root.dataset.enhanced = '';
+    } catch {
+      // A carousel that failed to enhance is still a working scroll-snap list.
+      // One instance throwing must not take out the others.
+    }
+  }
+</script>

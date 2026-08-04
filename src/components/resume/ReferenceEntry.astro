@@ -1,0 +1,54 @@
+---
+import { formatRefDate } from '../../lib/resume';
+
+interface Props {
+  title: string;
+  venue: string;
+  date: string;
+  url?: string;
+}
+
+// Publications and writing are the same shape and render identically; only the
+// section heading tells them apart, so one component serves both.
+const { title, venue, date, url } = Astro.props;
+---
+
+<li>
+  {/* The anchor sits inside .ref-title rather than replacing it, so the click
+      target ends with the text instead of spanning the full --w-text measure. */}
+  <span class="ref-title">
+    {
+      url ? (
+        <a href={url} rel="noopener">
+          {title}
+        </a>
+      ) : (
+        title
+      )
+    }
+  </span>
+  <span class="ref-meta">{venue} · {formatRefDate(date)}</span>
+</li>
+
+<style>
+  li {
+    padding-block: var(--s-4);
+    border-block-start: 1px solid var(--rule);
+  }
+
+  /* No link rules here on purpose: the global `a` in base.css already inherits
+     the colour, draws the accent underline and handles hover. */
+  .ref-title {
+    display: block;
+    max-width: var(--w-text);
+    color: var(--fg);
+  }
+
+  .ref-meta {
+    display: block;
+    margin-block-start: var(--s-1);
+    font-family: var(--face-mono);
+    font-size: var(--t-meta);
+    color: var(--faint);
+  }
+</style>

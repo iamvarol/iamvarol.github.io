@@ -1,0 +1,61 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let a newer push cancel an in-flight deploy rather than queueing behind it.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: typst-community/setup-typst@v5
+        with:
+          typst-version: '0.14.2' # pinned: an unpinned bump could reflow the PDF
+
+      - run: npm ci
+
+      - run: npm run build
+
+      # Both are compiled from the same src/data/resume.yml the /resume page
+      # renders, then dropped into dist/ so Pages serves them alongside the site.
+      # --ignore-system-fonts plus a pinned SOURCE_DATE_EPOCH keeps the output
+      # byte-identical to a local build of the same commit.
+      - name: Compile resume PDF and OG card
+        run: npm run assets
+
+      # Fails the deploy if the template silently stopped emitting a company,
+      # role, school or publication, or if the PDF spilled past two pages.
+      - name: Verify PDF matches resume data
+        run: node scripts/verify-pdf.mjs dist/emre-varol-resume.pdf
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

@@ -1,0 +1,47 @@
+---
+interface Props {
+  group: string;
+  items: string[];
+}
+
+const { group, items } = Astro.props;
+---
+
+<div class="group">
+  <dt class="name">{group}</dt>
+  <dd class="items">{items.join(' · ')}</dd>
+</div>
+
+<style>
+  .group {
+    display: grid;
+    grid-template-columns: 12rem 1fr;
+    gap: var(--s-4);
+    padding-block: var(--s-4);
+    border-block-start: 1px solid var(--rule);
+  }
+
+  @media (max-width: 40rem) {
+    .group {
+      grid-template-columns: 1fr;
+      gap: var(--s-2);
+    }
+  }
+
+  .name {
+    font-family: var(--face-mono);
+    font-size: var(--t-eyebrow);
+    font-weight: var(--w-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tr-eyebrow);
+    line-height: 1.8;
+    color: var(--faint);
+  }
+
+  .items {
+    margin: 0;
+    color: var(--muted);
+    /* Runs long — a comfortable measure matters more than filling the column. */
+    max-width: 44rem;
+  }
+</style>

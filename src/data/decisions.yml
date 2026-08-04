@@ -1,0 +1,83 @@
+# Open decisions that are yours, not mine.
+#
+# Nothing reads this file — it exists so the questions live in the repo next to
+# the work instead of scrolling out of a chat window. `npm run todo` lists them.
+#
+# Answer by replacing the `answer:` value. Anything left marked is still open;
+# where a `default:` is given, that is what happens if you never answer, so an
+# unanswered question never blocks a phase.
+
+- id: nav-label
+  question: Should the nav read "Blog" or "Writing"?
+  note: >-
+    "Writing" reads slightly more senior and matches the /blog eyebrow, which
+    already says WRITING. "Blog" is unambiguous. It appears on every page.
+  default: Blog
+  answer: 'TODO(emre)'
+
+- id: photo
+  question: Headshot on the About page, or text only?
+  note: >-
+    Text only is more consistent with the restraint direction. A photo helps a
+    recruiter connect a name to a face, and you already have one in the archive
+    at `git show hugo-archive:assets/images/author/aliemrevarol.png`.
+  default: text only
+  answer: 'TODO(emre)'
+
+- id: analytics
+  question: Do you want to know whether recruiters are reading the site?
+  note: >-
+    GoatCounter or Plausible is roughly 1 KB, needs no cookie banner, and would
+    be the only third-party request on the site. Skipping it keeps the page at
+    zero external requests.
+  default: none
+  answer: 'TODO(emre)'
+
+- id: custom-domain
+  question: Is a custom domain imminent?
+  note: >-
+    It does not change the build — `site` in astro.config.mjs plus a
+    public/CNAME. But if it is close, setting it now avoids a period where
+    search engines index the github.io URL and then have to be redirected.
+  default: stay on iamvarol.github.io
+  answer: 'TODO(emre)'
+
+- id: theme-default
+  question: Should the site force dark, or keep following the visitor's OS setting?
+  note: >-
+    You asked for both "dark as the default" and "respect prefers-color-scheme",
+    which conflict in practice: browsers report `light` when the visitor has
+    expressed no preference, so most recruiters on a default phone currently see
+    the light theme and never the dark design. Forcing dark on first visit is a
+    one-line change in BaseHead.astro; the toggle keeps working either way.
+  default: follow the OS, as originally specified
+  answer: 'TODO(emre)'
+
+- id: pdf-typeface
+  question: Should the resume PDF match the site's typeface?
+  note: >-
+    The PDF is currently Libertinus Serif because Typst embeds only four fonts
+    and using a system font would make output depend on the build machine.
+    Matching Inter means committing two TTF files (~700 KB) to the repo. The
+    serif arguably suits a CV with three peer-reviewed publications.
+  default: keep Libertinus Serif
+  answer: 'TODO(emre)'
+
+- id: cv-gap
+  question: The gap between Two Desperados (ends Mar 2021) and John Snow Labs (starts Aug 2021).
+  note: >-
+    About five months. Not a problem, but interviewers ask, and it is better to
+    have an answer ready than to be surprised by the question. Nothing needs to
+    go on the site.
+  default: leave as is
+  answer: 'TODO(emre)'
+
+- id: defense-dates
+  question: Confirm the defense-sector role really ran 2005-08 to 2019-03.
+  note: >-
+    resume.yml says 2005-08; the 2024 Hugo site said Aug 2015 — a ten-year
+    difference on the largest single block of your CV. Your summary says
+    "fourteen years", which supports 2005. Worth one look because it is the kind
+    of discrepancy an interviewer notices against your LinkedIn.
+  default: trust resume.yml (2005-08)
+  answer: 'TODO(emre)'

@@ -1,0 +1,57 @@
+---
+import Eyebrow from './Eyebrow.astro';
+
+interface Props {
+  /** Small uppercase mono label above the heading. */
+  eyebrow?: string;
+  /** Heading level — sections default to h2; use h1 only for a page title. */
+  as?: 'h1' | 'h2' | 'h3';
+  /** Display size. `hero` is reserved for the landing page h1. */
+  size?: 'hero' | 'display';
+  id?: string;
+}
+
+const { eyebrow, as: Tag = 'h2', size = 'display', id } = Astro.props;
+---
+
+<div class="heading">
+  {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+  <Tag id={id} class:list={['title', size]}><slot /></Tag>
+  {
+    Astro.slots.has('sub') && (
+      <p class="sub lead">
+        <slot name="sub" />
+      </p>
+    )
+  }
+</div>
+
+<style>
+  .heading {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-4);
+  }
+
+  .title {
+    margin: 0;
+    color: var(--fg);
+  }
+
+  .display {
+    font-size: var(--t-display);
+    line-height: var(--lh-display);
+    letter-spacing: var(--tr-display);
+  }
+
+  .hero {
+    font-size: var(--t-hero);
+    line-height: var(--lh-hero);
+    letter-spacing: var(--tr-hero);
+  }
+
+  .sub {
+    margin: 0;
+    max-width: var(--w-text);
+  }
+</style>

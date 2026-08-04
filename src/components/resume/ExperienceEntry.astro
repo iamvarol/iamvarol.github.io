@@ -1,0 +1,118 @@
+---
+import { formatRange } from '../../lib/resume';
+
+interface Props {
+  company: string;
+  role: string;
+  location?: string;
+  start: string;
+  end: string | null;
+  context?: string;
+  highlights: string[];
+  stack?: string[];
+}
+
+// Roles are deliberately not numbered. The sections already carry 01–06, and a
+// second zero-padded sequence inside them reads as two competing systems — the
+// PDF numbers sections only, so this keeps both renderings speaking the same
+// visual language.
+const { company, role, location, start, end, context, highlights, stack = [] } = Astro.props;
+---
+
+<article class="role">
+  <div class="body">
+    <header class="head">
+      <h3 class="title">
+        {role} <span class="at">·</span> <span class="company">{company}</span>
+      </h3>
+      <p class="when">
+        {formatRange(start, end)}{location && <> <span aria-hidden="true">·</span> {location}</>}
+      </p>
+      {context && <p class="context">{context}</p>}
+    </header>
+
+    <ul class="highlights">
+      {highlights.map((item) => <li>{item}</li>)}
+    </ul>
+
+    {
+      stack.length > 0 && (
+        <p class="stack">
+          {stack.map((tool, i) => (
+            <>
+              {i > 0 && <span class="sep" aria-hidden="true">·</span>}
+              <span>{tool}</span>
+            </>
+          ))}
+        </p>
+      )
+    }
+  </div>
+</article>
+
+<style>
+  .role {
+    padding-block: var(--s-6);
+    border-block-start: 1px solid var(--rule);
+  }
+
+  .title {
+    font-size: var(--t-h3);
+    font-weight: var(--w-semibold);
+    line-height: 1.35;
+    letter-spacing: -0.012em;
+    color: var(--fg);
+  }
+
+  .at {
+    color: var(--faint);
+    font-weight: var(--w-regular);
+  }
+
+  .company {
+    color: var(--accent);
+  }
+
+  .when {
+    margin-block-start: var(--s-2);
+    font-family: var(--face-mono);
+    font-size: var(--t-meta);
+    color: var(--faint);
+  }
+
+  .context {
+    margin-block-start: var(--s-3);
+    max-width: var(--w-text);
+    font-size: var(--t-small);
+    color: var(--muted);
+  }
+
+  .highlights {
+    margin-block-start: var(--s-4);
+    max-width: var(--w-text);
+    padding-inline-start: 1.1em;
+    color: var(--muted);
+  }
+
+  .highlights li + li {
+    margin-block-start: var(--s-3);
+  }
+
+  .highlights li::marker {
+    color: var(--faint);
+  }
+
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    margin-block-start: var(--s-4);
+    font-family: var(--face-mono);
+    font-size: var(--t-meta);
+    color: var(--faint);
+  }
+
+  .sep {
+    opacity: 0.5;
+  }
+</style>

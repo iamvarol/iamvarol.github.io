@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="EV">
+  <!-- Placeholder mark: accent tile, monospace initials, matching the site's
+       mono-label language. Swap for a real mark any time — this file is the
+       only reference. -->
+  <rect width="32" height="32" rx="7" fill="#8b5cf6" />
+  <text
+    x="16"
+    y="17"
+    text-anchor="middle"
+    dominant-baseline="central"
+    fill="#0a0a0b"
+    font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+    font-size="15"
+    font-weight="700"
+    letter-spacing="-0.5"
+  >ev</text>
+</svg>

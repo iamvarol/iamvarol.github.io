@@ -1,0 +1,340 @@
+# Resume — the second of the two load-bearing data files (the other is src/lib/site.ts).
+#
+# Single source for both consumers: the /resume page (Phase 6) and the Typst PDF
+# the deploy workflow compiles from it. Edit here, never in a component.
+#
+# Conventions:
+#   - `start` / `end` are 'YYYY-MM' strings; `end: null` means present. Quoted so
+#     YAML can't reinterpret them, and month-precision so the page can format the
+#     display range instead of storing a second, driftable copy of it.
+#   - `highlights` are the bullets, in the order they should render.
+#   - `stack` is optional and only present where the role has a named stack.
+#   - `blurb` is the one-sentence version of `highlights`, for the landing-page
+#     career timeline. Required — a role that can't be said in a sentence can't
+#     go on a card, and the schema is where you should find that out.
+#   - `short` is the rail label, only where the company name is too long for a
+#     timeline stop. Falls back to `company`.
+#     Both are ignored by resume.typ, which reads fields by name, so neither
+#     reaches the PDF.
+#   - `date` on `publications` / `writing` is 'YYYY', 'YYYY-MM' or 'YYYY-MM-DD',
+#     quoted like the others. Precision is per entry — use the finest one you
+#     can actually source; both renderers format whatever they're given.
+#   - No URL is guessed. A missing `url` means it hasn't been supplied yet.
+
+basics:
+  name: Ali Emre Varol
+  label: Senior Data Scientist
+  # The subtitle line, rendered joined by a middot.
+  focus:
+    - Retail Supply Chain AI
+    - Forecasting
+    - NLP
+    - Knowledge Graphs
+  location: Istanbul, Türkiye
+  email: a.emrevarol@gmail.com
+  # Present on the PDF sent to recruiters, deliberately not published here — the
+  # web resume and the compiled PDF are both served from a public URL. Uncomment
+  # to include it in both.
+  # phone: '+90 542 657 6834'
+  linkedin: https://www.linkedin.com/in/aliemre-v
+  github: https://github.com/iamvarol
+  summary: >-
+    Industrial engineer turned data scientist: 20+ years in engineering and analytics,
+    7 of them building production machine learning. Fourteen years designing
+    decision-support, logistics and simulation systems in the defense sector, now
+    building forecasting, optimization and data-quality systems for enterprise
+    retailers. I own problems end to end — business framing, data pipeline, model,
+    deployment, and the conversation with the executive who has to trust the output.
+
+skills:
+  - group: ML & Forecasting
+    items:
+      - scikit-learn
+      - XGBoost
+      - LightGBM
+      - TensorFlow
+      - Keras
+      - PyTorch
+      - Darts
+      - Nixtla StatsForecast / MLForecast
+      - Prophet
+      - A/B testing
+  - group: NLP
+    items:
+      - HF Transformers
+      - BERT / RoBERTa / BioBERT
+      - Sentence-BERT
+      - spaCy
+      - Spark NLP
+      - Spark OCR
+  - group: Graph
+    items:
+      - Neo4j
+      - Cypher
+      - Graph Data Science library (Neo4j Certified Professional)
+  - group: Data & Infrastructure
+    items:
+      - Python
+      - SQL
+      - DuckDB
+      - Delta Lake
+      - PySpark
+      - BigQuery
+      - PostgreSQL
+      - Oracle
+      - Azure Blob Storage
+      - Databricks
+      - GCP Vertex AI
+      - Docker
+      - Git
+      - GitHub Actions
+      - Linux
+  - group: Delivery & Viz
+    items:
+      - FastAPI
+      - Flask
+      - Streamlit
+      - Plotly / Dash
+      - Tableau
+      - Agile / Scrum
+      - Jira
+  - group: Engineering & OR
+    items:
+      - Operations research
+      - Linear & mixed-integer programming
+      - Discrete-event and agent-based simulation
+      - Decision support systems
+
+experience:
+  - company: invent.ai
+    role: Senior Data Scientist, Delivery
+    location: Istanbul, Türkiye
+    start: '2025-08'
+    end: null
+    context: >-
+      AI platform for retail supply chain: demand forecasting, replenishment,
+      assortment & price optimization
+    blurb: >-
+      Sole architect of the data-validation platform that gates every client project —
+      days of manual SQL triage replaced by an automated GO / NO-GO decision before any
+      dataset reaches a model.
+    highlights:
+      - >-
+        Deliver end-to-end supply-chain data science solutions for enterprise retail
+        clients — from raw data ingestion through production models to measured
+        financial and KPI improvements.
+      - >-
+        Sole architect and maintainer of the internal data-validation platform that
+        gates every active client project (Python, DuckDB, Delta Lake, Azure Blob
+        Storage, Streamlit), turning days of manual SQL triage into an automated
+        GO / NO-GO decision before any dataset reaches a model.
+      - >-
+        Designed the check framework around YAML-defined rule pools, severity tiers
+        (CRITICAL → LOW), grain-uniqueness enforcement and customer-profile-aware
+        filtering, with APPROX and EXACT scan modes so teams can trade runtime for
+        depth on large datasets.
+      - >-
+        Split validation along the pre- / post-operation boundary into two coordinated
+        repositories, giving teams a clear contract for where each failure originates.
+      - >-
+        Architected a multi-repository sync system with a single source of truth and
+        GitHub Actions automation, replacing manual change propagation as new consumer
+        applications onboarded.
+      - >-
+        Work directly with client stakeholders, steering committees and internal product
+        teams to translate business targets into data requirements and report impact back.
+
+  - company: Berlin Tires
+    role: Head of Data & AI
+    location: Berlin, Germany (Remote)
+    start: '2023-02'
+    end: '2025-07'
+    blurb: >-
+      Owned the data and AI function end to end: forecasting that cut excess stock 22%,
+      and 25 years of legacy data turned into something the commercial teams could
+      actually query.
+    highlights:
+      - >-
+        Built demand forecasting models reaching 95% quarterly accuracy, reducing excess
+        stock by 22% and saving roughly €1.2M a year.
+      - >-
+        Modernized 25 years of legacy data into a queryable analytics foundation, then
+        built the real-time dashboards commercial and operations teams now run on.
+      - >-
+        Shipped an internal AI Q&A assistant over company documents and data, cutting
+        query resolution time by 45%.
+      - 'Owned the data and AI function end to end: roadmap, tooling decisions, stakeholder alignment.'
+    stack: [Python, FastAPI, PostgreSQL, DuckDB, Darts, Nixtla, Prophet, Streamlit]
+
+  - company: eyva / Datazeit
+    short: eyva
+    role: Senior Data Scientist
+    location: Cologne, Germany (Remote)
+    start: '2022-06'
+    end: '2022-12'
+    blurb: >-
+      Built the voice-of-customer NLP engine behind a beauty-analytics product, and
+      modelled its product, ingredient and concept domain as a Neo4j knowledge graph.
+    highlights:
+      - >-
+        Built the NLP Voice-of-Customer engine — review mining, aspect extraction,
+        sentiment — behind the eyva beauty-analytics SaaS product.
+      - >-
+        Modelled the beauty product / ingredient / concept domain as a Neo4j knowledge
+        graph powering discovery and recommendation.
+      - >-
+        Delivered product-level demand forecasting with Darts and Nixtla, cutting
+        prediction error by 27%.
+      - Improved search-term classification and query matching using Sentence-BERT.
+    stack: [spaCy, HF Transformers, S-BERT, Neo4j, Darts, Nixtla, FastAPI, DuckDB, Streamlit, Docker]
+
+  - company: John Snow Labs
+    role: Data Scientist
+    location: Remote (US)
+    start: '2021-08'
+    end: '2022-06'
+    blurb: >-
+      Clinical NLP for US healthcare — medical NER, relation extraction and
+      de-identification, plus a Q&A system built on a clinical knowledge graph.
+    highlights:
+      - >-
+        Built and deployed clinical NLP proofs of concept for Optum Health, CVS Health,
+        Philips, Veradigm, Boehringer Ingelheim and Onco Health.
+      - >-
+        Fine-tuned BERT-family and BioBERT models for medical NER, relation extraction,
+        negation detection and de-identification of clinical reports.
+      - >-
+        Shipped a medical Q&A application on a clinical knowledge graph (Spark NLP +
+        Neo4j), and a FastAPI AutoNLP service that cut model deployment effort by ~65%.
+      - >-
+        Developer advocate for Spark NLP and official trainer for the Spark OCR
+        certification course.
+    stack: [Spark NLP, PySpark, PyTorch, TensorFlow, HF Transformers, Neo4j, MLflow, SynapseML, Databricks, FastAPI]
+
+  - company: Two Desperados
+    role: Data Scientist
+    location: Belgrade, Serbia (Remote)
+    start: '2020-03'
+    end: '2021-03'
+    blurb: >-
+      Churn, lifetime-value and offer-personalization models for a mobile game with a
+      multi-million player base, plus the analytics pipeline the product teams ran on.
+    highlights:
+      - >-
+        Built churn prediction, player segmentation, lifetime-value and personalized
+        offer models for a mobile game with a multi-million player base.
+      - >-
+        Lifted day-7 retention and in-app purchase revenue through targeted offer
+        personalization.
+      - >-
+        Built the analytics pipeline and dashboards used by the user acquisition,
+        monetization and product teams; analyzed ROI / ROAS on ad spend.
+    stack: [GCP Vertex AI, BigQuery, TensorFlow Extended, scikit-learn, XGBoost, TensorFlow, Plotly Dash]
+
+  - company: Datajarlabs
+    role: Data Science Consultant & Instructor
+    location: Ankara, Türkiye (Remote)
+    start: '2019-04'
+    end: '2020-07'
+    blurb: >-
+      Client ML projects and data science strategy, alongside bootcamp teaching and the
+      hiring datathon that produced eight hires for Yildiz Holding.
+    highlights:
+      - >-
+        Delivered client machine learning projects, consulted on data science strategy,
+        and lectured and mentored in data science bootcamps.
+      - >-
+        Designed and ran the data scientist hiring datathon for Yildiz Holding,
+        producing 8 hires.
+
+  - company: Turkish Government — Defense Sector
+    short: Defense Sector
+    role: Operations Research Analyst → Enterprise Systems Lead
+    location: Türkiye
+    start: '2005-08'
+    end: '2019-03'
+    blurb: >-
+      Fourteen years of operations research: a decision-support platform serving 50,000+
+      personnel, naval logistics simulation, and the software test division on a combat
+      system across 30+ vessels.
+    highlights:
+      - >-
+        Designed and deployed an enterprise decision support system for
+        cost-effectiveness analysis, stock planning, workforce planning and scenario
+        comparison, serving 50,000+ personnel.
+      - >-
+        ADVENT Combat Management System (2016–2019): led the software test division and
+        sat on the project management board for a naval combat platform deployed across
+        30+ vessels, coordinating validation across cross-functional engineering teams.
+      - >-
+        Built discrete-event and agent-based simulation models for naval logistics and
+        counter-piracy operations — the basis of two peer-reviewed publications.
+      - >-
+        Redesigned inventory management, cutting costs 17% while maintaining
+        availability; applied operations research to duty scheduling, reducing
+        overtime 40%.
+      - >-
+        Built Plotly Dash dashboards for C-level decision makers; authored software
+        requirements and unit designs as leader of the software test group.
+    stack: [Java, Spring, Hibernate, Oracle, Linux, Python, Plotly Dash, Tableau]
+
+education:
+  - institution: Middle East Technical University (METU)
+    location: Ankara
+    degree: PhD studies, Industrial Engineering
+    start: '2014'
+    end: '2022'
+    # Stated plainly rather than softened — it reads as honest, not as a gap.
+    note: Not completed
+    gpa: 3.40 / 4.00
+    detail: 'Research: vehicle routing for unmanned aerial vehicles.'
+
+  - institution: Turkish Naval Academy, Science Institute
+    location: Istanbul
+    degree: M.Sc. Industrial Engineering
+    end: '2012'
+    gpa: 3.77 / 4.00
+    detail: >-
+      Thesis: simulation modeling of maritime piracy using discrete-event and
+      agent-based approaches.
+
+  - institution: Turkish Naval Academy
+    location: Istanbul
+    degree: B.Tech Industrial Engineering
+    end: '2005'
+    gpa: 3.90 / 4.00
+    detail: Graduated 2nd of 240.
+
+# TODO(content): narrow `date` to 'YYYY-MM' or 'YYYY-MM-DD' and add `url` per
+# entry as the values are confirmed. Both sections render newest-first in file
+# order — nothing sorts them — so insert new entries at the top.
+publications:
+  - title: Understanding COVID-19 News Coverage using Medical NLP
+    venue: ECIR 2022, Stavanger, Norway
+    date: '2022'
+  - title: Simulation Prevention Operations at Sea against Maritime Piracy
+    venue: Journal of the Operational Research Society
+    date: '2015'
+  - title: Simulation Modeling of Maritime Piracy using Discrete Event and Agent-Based Approaches
+    venue: SCITEPRESS
+    date: '2013'
+
+writing:
+  - title: Analyzing Roland Garros and the US Open via Neo4j
+    venue: Medium
+    date: '2022'
+  - title: Exploring the European Natural Gas Network as a Knowledge Graph
+    venue: Medium
+    date: '2022'
+  - title: Creating a Clinical Knowledge Graph with Spark NLP & Neo4j
+    venue: Medium
+    date: '2021'
+
+certifications:
+  - Neo4j Certified Professional
+  - Neo4j Graph Data Science Fundamentals
+  - Cypher Fundamentals
+  - Spark NLP for Healthcare — Certified Data Scientist
+  - GCP Big Data & Machine Learning Fundamentals
+  - Sequences, Time Series & Prediction
+  - Dashboards with Plotly & Dash

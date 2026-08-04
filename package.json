@@ -1,0 +1,29 @@
+{
+  "name": "iamvarol.github.io",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "todo": "node scripts/list-todos.mjs",
+    "resume:pdf": "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct 2>/dev/null || echo 0) typst compile --root . --ignore-system-fonts resume/resume.typ dist/emre-varol-resume.pdf",
+    "resume:verify": "npm run resume:pdf && node scripts/verify-pdf.mjs dist/emre-varol-resume.pdf",
+    "og:png": "mkdir -p dist/og && SOURCE_DATE_EPOCH=$(git log -1 --format=%ct 2>/dev/null || echo 0) typst compile --root . --ignore-system-fonts --format png --ppi 72 og/card.typ dist/og/default.png",
+    "assets": "npm run resume:pdf && npm run og:png"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^7.1.6"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "lighthouse": "^13.4.1",
+    "typescript": "^6.0.3",
+    "unpdf": "^1.8.0",
+    "yaml": "^2.9.0"
+  }
+}

@@ -1,0 +1,19 @@
+---
+interface Props {
+  /** Renders in the accent colour instead of --faint. */
+  accent?: boolean;
+  class?: string;
+}
+
+const { accent = false, class: className } = Astro.props;
+---
+
+<span class:list={['eyebrow', accent && 'is-accent', className]}>
+  <slot />
+</span>
+
+<style>
+  .is-accent {
+    color: var(--accent);
+  }
+</style>
