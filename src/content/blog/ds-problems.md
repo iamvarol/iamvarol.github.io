@@ -20,6 +20,10 @@ After eight posts in this series, you have the domain context. Now let's put it 
 
 Whether you're prepping for a retail DS interview, scoping a new project, or trying to prioritize where to focus first — this is the list.
 
+![A person working through a checklist at a desk](./ds-problems-hero.jpg)
+
+*Photo by [Dmitriy Khanzhin](https://unsplash.com/@thedimus) on [Unsplash](https://unsplash.com/).*
+
 ---
 
 ## How to Read This List

@@ -11,6 +11,10 @@ link_text: Read on Medium
 
 In this post, we'll use Neo4j to turn the European gas network into a knowledge graph and analyze the data.
 
+![Industrial gas pipeline infrastructure](./european-gas-network-hero.jpg)
+
+*Photo by [Rostislav Artov](https://unsplash.com/@rostikarts) on [Unsplash](https://unsplash.com/).*
+
 ---
 
 The crisis between Ukraine and Russia caused relations between Russia and the EU to fall to their lowest point since the Cold War. The US and EU imposed sanctions on Russia over the invasion — financial measures designed to damage Russia's economy and penalize President Putin, his high-ranking officials, and those who have benefited from his regime.

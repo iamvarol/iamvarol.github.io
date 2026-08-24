@@ -20,6 +20,10 @@ Most data scientists who enter retail come armed with impressive forecasting mod
 
 Sell-Through Rate. It's the metric retail lives and dies by — and if you don't understand it deeply, you'll spend months building things nobody actually uses.
 
+![Clothing racks in a retail store](./sell-through-rate-hero.jpg)
+
+*Photo by [Simon Ray](https://unsplash.com/@simonbhray) on [Unsplash](https://unsplash.com/).*
+
 ---
 
 ## The Setup: TrendCo's Spring Collection

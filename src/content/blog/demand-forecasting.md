@@ -21,6 +21,10 @@ Six months later he called me. "Nobody told me that 30% of my training data is c
 
 Retail forecasting is hard in ways that aren't obvious from the outside. The data looks rich — millions of transactions, years of history, granular SKU-level detail. But the problems embedded in that data are subtler and more damaging than anything you'd face in most other domains.
 
+![A line chart trending upward on a screen](./demand-forecasting-hero.jpg)
+
+*Photo by [Gavin Allanwood](https://unsplash.com/@fp4) on [Unsplash](https://unsplash.com/).*
+
 ---
 
 ## Why Every Retail Decision Starts With a Forecast

@@ -72,11 +72,17 @@ optimizes and resolves the Markdown form; a raw `<img src="./file.png">` is pass
 untouched, and its relative path resolves against the page URL rather than this file's
 directory, so it silently 404s.
 
-For a caption, wrap it in raw HTML — Markdown has no caption syntax:
+For a caption, the safe default is a Markdown image followed by an italic line — this keeps
+the image on the optimized path, since nesting `![]()` inside a raw `<figure>` block risks
+CommonMark treating the whole block as opaque HTML and skipping optimization entirely:
 
-```html
-<figure>
-  <img src="./my-post-diagram.png" alt="Alt text describing the diagram">
-  <figcaption>What the diagram shows.</figcaption>
-</figure>
+```markdown
+![Alt text describing the diagram](./my-post-diagram.png)
+
+*Photo by [Name](https://unsplash.com/@handle) on [Unsplash](https://unsplash.com/).*
 ```
+
+This is the pattern used for the Unsplash header photos on several posts. A raw
+`<figure>/<figcaption>` block is still fine for a case where optimization doesn't matter (e.g.
+an already-optimized SVG), but for anything that should go through Astro's image pipeline,
+prefer the italic-line pattern above.

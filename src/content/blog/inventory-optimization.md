@@ -20,6 +20,10 @@ The supply chain manager wants bigger safety buffers. The store manager wants fu
 
 This asymmetry in visibility is why retailers consistently overstock. And it's why inventory optimization is one of the highest-impact, most structurally underappreciated applications of data science in retail.
 
+![Stacked cardboard boxes in a warehouse](./inventory-optimization-hero.jpg)
+
+*Photo by [Eduardo Soares](https://unsplash.com/@eduschadesoares) on [Unsplash](https://unsplash.com/).*
+
 ---
 
 ## The Two Costs Nobody Balances Properly
