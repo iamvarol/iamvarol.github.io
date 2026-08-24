@@ -1,8 +1,8 @@
 ---
-title: Why Retail is the Hardest Industry for Data Scientists
+title: "Why Retail is the Hardest Industry for Data Scientists"
 date: 2026-03-24
-description: I've talked to data scientists who have built fraud detection systems for banks, recommendation engines for streaming platforms, and churn models for SaaS companies. When they move into retail, most of them say the same thing six months in: "I didn't expect it to be this hard."
-tags: [retail, data science, inventory management, data analytics]
+description: "I've talked to data scientists who have built fraud detection systems for banks, recommendation engines for streaming platforms, and churn models for SaaS companies. When they move into retail, most of them say the same thing six months in: \"I didn't expect it to be this hard.\""
+tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link_text: Read on Medium
 published: true

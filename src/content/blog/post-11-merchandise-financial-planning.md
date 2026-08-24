@@ -1,8 +1,8 @@
 ---
-title: The Money Map: How Retail Decides Your Budget Before You Buy Anything
+title: "The Money Map: How Retail Decides Your Budget Before You Buy Anything"
 date: 2026-08-25
-description: Here's something that surprises data scientists new to retail. By the time a buyer sits down to choose next season's dresses, the most important number has already been decided. Not by the buyer. Not by a model. By a spreadsheet built six to nine months earlier, in a room the data team was probably never in.
-tags: [retail, data science, inventory management, data analytics]
+description: "Here's something that surprises data scientists new to retail. By the time a buyer sits down to choose next season's dresses, the most important number has already been decided. Not by the buyer. Not by a model. By a spreadsheet built six to nine months earlier, in a room the data team was probably never in."
+tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link: 
 link_text: Read on Medium

@@ -1,8 +1,8 @@
 ---
-title: Demand Forecasting in Retail: Why It's Harder Than Predicting the Stock Market
+title: "Demand Forecasting in Retail: Why It's Harder Than Predicting the Stock Market"
 date: 2026-04-09
-description: Demand forecasting is hard in ways that aren't obvious from the outside. The data looks rich — millions of transactions, years of history, granular SKU-level detail. But the problems embedded in that data are subtler and more damaging than anything you'd face in most other domains.
-tags: [retail, data science, inventory management, data analytics]
+description: "Demand forecasting is hard in ways that aren't obvious from the outside. The data looks rich — millions of transactions, years of history, granular SKU-level detail. But the problems embedded in that data are subtler and more damaging than anything you'd face in most other domains."
+tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link: https://medium.com/@a.emrevarol/demand-forecasting-in-retail-why-its-harder-than-predicting-the-stock-market-2b1aed78a63c
 link_text: Read on Medium
@@ -242,6 +242,6 @@ In Part 8, we tackle what feels like the opposite problem: not understock, but o
 
 ---
 
-*This post is part of "The Retail Data Playbook" — a series for data scientists and analysts building products for retail and e-commerce businesses.*
+*This post is part of "The Retail Data Playbook: What They Don't Teach You in Data Science School" — a series for data scientists and analysts building products for retail and e-commerce businesses.*
 
 *All company names and data in this post are fictional and used for illustrative purposes.*

@@ -1,8 +1,8 @@
 ---
-title: Building a Canonical Metric Layer: The Foundation of Retail Analytics
+title: "Building a Canonical Metric Layer: The Foundation of Retail Analytics"
 date: 2026-05-19
-description: There's a meeting that happens at every retailer, in some form, every quarter. The planning team presents their numbers. The finance team presents their numbers. The two sets of numbers don't match.
-tags: [retail, data science, inventory management, data analytics]
+description: "There's a meeting that happens at every retailer, in some form, every quarter. The planning team presents their numbers. The finance team presents their numbers. The two sets of numbers don't match."
+tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link: https://medium.com/@a.emrevarol/building-a-canonical-metric-layer-the-foundation-of-retail-analytics-abbe746cd66d
 link_text: Read on Medium

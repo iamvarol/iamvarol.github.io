@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { title, date, description, tags, draft } = post.data;
+const { title, date, description, tags, draft, link, link_text } = post.data;
 const minutes = readingTime(post.body);
 ---
 
@@ -26,6 +26,12 @@ const minutes = readingTime(post.body);
         <span aria-hidden="true">·</span>
         <span>{minutes} min read</span>
       </p>
+
+      {link && (
+        <p class="crosspost">
+          <a href={link} target="_blank" rel="noopener noreferrer">↗ {link_text}</a>
+        </p>
+      )}
     </header>
 
     <div class="prose">
@@ -81,6 +87,20 @@ const minutes = readingTime(post.body);
     font-family: var(--face-mono);
     font-size: var(--t-meta);
     color: var(--faint);
+  }
+
+  .crosspost {
+    font-family: var(--face-mono);
+    font-size: var(--t-small);
+  }
+
+  .crosspost a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .crosspost a:hover {
+    color: var(--accent);
   }
 
   .foot {

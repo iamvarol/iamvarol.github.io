@@ -1,8 +1,8 @@
 ---
-title: Keeping Shelves Full Without Drowning in Stock: Store Replenishment
+title: "Keeping Shelves Full Without Drowning in Stock: Store Replenishment"
 date: 2026-08-29
-description: The shelf says full. The system says full. The customer found nothing.
-tags: [retail, data science, inventory management, data analytics]
+description: "The shelf says full. The system says full. The customer found nothing."
+tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link: 
 link_text: Read on Medium

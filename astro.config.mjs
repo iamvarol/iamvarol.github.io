@@ -32,7 +32,7 @@ export default defineConfig({
   fonts: [
     {
       provider: fontProviders.fontsource(),
-      name: 'Inter',
+      name: 'Montserrat',
       cssVariable: '--font-sans',
       weights: ['400 700'],
       styles: ['normal'],

@@ -1,8 +1,8 @@
 ---
-title: Choosing What to Sell Where: The Assortment Problem
+title: "Choosing What to Sell Where: The Assortment Problem"
 date: 2026-08-26
-description: Assortment planning is the art of balancing three dials at once, all inside the budget MFP set:
-tags: [retail, data science, inventory management, data analytics]
+description: "Assortment planning is the art of balancing three dials at once, all inside the budget MFP set:"
+tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link: 
 link_text: Read on Medium

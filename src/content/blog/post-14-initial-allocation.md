@@ -1,8 +1,8 @@
 ---
-title: The First Irreversible Bet: Initial Allocation
+title: "The First Irreversible Bet: Initial Allocation"
 date: 2026-08-28
-description: In fashion, there's a decision you usually get to make exactly once per style: how to split the first shipment across your stores. It's called **initial allocation**, and here's what makes it brutal — in most fashion retail, it's also the *last* allocation. The DC ships everything to stores at season start. There's nothing left in the warehouse to fix a mistake with. Whatever each store gets on day one is, more or less, what it has to sell the whole season.
-tags: [retail, data science, inventory management, data analytics]
+description: "In fashion, there's a decision you usually get to make exactly once per style: how to split the first shipment across your stores. It's called **initial allocation**, and here's what makes it brutal — in most fashion retail, it's also the *last* allocation. The DC ships everything to stores at season start. There's nothing left in the warehouse to fix a mistake with. Whatever each store gets on day one is, more or less, what it has to sell the whole season."
+tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link: 
 link_text: Read on Medium

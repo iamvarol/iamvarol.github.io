@@ -1,8 +1,8 @@
 ---
-title: The Hidden Language of Retail: A Data Scientist's Field Guide to Stakeholders
+title: "The Hidden Language of Retail: A Data Scientist's Field Guide to Stakeholders"
 date: 2026-03-28
-description: Retail is an industry where the data science fails at the organizational layer far more often than at the technical layer. Before you write a single line of code, you need to know who makes decisions, what they actually care about, and — crucially — how they'll interpret your output.
-tags: [retail, data science, inventory management, data analytics]
+description: "Retail is an industry where the data science fails at the organizational layer far more often than at the technical layer. Before you write a single line of code, you need to know who makes decisions, what they actually care about, and — crucially — how they'll interpret your output."
+tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link: https://medium.com/@a.emrevarol/the-hidden-language-of-retail-a-data-scientists-field-guide-to-stakeholders-946787f0fe9d
 link_text: Read on Medium
@@ -79,7 +79,7 @@ That's a conversation a buyer can act on. "The model predicts 6,200 units" is no
 
 **What they own:** Strategy for an entire product category — not just one style, but all of womenswear, or all of accessories. They set the competitive positioning, pricing architecture, promotional calendar, and assortment philosophy for their domain.
 
-**What keeps them up at night:** Category market share and overall category P&L. They are asking "are we winning in dresses against our competitors?" not "is this one dress selling?"
+**What keeps them up at night:** Category market share and overall category Profit and Loss (P&L). They are asking "are we winning in dresses against our competitors?" not "is this one dress selling?"
 
 **How they think:** Top-down. They start with market context (what's the competition doing, what are customers shifting toward?) and work down to assortment decisions. They're the ones who might decide to sacrifice margin on a traffic-driving basic product because they know it brings customers into store who then buy higher-margin accessories.
 
@@ -153,7 +153,7 @@ One more layer that shapes who you're building for: the type of retailer.
 
 **TrendCo is a specialty fashion retailer.** Its data science problems are heavily weighted toward assortment, size curves, allocation, STR, and markdown timing. The buyer and allocator are the power users.
 
-At **FreshMart** — a grocery chain — the equivalent power users are the category manager and replenishment analyst. The problems are promotions, OSA, waste minimization, and fill rates. There's no equivalent of "size curves" or "one-time buy" because products replenish continuously.
+At **FreshMart** — a grocery chain — the equivalent power users are the category manager and replenishment analyst. The problems are promotions, on-shelf availability (OSA), waste minimization, and fill rates. There's no equivalent of "size curves" or "one-time buy" because products replenish continuously.
 
 **A quick format reference:**
 

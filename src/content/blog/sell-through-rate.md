@@ -1,8 +1,8 @@
 ---
-title: Sell-Through Rate: The One Metric That Rules Them All
+title: "Sell-Through Rate: The One Metric That Rules Them All"
 date: 2026-03-29
-description: Sell-Through Rate is the metric retail lives and dies by — and if you don't understand it deeply, you'll spend months building things nobody actually uses.
-tags: [retail, data science, inventory management, data analytics]
+description: "Sell-Through Rate is the metric retail lives and dies by — and if you don't understand it deeply, you'll spend months building things nobody actually uses."
+tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link: https://medium.com/@a.emrevarol/sell-through-rate-the-one-metric-that-rules-them-all-cd17c604c13b
 link_text: Read on Medium

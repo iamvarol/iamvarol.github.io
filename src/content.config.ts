@@ -26,9 +26,10 @@ const blog = defineCollection({
     date: z.coerce.date(),
 
     // Does triple duty: listing subtitle, meta description, OG description.
-    // Capped because search engines truncate past ~160 and a cut-off sentence
-    // is worse than a build failure telling you to shorten it.
-    description: z.string().min(1).max(200),
+    // Capped so a runaway paragraph can't stand in for a subtitle; 500 covers
+    // the longest existing description (461) with headroom. Search engines
+    // still truncate display past ~160 regardless of this cap.
+    description: z.string().min(1).max(500),
 
     // Lowercase-kebab enforced so "Machine Learning", "machine-learning" and
     // "ML" can't silently become three separate tag pages.
@@ -41,6 +42,13 @@ const blog = defineCollection({
       .default([]),
 
     draft: z.boolean().default(false),
+
+    // Cross-post attribution. `link` is optional — some posts haven't been
+    // cross-posted yet — and `.nullable()` because an empty `link:` in YAML
+    // parses as null, not undefined. `link_text` alone never renders a
+    // dangling label; call sites guard on `link` being truthy.
+    link: z.string().url().nullable().optional(),
+    link_text: z.string().min(1).max(60).default('Read on Medium'),
   }),
 });
 

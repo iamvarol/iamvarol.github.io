@@ -1,8 +1,8 @@
 ---
-title: Grocery vs. Fashion: Two Completely Different Retail Games
+title: "Grocery vs. Fashion: Two Completely Different Retail Games"
 date: 2026-04-07
-description: Grocery and fashion are so structurally different that a data scientist who's excellent at one can be genuinely lost in the other — not because the technical skills don't transfer, but because the *business logic* is almost entirely different.
-tags: [retail, data science, inventory management, data analytics]
+description: "Grocery and fashion are so structurally different that a data scientist who's excellent at one can be genuinely lost in the other — not because the technical skills don't transfer, but because the *business logic* is almost entirely different."
+tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link: https://medium.com/@a.emrevarol/grocery-vs-fashion-two-completely-different-retail-games-b4640b0ad74b
 link_text: Read on Medium
@@ -119,6 +119,8 @@ STR (%) = Units Sold / Units Received × 100
 ```
 
 A dress that arrives in Week 1 and sells 70% of its units by Week 20 hit a 70% STR. Whether that's good or bad depends on historical curves. In fashion, STR is the heartbeat — the number that tells you if the product is dying, surviving, or thriving.
+
+For more details, see [Sell-Through Rate: The One Metric That Rules Them All](/blog/sell-through-rate/).
 
 **Grocery → On-Shelf Availability (OSA)**
 
