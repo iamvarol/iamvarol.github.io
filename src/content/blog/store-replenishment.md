@@ -20,6 +20,10 @@ That sentence describes the single most expensive blind spot in grocery retail, 
 
 Replenishment is the respiratory system of retail — the continuous cycle of counting what's on the shelf, calculating what's needed, and triggering the reorder. Do it well and it's invisible: shelves stay full, capital stays lean, waste stays low. Do it badly and it fails in two directions at once, and the global bill for getting it wrong — stockouts plus overstock combined — runs to roughly $1.8 trillion a year. This post is about how the engine works, and the silent failure mode that quietly poisons every replenishment model ever built.
 
+![A grocery store aisle with fully stocked shelves](../../assets/blog/store-replenishment-hero.jpg)
+
+*Photo by [Franki Chamaki](https://unsplash.com/@franki) on [Unsplash](https://unsplash.com/).*
+
 ---
 
 ## Two Ways to Refill a Shelf
@@ -40,7 +44,7 @@ Older retail ran on periodic cycles — order the same things every Monday and h
 
 ## The Two Dials: Reorder Point and Safety Stock
 
-Continuous replenishment turns on two parameters. We met both in Season 1's inventory post; here's how they drive the *loop*:
+Continuous replenishment turns on two parameters. We met both in Season 1's [inventory post](/blog/inventory-optimization/); here's how they drive the *loop*:
 
 - **Reorder Point (ROP)** — the stock level low enough that it will *just* cover demand during the lead time until the next delivery lands. Hit the ROP, trigger an order.
 
@@ -79,7 +83,7 @@ Here's the failure I opened with. The entire replenishment engine trusts one num
 | Butter 250g | 61 | 61 | 0 | Genuinely above | Correct |
 | Kefir 500ml | 44 | 0 | 44 | System reads above; shelf is empty | **Silent stockout — no reorder fires** |
 
-The Oat Milk and Kefir are *out on the shelf* but *in stock in the system*. The replenishment engine, doing exactly what it was designed to do, orders nothing. Every hour those gaps persist is lost full-margin sales the dashboards will never flag — because on every report, availability looks fine. This is the same lesson as Season 1's brokenness post ("98% in stock" was a lie), but caused upstream, in the data layer, and it silently corrupts the training data for every forecast that learns from it.
+The Oat Milk and Kefir are *out on the shelf* but *in stock in the system*. The replenishment engine, doing exactly what it was designed to do, orders nothing. Every hour those gaps persist is lost full-margin sales the dashboards will never flag — because on every report, availability looks fine. This is the same lesson as Season 1's [brokenness post](/blog/brokenness/) ("98% in stock" was a lie), but caused upstream, in the data layer, and it silently corrupts the training data for every forecast that learns from it.
 
 The fixes are getting physical: IoT shelf sensors, computer-vision cameras, and staff photographing shelves with mobile apps to reconcile "theoretical stock" against "actual stock" in real time. But the first job of a replenishment data scientist is simply to *know phantom inventory exists* and hunt for it — because a perfect model on poisoned data is worse than useless; it's confidently wrong.
 
@@ -145,7 +149,7 @@ The recurring theme of this series holds here too: the model's output isn't a fo
 
 ## What's Next
 
-Replenishment refills the shelf from the warehouse. But sometimes the stock you need isn't in the warehouse at all — it's already inside your company, sitting in the wrong store. In Part 16 we look at **store-to-store transfers**: the arbitrage hiding in your network, when a transfer beats a markdown, why total landed cost decides the whole thing, and how rising transfer volume is really a report card on how badly you allocated in the first place.
+Replenishment refills the shelf from the warehouse. But sometimes the stock you need isn't in the warehouse at all — it's already inside your company, sitting in the wrong store. In Part 16 we look at **[store-to-store transfers](/blog/store-transfers/)**: the arbitrage hiding in your network, when a transfer beats a markdown, why total landed cost decides the whole thing, and how rising transfer volume is really a report card on how badly you allocated in the first place.
 
 ---
 

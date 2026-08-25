@@ -377,9 +377,9 @@ And every model in this series — markdown optimization, demand forecasting, al
 
 ---
 
-## Closing the Series
+## Closing Season 1
 
-This is the tenth and final post in "The Retail Data Playbook." We've covered a lot of ground:
+This is the tenth and final post of Season 1, "The Retail Data Playbook." We've covered a lot of ground:
 
 1. **Why retail is hard** — the irreversible bet, the bullwhip effect, the cost of being wrong in both directions
 2. **Who makes decisions** — buyer, planner, allocator, category manager, supply chain, and how to speak each one's language
@@ -392,10 +392,12 @@ This is the tenth and final post in "The Retail Data Playbook." We've covered a 
 9. **The 10 DS problems** — framed as business problems with inputs, outputs, stakeholders, and financial stakes
 10. **The canonical metric layer** — the infrastructure that makes everything else reliable
 
-If this series helped you get a foothold in retail — or sharpen thinking you already had — that's exactly what it was for. The retail industry is full of genuinely hard problems, real financial stakes, and stakeholders who will use your work if it answers their actual questions. There's no shortage of interesting work to do.
+If this season helped you get a foothold in retail — or sharpen thinking you already had — that's exactly what it was for. The retail industry is full of genuinely hard problems, real financial stakes, and stakeholders who will use your work if it answers their actual questions. There's no shortage of interesting work to do.
+
+Season 1 covered the mental models and the metrics — *why* retail is hard and how to measure it. Season 2, starting with [The Money Map](/blog/merchandise-financial-planning/), goes inside the machine those metrics drive: the budget, the assortment, the allocation, and the systems increasingly making those calls on their own.
 
 ---
 
-*"The Retail Data Playbook" is a 10-part series for data scientists and analysts building products for retail and e-commerce businesses.*
+*"The Retail Data Playbook" Season 1 is a 10-part series for data scientists and analysts building products for retail and e-commerce businesses.*
 
 *All company names and data in this series are fictional and used for illustrative purposes.*

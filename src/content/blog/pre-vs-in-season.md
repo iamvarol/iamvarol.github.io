@@ -22,6 +22,10 @@ The second clock is fast and twitchy. It starts the moment the doors open and re
 
 **Pre-season planning** is the slow clock. **In-season planning** is the fast one. Almost every failure I've seen in retail data science comes from building a model that only understands one of them — a beautiful pre-season forecast with no in-season correction loop, or a reactive in-season tool with no memory of the plan it's supposed to be tracking against. This post is about how the two clocks work, where they hand off, and why the pivot between them is where seasons are won or lost.
 
+![A wall covered in clocks showing many different times](../../assets/blog/pre-vs-in-season-hero.jpg)
+
+*Photo by [K HOWARD](https://unsplash.com/@kwh101) on [Unsplash](https://unsplash.com/).*
+
 ---
 
 ## The Slow Clock: Pre-Season
@@ -45,7 +49,7 @@ The moment the season opens, the plan meets reality — and reality never read t
 - **Weekly re-trending** — updating the forecast for the rest of the season based on what's actually selling.
 - **Replenishment triggers** — auto-reordering the winners (Parts 15 & 17).
 - **Store-to-store transfers** — rebalancing stock across the network (Part 16).
-- **Markdown optimization** — cutting price on the losers, precisely (Season 1, Post 6).
+- **[Markdown optimization](/blog/markdown-optimization/)** — cutting price on the losers, precisely (Season 1, Post 6).
 
 The defining feature of the fast clock is **very high flexibility**. Almost everything can be adjusted week to week. The constraint isn't "can we change it?" — it's "can we detect what to change, fast enough, and correctly?" That detection problem is where the data scientist lives.
 
@@ -142,7 +146,7 @@ The whole point: the pre-season plan is a hypothesis. The in-season loop is the 
 
 ## What's Next
 
-The single most consequential move the slow clock makes is the one we've deferred twice now: **initial allocation** — the first shipment from DC to stores. In fashion it's often the *only* allocation, which makes it the first irreversible bet of the season. In Part 14 we get into how it's done: store clustering, the size-curve trap that quietly destroys margin, and why calculating size curves from sales data is a circular mistake retailers make every single year.
+The single most consequential move the slow clock makes is the one we've deferred twice now: **[initial allocation](/blog/initial-allocation/)** — the first shipment from DC to stores. In fashion it's often the *only* allocation, which makes it the first irreversible bet of the season. In Part 14 we get into how it's done: store clustering, the size-curve trap that quietly destroys margin, and why calculating size curves from sales data is a circular mistake retailers make every single year.
 
 ---
 

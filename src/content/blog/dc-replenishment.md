@@ -20,6 +20,10 @@ When a customer finds a gap where the oat milk should be, the instinct is to loo
 
 This is the last operational post of the season, and it's the one that sits *above* everything we've covered. Allocation, replenishment, transfers — all of them assume the stock exists somewhere in your network to move. **DC replenishment is where that "somewhere" is decided.** Get the distribution center wrong and every downstream model, however clever, is optimizing over an empty tank.
 
+![A forklift driving through a distribution center filled with pallets](../../assets/blog/dc-replenishment-hero.jpg)
+
+*Photo by [Bernd Dittrich](https://unsplash.com/@hdbernd) on [Unsplash](https://unsplash.com/).*
+
 ---
 
 ## The Store Is Not an Island: Echelons
@@ -46,7 +50,7 @@ Same service level, **~28% less inventory** — and therefore ~28% less tied-up 
 
 ## Taming the Bullwhip
 
-Season 1 opened the whole series with the **bullwhip effect** — how a modest 30% swing in consumer demand amplifies into a 120% production swing upstream, then a crash. The DC is exactly where that amplification either gets tamed or gets worse.
+Season 1 [opened the whole series](/blog/why-retail-is-hard/) with the **bullwhip effect** — how a modest 30% swing in consumer demand amplifies into a 120% production swing upstream, then a crash. The DC is exactly where that amplification either gets tamed or gets worse.
 
 Here's the mechanism. In a siloed chain, the DC doesn't see consumer demand — it sees *store orders*. Stores over-order to protect themselves, the DC over-orders to protect itself against the stores, the supplier over-produces to protect against the DC. Each layer adds its own safety margin to a signal that's already distorted, and the wave grows as it travels up. MEIO plus **demand sensing** breaks the cycle by giving every echelon the *true consumer signal* (POS data) instead of the distorted order-flow from the layer below. When the DC plans against real demand rather than panicked orders, the whip stops cracking. Damping the bullwhip is not a forecasting trick — it's an *information-architecture* decision about what each echelon is allowed to see.
 
@@ -125,7 +129,7 @@ Anchor it on the right KPIs: **fill rate** (did the DC fully serve store orders?
 
 ## What's Next
 
-That completes the operating machine: money (Part 11), assortment (12), the two planning clocks (13), allocation (14), store replenishment (15), transfers (16), and the DC engine upstream (17). Every one of these decisions is now being handed, piece by piece, to autonomous systems. So in the Season 2 finale, Part 18, we step back and ask the question every vendor deck is shouting about: **what does agentic AI actually change** about the planning machine — which of these decisions get automated first, what genuinely improves, and what still needs a human in the loop?
+That completes the operating machine: money (Part 11), assortment (12), the two planning clocks (13), allocation (14), store replenishment (15), transfers (16), and the DC engine upstream (17). Every one of these decisions is now being handed, piece by piece, to autonomous systems. So in the Season 2 finale, Part 18, we step back and ask the question every vendor deck is shouting about: **[what does agentic AI actually change](/blog/agentic-ai/)** about the planning machine — which of these decisions get automated first, what genuinely improves, and what still needs a human in the loop?
 
 ---
 

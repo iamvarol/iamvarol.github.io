@@ -20,6 +20,10 @@ That gap is an arbitrage — free money sitting on the table — and the mechani
 
 We touched transfers in Season 1 (as a lever) and in Part 14 (as a signal of bad allocation). This post is about the transfer decision itself: when it beats a markdown, why total landed cost decides everything, and why the *volume* of transfers you're running is really a report card on how badly you planned upstream.
 
+![A white delivery van on the road during daytime](../../assets/blog/store-transfers-hero.jpg)
+
+*Photo by [Diego De Alba](https://unsplash.com/@iamdiegodealba) on [Unsplash](https://unsplash.com/).*
+
 ---
 
 ## Transfer vs. Markdown: The Core Trade
@@ -133,7 +137,7 @@ Measure it honestly: not "transfers completed," but **transfer success rate** (d
 
 ## What's Next
 
-Store replenishment (Part 15) and transfers (Part 16) both assume the stock is somewhere in your network to begin with. But where does the store's supply actually come from? In Part 17 we go one echelon up, to the **distribution center** — DC replenishment, multi-echelon optimization, and the DC-vs-direct-store-delivery decision that shapes the cost of everything downstream. Every empty shelf has a cause two links up the chain.
+Store replenishment (Part 15) and transfers (Part 16) both assume the stock is somewhere in your network to begin with. But where does the store's supply actually come from? In Part 17 we go one echelon up, to the **[distribution center](/blog/dc-replenishment/)** — DC replenishment, multi-echelon optimization, and the DC-vs-direct-store-delivery decision that shapes the cost of everything downstream. Every empty shelf has a cause two links up the chain.
 
 ---
 

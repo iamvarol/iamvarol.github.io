@@ -18,6 +18,10 @@ Every retail technology deck you'll see this year promises the same thing: an au
 
 Some of this is real and already saving money. Some of it is a roadmap wearing a product name. This finale cuts through it with one question: **for the seven decisions we spent this season inside — the budget, the assortment, the two clocks, allocation, replenishment, transfers, the DC — what does agentic AI actually change, what genuinely improves, and what still needs a human?**
 
+![Close-up of networking cables in a data center](../../assets/blog/agentic-ai-hero.jpg)
+
+*Photo by [Taylor Vick](https://unsplash.com/@tvick) on [Unsplash](https://unsplash.com/).*
+
 ---
 
 ## Three Levels of "AI," Not One

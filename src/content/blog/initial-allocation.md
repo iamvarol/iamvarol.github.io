@@ -1,7 +1,7 @@
 ---
 title: "The First Irreversible Bet: Initial Allocation"
 date: 2026-08-28
-description: "In fashion, there's a decision you usually get to make exactly once per style: how to split the first shipment across your stores. It's called **initial allocation**, and here's what makes it brutal — in most fashion retail, it's also the *last* allocation. The DC ships everything to stores at season start. There's nothing left in the warehouse to fix a mistake with. Whatever each store gets on day one is, more or less, what it has to sell the whole season."
+description: "In most fashion retail, the first shipment to stores is also the last. Whatever each store gets on day one is, more or less, what it has to sell the whole season."
 tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link: 
@@ -19,6 +19,10 @@ In fashion, there's a decision you usually get to make exactly once per style: h
 Get it right and inventory lands where demand is, sells at full price, and clears clean. Get it wrong and you manufacture the two worst outcomes at once: stockouts in the stores that could have sold more, and overstock — headed for markdown — in the stores that never had the demand. Same total units, same product, wildly different margin, decided entirely by how you split the pile.
 
 Season 1 introduced allocation as one of the three ways inventory moves (allocate, replenish, transfer). This post goes inside the allocation decision itself — and, in particular, the one part of it that quietly destroys more fashion margin than almost anything else: the **size curve**.
+
+![Brown cardboard boxes stacked on a warehouse metal rack](../../assets/blog/initial-allocation-hero.jpg)
+
+*Photo by [CHUTTERSNAP](https://unsplash.com/@chuttersnap) on [Unsplash](https://unsplash.com/).*
 
 ---
 
@@ -66,7 +70,7 @@ The hold-back is one of the most underrated moves in fashion. It converts a pure
 
 ## The Size Curve: The Quiet Margin Killer
 
-Here's the trap. You can forecast a style's *total* units perfectly and still lose serious margin — if you split those units across sizes wrong. Sell out of M and L in week three while XS and XXL pile up, and your "80% available" style is really serving maybe 40% of demand. It's the brokenness problem from Season 1, created at birth by a bad size curve.
+Here's the trap. You can forecast a style's *total* units perfectly and still lose serious margin — if you split those units across sizes wrong. Sell out of M and L in week three while XS and XXL pile up, and your "80% available" style is really serving maybe 40% of demand. It's the [brokenness problem](/blog/brokenness/) from Season 1, created at birth by a bad size curve.
 
 And retailers cause it themselves, every season, with one circular mistake: **they calculate next season's size curve from last season's sales.**
 
@@ -102,7 +106,7 @@ The fix is **demand unconstraining**. Instead of trusting raw sales, the model f
 | M | 60% | 47% | Meaningfully less |
 | L | 20% | 35% | **Substantially more** |
 
-Same total units — but this split keeps L on the shelf all season instead of losing it in week six. This is the exact same censoring problem Season 1's forecasting post described (out-of-stock records zero sales, poisoning the training data), applied to the size dimension. If you build nothing else for allocation, build this.
+Same total units — but this split keeps L on the shelf all season instead of losing it in week six. This is the exact same censoring problem Season 1's [forecasting post](/blog/demand-forecasting/) described (out-of-stock records zero sales, poisoning the training data), applied to the size dimension. If you build nothing else for allocation, build this.
 
 For genuinely new styles with no history at all, the tools shift to **attribute-based models** (borrow the size behavior of similar past products), **regression trees** (where relative price, discount potential, and competitive intensity dominate demand), and **Bayesian inference** for sparse, volatile categories — all aimed at the same goal: allocate on *true* demand, not on the artifacts of last season's stockouts.
 
@@ -158,7 +162,7 @@ Measure it with the right KPIs: **allocation accuracy**, **full-price sell-throu
 
 ## What's Next
 
-Initial allocation is the fashion story — a finite pile, split once. But grocery lives in the opposite world: shelves that must be refilled continuously, forever, without drowning the store in stock or letting it run dry. In Part 15 we turn to **store replenishment** — the respiratory system of retail — and the silent failure mode that quietly breaks every replenishment model: **phantom inventory**.
+Initial allocation is the fashion story — a finite pile, split once. But grocery lives in the opposite world: shelves that must be refilled continuously, forever, without drowning the store in stock or letting it run dry. In Part 15 we turn to **[store replenishment](/blog/store-replenishment/)** — the respiratory system of retail — and the silent failure mode that quietly breaks every replenishment model: **phantom inventory**.
 
 ---
 

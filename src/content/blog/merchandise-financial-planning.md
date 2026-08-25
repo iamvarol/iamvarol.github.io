@@ -1,7 +1,7 @@
 ---
 title: "The Money Map: How Retail Decides Your Budget Before You Buy Anything"
 date: 2026-08-25
-description: "Here's something that surprises data scientists new to retail. By the time a buyer sits down to choose next season's dresses, the most important number has already been decided. Not by the buyer. Not by a model. By a spreadsheet built six to nine months earlier, in a room the data team was probably never in."
+description: "By the time a buyer picks next season's dresses, the most important number is already decided — by a spreadsheet built six to nine months earlier, in a room the data team was never in."
 tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link: 
@@ -23,6 +23,10 @@ Here's something that surprises data scientists new to retail. By the time a buy
 That number is the **inventory budget** — how many dollars of product the buyer is allowed to bring in. And the discipline that produces it, **Merchandise Financial Planning (MFP)**, is the least glamorous and most consequential process in the entire retail calendar. Every forecast you build, every allocation you optimize, every markdown you recommend happens *inside* the guardrails that MFP set months before the season began.
 
 If you don't understand where the budget comes from, you'll build models that quietly assume it doesn't exist. This post is about the money map — and where the data scientist actually fits on it.
+
+![A person at a desk working through numbers with a calculator and notebook](../../assets/blog/merchandise-financial-planning-hero.jpg)
+
+*Photo by [Jakub Żerdzicki](https://unsplash.com/@jakubzerdzicki) on [Unsplash](https://unsplash.com/).*
 
 ---
 
@@ -146,7 +150,7 @@ If MFP is so logical, why is it so often a mess? Because in most retailers it is
 
 Finance builds the strategic budget in one tool. Merchandising builds product plans in another — often offline workbooks with hundreds of tabs. The two are reconciled only when someone consolidates them by hand for a quarterly review. By then the market has moved, and the meeting that was supposed to chart strategy degrades into an argument about *why the numbers don't match and whose fault it is.* This is the **planning gap** — the silo between financial intent and merchandising reality — and it's the number-one reason MFP transformations get funded.
 
-You'll recognize the shape of this problem from Season 1's post on the metric layer: **two teams, same data, different numbers.** The fix is the same in spirit — a single, shared, granular source of truth that finance and merchandising both read from, each through their own lens, without a manual consolidation step in between. Modern planning platforms (RELEX, o9, Blue Yonder, Oracle, SAP) are, at their core, selling exactly that: one data model that turns financial targets from passive goals into active constraints on every downstream plan.
+You'll recognize the shape of this problem from Season 1's [post on the metric layer](/blog/metric-layer/): **two teams, same data, different numbers.** The fix is the same in spirit — a single, shared, granular source of truth that finance and merchandising both read from, each through their own lens, without a manual consolidation step in between. Modern planning platforms (RELEX, o9, Blue Yonder, Oracle, SAP) are, at their core, selling exactly that: one data model that turns financial targets from passive goals into active constraints on every downstream plan.
 
 ---
 
@@ -181,7 +185,7 @@ The pattern is the one this whole series keeps returning to: don't hand the plan
 
 ## What's Next
 
-We've set the budget. Now we have to spend it well. In Part 12, we tackle **assortment planning** — the problem of choosing *what* to sell and, just as importantly, *where*. Why is your best-selling product invisible in half your stores? How do you decide between carrying more styles (breadth) and going deeper on fewer (depth)? And how do supplier minimums quietly distort every one of those choices? The money map hands off to the range plan.
+We've set the budget. Now we have to spend it well. In Part 12, we tackle **[assortment planning](/blog/assortment-planning/)** — the problem of choosing *what* to sell and, just as importantly, *where*. Why is your best-selling product invisible in half your stores? How do you decide between carrying more styles (breadth) and going deeper on fewer (depth)? And how do supplier minimums quietly distort every one of those choices? The money map hands off to the range plan.
 
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Choosing What to Sell Where: The Assortment Problem"
 date: 2026-08-26
-description: "Assortment planning is the art of balancing three dials at once, all inside the budget MFP set:"
+description: "Your best-selling style is invisible in 90 of your 120 stores. Not because it flopped there — because it was never ranged there at all."
 tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link: 
@@ -19,6 +19,10 @@ Here's a pattern I've seen at more than one retailer. A style is a runaway best-
 That's not a forecasting failure. It's an **assortment** failure — a decision, made months earlier, about what to carry and where. And it's the decision that sits directly downstream of the money map from Part 11.
 
 Merchandise Financial Planning told us *how much* to spend on Dresses. Assortment planning answers the harder, more tactical question: **which dresses, in what depth, and in which stores?** Get it right and you match product to local demand across a network of very different shops. Get it wrong and you produce the two most expensive symptoms in retail simultaneously — stockouts of the things people want and markdowns on the things they don't.
+
+![Racks of women's clothing displayed in a boutique](../../assets/blog/assortment-planning-hero.jpg)
+
+*Photo by [Tyler Davis](https://unsplash.com/@tymotion) on [Unsplash](https://unsplash.com/).*
 
 ---
 
@@ -48,7 +52,7 @@ TrendCo has £18.2M of Dresses budget for Spring/Summer (from Part 11). The firs
 | Compact / Outlet | 16 | Small footprint, price-led | Narrow — best-sellers only |
 | **Total** | **120** | | |
 
-Notice that clusters are built from **behavior**, not geography — footfall, spend, size-profile, what actually sells. (This is the same "cluster on behavior, not store attributes" lesson from Season 1's DS-problems post.) A premium floral wrap dress belongs in the 12 flagships and some regional cities. A size-inclusive jersey dress in a deep size run belongs in the 58 suburban stores. Ship the flagship range to the suburbs and you get markdowns; withhold the best-seller from the regionals and you get the invisible-best-seller problem I opened with.
+Notice that clusters are built from **behavior**, not geography — footfall, spend, size-profile, what actually sells. (This is the same "cluster on behavior, not store attributes" lesson from Season 1's [DS-problems post](/blog/ds-problems/).) A premium floral wrap dress belongs in the 12 flagships and some regional cities. A size-inclusive jersey dress in a deep size run belongs in the 58 suburban stores. Ship the flagship range to the suburbs and you get markdowns; withhold the best-seller from the regionals and you get the invisible-best-seller problem I opened with.
 
 ### Breadth vs. depth, in numbers
 
@@ -109,7 +113,7 @@ This is why the best assortment work blends the algorithm's ranking with the cat
 
 2. **Attribute-based demand for new products.** The single highest-value model in assortment planning. Decompose styles into attributes, estimate attribute-level demand, and produce credible forecasts for products with zero history.
 
-3. **A substitution / walk-rate map.** Quantify which styles are unique (protect them) and which cannibalize (rationalize them). This directly informs both ranging and the "never let it break" availability rules from Season 1's brokenness post.
+3. **A substitution / walk-rate map.** Quantify which styles are unique (protect them) and which cannibalize (rationalize them). This directly informs both ranging and the "never let it break" availability rules from Season 1's [brokenness post](/blog/brokenness/).
 
 4. **Cluster-level breadth/depth optimization.** Given each cluster's budget and shelf capacity, recommend how many styles and how deep — respecting MOQ so the plan is buildable, not just optimal on paper.
 
@@ -133,7 +137,7 @@ As always: the deliverable isn't a ranked SKU table. It's a ranging recommendati
 
 ## What's Next
 
-We've set the budget (Part 11) and chosen the range (Part 12). Both were locked *before the season started* — pre-season planning. But the season never behaves. In Part 13, we look at **the two clocks of retail**: the pre-season plan built months ahead, and the in-season plan that changes every Monday — and why the pivot between them is where seasons are won or lost.
+We've set the budget (Part 11) and chosen the range (Part 12). Both were locked *before the season started* — pre-season planning. But the season never behaves. In Part 13, we look at **[the two clocks of retail](/blog/pre-vs-in-season/)**: the pre-season plan built months ahead, and the in-season plan that changes every Monday — and why the pivot between them is where seasons are won or lost.
 
 ---
 

@@ -257,7 +257,7 @@ Not all 10 problems are equally urgent for every retailer. Here's how to think a
 
 ## What's Next
 
-The final post in this series: **Building a Canonical Metric Layer** — the single most durable thing a retail data scientist can build. How to design a metric architecture that every team in the business can trust, how to handle the aggregation rules that trip everyone up, and what it looks like in practice.
+The final post of Season 1: **[Building a Canonical Metric Layer](/blog/metric-layer/)** — the single most durable thing a retail data scientist can build. How to design a metric architecture that every team in the business can trust, how to handle the aggregation rules that trip everyone up, and what it looks like in practice.
 
 ---
 
