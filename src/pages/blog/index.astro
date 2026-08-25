@@ -2,11 +2,14 @@
 import Base from '../../layouts/Base.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import PostListItem from '../../components/PostListItem.astro';
+import TagList from '../../components/TagList.astro';
+import Icon from '../../components/Icon.astro';
 import { getPosts, getTags } from '../../lib/posts';
 import { site } from '../../lib/site';
 
 const posts = await getPosts();
 const tags = await getTags();
+const tagCounts = Object.fromEntries(tags.map(({ tag, count }) => [tag, count]));
 ---
 
 <Base title={`Blog — ${site.shortName}`} description={`Writing by ${site.name}.`}>
@@ -15,15 +18,9 @@ const tags = await getTags();
 
     {
       tags.length > 0 && (
-        <ul class="taglist">
-          {tags.map(({ tag, count }) => (
-            <li>
-              <a href={`/tags/${tag}/`} class="tag">
-                {tag} <span class="count">{count}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div class="taglist">
+          <TagList tags={tags.map((t) => t.tag)} counts={tagCounts} />
+        </div>
       )
     }
 
@@ -41,7 +38,12 @@ const tags = await getTags();
       )
     }
 
-    <p class="feed"><a href="/rss.xml">RSS feed</a></p>
+    <p class="feed">
+      <a href="/rss.xml">
+        <Icon name="rss" />
+        RSS feed
+      </a>
+    </p>
   </div>
 </Base>
 
@@ -51,32 +53,7 @@ const tags = await getTags();
   }
 
   .taglist {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s-2) var(--s-4);
     margin-block-start: var(--s-6);
-    padding: 0;
-    list-style: none;
-  }
-
-  .tag {
-    font-family: var(--face-mono);
-    font-size: var(--t-meta);
-    color: var(--muted);
-    text-decoration: none;
-  }
-
-  .tag::before {
-    content: '#';
-    opacity: 0.6;
-  }
-
-  .tag:hover {
-    color: var(--accent);
-  }
-
-  .count {
-    color: var(--faint);
   }
 
   .list {
@@ -101,8 +78,12 @@ const tags = await getTags();
   }
 
   .feed a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-1);
     color: var(--muted);
     text-decoration: none;
+    transition: color var(--dur) var(--ease);
   }
 
   .feed a:hover {

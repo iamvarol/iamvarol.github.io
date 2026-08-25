@@ -10,13 +10,15 @@ interface Props {
   context?: string;
   highlights: string[];
   stack?: string[];
+  tone: number;
 }
 
 // Roles are deliberately not numbered. The sections already carry 01–06, and a
 // second zero-padded sequence inside them reads as two competing systems — the
 // PDF numbers sections only, so this keeps both renderings speaking the same
 // visual language.
-const { company, role, location, start, end, context, highlights, stack = [] } = Astro.props;
+const { company, role, location, start, end, context, highlights, stack = [], tone } =
+  Astro.props;
 ---
 
 <article class="role">
@@ -25,7 +27,7 @@ const { company, role, location, start, end, context, highlights, stack = [] } =
       <h3 class="title">
         {role} <span class="at">·</span> <span class="company">{company}</span>
       </h3>
-      <p class="when">
+      <p class="when" style={`--chip-bg: var(--tone-${tone})`}>
         {formatRange(start, end)}{location && <> <span aria-hidden="true">·</span> {location}</>}
       </p>
       {context && <p class="context">{context}</p>}
@@ -74,10 +76,16 @@ const { company, role, location, start, end, context, highlights, stack = [] } =
   }
 
   .when {
+    display: inline-block;
     margin-block-start: var(--s-2);
+    padding-inline: var(--s-2);
+    border-radius: 4px;
+    background: var(--chip-bg);
     font-family: var(--face-mono);
     font-size: var(--t-meta);
-    color: var(--faint);
+    /* --faint fails AA once the chip sits on --tone-1 (4.04:1) — see
+       tokens.css's tone-ramp note and CareerTimeline's own card text. */
+    color: var(--muted);
   }
 
   .context {

@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import SectionHeading from '../components/SectionHeading.astro';
+import Icon from '../components/Icon.astro';
 import { site, socials } from '../lib/site';
 
 // No form, by request. A form on a static site needs a third-party endpoint,
@@ -24,7 +25,12 @@ const links = socials.filter((s) => s.href.startsWith('http'));
     <dl class="channels">
       <div class="channel">
         <dt>Email</dt>
-        <dd><a class="primary" href={`mailto:${site.email}`}>{site.email}</a></dd>
+        <dd>
+          <a class="primary" href={`mailto:${site.email}`}>
+            <Icon name="mail" />
+            <span>{site.email}</span>
+          </a>
+        </dd>
       </div>
 
       {
@@ -33,7 +39,8 @@ const links = socials.filter((s) => s.href.startsWith('http'));
             <dt>{link.label}</dt>
             <dd>
               <a href={link.href} rel="me noopener">
-                {link.href.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}
+                <Icon name={link.icon} />
+                <span>{link.href.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}</span>
               </a>
             </dd>
           </div>
@@ -92,16 +99,27 @@ const links = socials.filter((s) => s.href.startsWith('http'));
   }
 
   dd a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-1);
     color: var(--fg);
     text-decoration: none;
+    transition: color var(--dur) var(--ease);
+  }
+
+  dd a span {
     border-block-end: 1px solid var(--rule-strong);
     padding-block-end: 2px;
     /* Long handles must not push the page wide on a phone. */
     overflow-wrap: anywhere;
+    transition: border-color var(--dur) var(--ease);
   }
 
   dd a:hover {
     color: var(--accent);
+  }
+
+  dd a:hover span {
     border-color: var(--accent);
   }
 

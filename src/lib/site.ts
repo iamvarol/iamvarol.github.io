@@ -6,6 +6,7 @@
  * a public/CNAME — nothing else, because no link in the codebase is prefixed
  * with a base path.
  */
+import type { IconName } from './icons';
 
 export const site = {
   url: 'https://iamvarol.github.io',
@@ -41,19 +42,29 @@ export const site = {
 export type SocialLink = {
   label: string;
   href: string;
+  icon: IconName;
   /** Shown in the footer; the contact page lists all of them. */
   primary?: boolean;
 };
 
 export const socials: SocialLink[] = [
-  { label: 'Email', href: `mailto:${site.email}`, primary: true },
-  { label: 'GitHub', href: 'https://github.com/iamvarol', primary: true },
+  { label: 'Email', href: `mailto:${site.email}`, icon: 'mail', primary: true },
+  { label: 'GitHub', href: 'https://github.com/iamvarol', icon: 'github', primary: true },
   // The archived Hugo site had this URL without the `/in/` segment, which 404s.
   // Now the vanity handle from the 2026 resume, so the site and the PDF agree —
   // the older `/in/ali-emre-varol-012989193/` form still resolves to the same profile.
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/aliemre-v', primary: true },
-  { label: 'Stack Overflow', href: 'https://stackoverflow.com/users/12928224/iamvarol' },
-  { label: 'X', href: 'https://x.com/iamvarol' },
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/aliemre-v',
+    icon: 'linkedin',
+    primary: true,
+  },
+  {
+    label: 'Stack Overflow',
+    href: 'https://stackoverflow.com/users/12928224/iamvarol',
+    icon: 'stack-overflow',
+  },
+  { label: 'X', href: 'https://x.com/iamvarol', icon: 'x' },
 ];
 
 export type NavItem = {

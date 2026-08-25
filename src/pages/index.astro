@@ -5,6 +5,7 @@ import SectionHeading from '../components/SectionHeading.astro';
 import PostListItem from '../components/PostListItem.astro';
 import PostTimeline from '../components/PostTimeline.astro';
 import CareerTimeline from '../components/CareerTimeline.astro';
+import Icon from '../components/Icon.astro';
 import { site, socials } from '../lib/site';
 import { getPosts } from '../lib/posts';
 import { getLanding, getCareerStages } from '../lib/resume';
@@ -111,7 +112,8 @@ const jsonLd = {
         links.map((link) => (
           <li>
             <a href={link.href} rel={link.href.startsWith('http') ? 'me noopener' : undefined}>
-              {link.label}
+              <Icon name={link.icon} />
+              <span>{link.label}</span>
             </a>
           </li>
         ))
@@ -161,6 +163,7 @@ const jsonLd = {
     font-size: var(--t-small);
     font-weight: var(--w-semibold);
     text-decoration: none;
+    transition: background-color var(--dur) var(--ease);
   }
 
   .btn:hover {
@@ -173,6 +176,7 @@ const jsonLd = {
     font-size: var(--t-meta);
     color: var(--muted);
     text-decoration: none;
+    transition: color var(--dur) var(--ease);
   }
 
   .quiet:hover {
@@ -182,6 +186,38 @@ const jsonLd = {
   .block {
     padding-block: var(--s-section);
     border-block-start: 1px solid var(--rule);
+  }
+
+  /* Entrance on scroll, driven by the section's own position rather than a
+     duration — pure CSS, no observer. Unsupported browsers simply keep the
+     section fully visible, which is the same "already works without it"
+     contract the two client scripts on this site follow. */
+  @supports (animation-timeline: view()) {
+    .block {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 25%;
+    }
+
+    @keyframes reveal {
+      from {
+        opacity: 0;
+        transform: translateY(var(--s-4));
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* animation-timeline progress isn't gated by animation-duration, so
+       --dur: 0ms alone (base.css's global reduced-motion rule) does not
+       neutralise this the way it does a transition — it needs its own kill. */
+    @media (prefers-reduced-motion: reduce) {
+      .block {
+        animation: none;
+      }
+    }
   }
 
   /* Numbered sequence ---------------------------------------------------- */
@@ -256,6 +292,7 @@ const jsonLd = {
   .more a {
     color: var(--muted);
     text-decoration: none;
+    transition: color var(--dur) var(--ease);
   }
 
   .more a:hover {
@@ -272,15 +309,26 @@ const jsonLd = {
   }
 
   .links a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-1);
     font-size: var(--t-small);
     color: var(--fg);
     text-decoration: none;
+  }
+
+  .links a span {
     border-block-end: 1px solid var(--rule-strong);
     padding-block-end: 2px;
+    transition: border-color var(--dur) var(--ease);
   }
 
   .links a:hover {
     color: var(--accent);
+    transition: color var(--dur) var(--ease);
+  }
+
+  .links a:hover span {
     border-color: var(--accent);
   }
 </style>

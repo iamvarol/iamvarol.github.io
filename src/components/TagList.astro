@@ -1,0 +1,57 @@
+---
+// The one tag-pill rendering, shared by PostListItem, the post layout's footer,
+// and the blog index's filter list — those three used to each redeclare this
+// with slightly different tokens.
+
+interface Props {
+  tags: string[];
+  counts?: Record<string, number>;
+}
+
+const { tags, counts } = Astro.props;
+---
+
+<ul class="tags">
+  {
+    tags.map((tag) => (
+      <li>
+        <a href={`/tags/${tag}/`} class="tag">
+          {tag}
+          {counts && <span class="count">{counts[tag]}</span>}
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    padding: 0;
+    list-style: none;
+  }
+
+  .tag {
+    font-family: var(--face-mono);
+    font-size: var(--t-meta);
+    color: var(--muted);
+    text-decoration: none;
+    transition: color var(--dur) var(--ease);
+  }
+
+  .tag::before {
+    content: '#';
+    opacity: 0.6;
+  }
+
+  .tag:hover {
+    color: var(--accent);
+  }
+
+  .count {
+    margin-inline-start: var(--s-1);
+    color: var(--faint);
+  }
+</style>

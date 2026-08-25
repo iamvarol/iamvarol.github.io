@@ -2,6 +2,8 @@
 import Base from './Base.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Eyebrow from '../components/Eyebrow.astro';
+import TagList from '../components/TagList.astro';
+import Icon from '../components/Icon.astro';
 import { readingTime, type Post } from '../lib/posts';
 import '../styles/prose.css';
 
@@ -29,7 +31,10 @@ const minutes = readingTime(post.body);
 
       {link && (
         <p class="crosspost">
-          <a href={link} target="_blank" rel="noopener noreferrer">↗ {link_text}</a>
+          <a href={link} target="_blank" rel="noopener noreferrer">
+            <Icon name="external" />
+            {link_text}
+          </a>
         </p>
       )}
     </header>
@@ -42,15 +47,7 @@ const minutes = readingTime(post.body);
       tags.length > 0 && (
         <footer class="foot">
           <Eyebrow>Tagged</Eyebrow>
-          <ul class="tags">
-            {tags.map((tag) => (
-              <li>
-                <a href={`/tags/${tag}/`} class="tag">
-                  {tag}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <TagList tags={tags} />
         </footer>
       )
     }
@@ -95,8 +92,12 @@ const minutes = readingTime(post.body);
   }
 
   .crosspost a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-1);
     color: var(--muted);
     text-decoration: none;
+    transition: color var(--dur) var(--ease);
   }
 
   .crosspost a:hover {
@@ -112,31 +113,6 @@ const minutes = readingTime(post.body);
     border-block-start: 1px solid var(--rule);
   }
 
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s-2) var(--s-4);
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .tag {
-    font-family: var(--face-mono);
-    font-size: var(--t-small);
-    color: var(--muted);
-    text-decoration: none;
-  }
-
-  .tag::before {
-    content: '#';
-    opacity: 0.6;
-  }
-
-  .tag:hover {
-    color: var(--accent);
-  }
-
   .back {
     margin-block-start: var(--s-7);
     font-size: var(--t-small);
@@ -145,6 +121,7 @@ const minutes = readingTime(post.body);
   .back a {
     color: var(--muted);
     text-decoration: none;
+    transition: color var(--dur) var(--ease);
   }
 
   .back a:hover {

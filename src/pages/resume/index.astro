@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import Eyebrow from '../../components/Eyebrow.astro';
+import Icon from '../../components/Icon.astro';
 import ExperienceEntry from '../../components/resume/ExperienceEntry.astro';
 import SkillGroup from '../../components/resume/SkillGroup.astro';
 import ReferenceEntry from '../../components/resume/ReferenceEntry.astro';
@@ -24,10 +25,22 @@ const PDF = '/emre-varol-resume.pdf';
       <p class="label">{b.label} <span class="focus">{b.focus.join(' · ')}</span></p>
 
       <ul class="contact">
-        <li>{b.location}</li>
-        <li><a href={`mailto:${b.email}`}>{b.email}</a></li>
-        <li><a href={b.linkedin} rel="me noopener">LinkedIn</a></li>
-        <li><a href={b.github} rel="me noopener">GitHub</a></li>
+        <li>
+          <Icon name="pin" />
+          {b.location}
+        </li>
+        <li>
+          <Icon name="mail" />
+          <a href={`mailto:${b.email}`}>{b.email}</a>
+        </li>
+        <li>
+          <Icon name="linkedin" />
+          <a href={b.linkedin} rel="me noopener">LinkedIn</a>
+        </li>
+        <li>
+          <Icon name="github" />
+          <a href={b.github} rel="me noopener">GitHub</a>
+        </li>
       </ul>
 
       <p class="summary">{b.summary}</p>
@@ -41,7 +54,7 @@ const PDF = '/emre-varol-resume.pdf';
       <SectionHeading eyebrow="01" id="experience">Experience</SectionHeading>
       <div class="entries">
         {
-          r.experience.map((role) => (
+          r.experience.map((role, i) => (
             <ExperienceEntry
               company={role.company}
               role={role.role}
@@ -51,6 +64,7 @@ const PDF = '/emre-varol-resume.pdf';
               context={role.context}
               highlights={role.highlights}
               stack={role.stack}
+              tone={Math.min(i + 1, 7)}
             />
           ))
         }
@@ -181,9 +195,16 @@ const PDF = '/emre-varol-resume.pdf';
     color: var(--muted);
   }
 
+  .contact li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-1);
+  }
+
   .contact a {
     color: var(--muted);
     text-decoration: none;
+    transition: color var(--dur) var(--ease);
   }
 
   .contact a:hover {
@@ -222,6 +243,7 @@ const PDF = '/emre-varol-resume.pdf';
     font-size: var(--t-small);
     font-weight: var(--w-semibold);
     text-decoration: none;
+    transition: background-color var(--dur) var(--ease);
   }
 
   .btn:hover {
