@@ -24,7 +24,7 @@ This is what happens when a business doesn't have a canonical metric layer — a
 
 Building this is the most unglamorous, most impactful thing a retail data scientist can do. It doesn't get conference talks. It doesn't involve neural networks. But it is the infrastructure that makes every other model in this series actually usable — because without it, the planners are working with different numbers than the allocators, who are working with different numbers than the finance team, and every model output gets re-questioned the moment it disagrees with someone's spreadsheet.
 
-![A dashboard of charts and metrics on a screen](./metric-layer-hero.jpg)
+![A dashboard of charts and metrics on a screen](../../assets/blog/metric-layer-hero.jpg)
 
 *Photo by [Mark Fletcher-Brown](https://unsplash.com/@markfb) on [Unsplash](https://unsplash.com/).*
 

@@ -22,7 +22,7 @@ Markdowns are the most expensive routine decision in retail. Done well, they're 
 
 This post is about how to do it right.
 
-![A "SALE" sign in a clothing store window](./markdown-optimization-hero.jpg)
+![A "SALE" sign in a clothing store window](../../assets/blog/markdown-optimization-hero.jpg)
 
 *Photo by [Artem Beliaikin](https://unsplash.com/@belart84) on [Unsplash](https://unsplash.com/).*
 

@@ -11,7 +11,7 @@ link_text: Read on Medium
 
 In this post, we'll use Neo4j to turn the European gas network into a knowledge graph and analyze the data.
 
-![Industrial gas pipeline infrastructure](./european-gas-network-hero.jpg)
+![Industrial gas pipeline infrastructure](../../assets/blog/european-gas-network-hero.jpg)
 
 *Photo by [Rostislav Artov](https://unsplash.com/@rostikarts) on [Unsplash](https://unsplash.com/).*
 

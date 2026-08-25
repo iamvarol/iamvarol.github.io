@@ -9,7 +9,7 @@ link_text: Read on Medium
 ---
 # Analyzing Roland Garros and US Open Tennis Tournaments via Neo4j
 
-![A tennis ball on a clay court](./tennis-knowledge-graph-hero.jpg)
+![A tennis ball on a clay court](../../assets/blog/tennis-knowledge-graph-hero.jpg)
 
 *Photo by [Kevin Mueller](https://unsplash.com/@kevinmueller) on [Unsplash](https://unsplash.com/).*
 

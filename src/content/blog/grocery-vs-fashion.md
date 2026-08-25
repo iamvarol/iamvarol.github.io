@@ -20,7 +20,7 @@ Grocery and fashion are so structurally different that a data scientist who's ex
 
 This post is for anyone who's about to enter one of these worlds, or who works with both and wants a clear mental map of how they diverge.
 
-![A supermarket aisle next to a clothing rack](./grocery-vs-fashion-hero.jpg)
+![A supermarket aisle next to a clothing rack](../../assets/blog/grocery-vs-fashion-hero.jpg)
 
 *Photo by [Bruce](https://unsplash.com/@huhexian) on [Unsplash](https://unsplash.com/).*
 

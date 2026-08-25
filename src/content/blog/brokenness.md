@@ -20,7 +20,7 @@ Customers were walking out empty-handed — not because products were missing, b
 
 This is the brokenness problem. And it's one of the most expensive things retailers consistently measure wrong.
 
-![Rows of folded clothing on a retail shelf](./brokenness-hero.jpg)
+![Rows of folded clothing on a retail shelf](../../assets/blog/brokenness-hero.jpg)
 
 *Photo by [Nguyễn Duy Hưng](https://unsplash.com/@hungnguyenvn) on [Unsplash](https://unsplash.com/).*
 

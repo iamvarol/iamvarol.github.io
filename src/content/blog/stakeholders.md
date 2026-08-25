@@ -23,7 +23,7 @@ I didn't understand why until I sat next to her for a day and watched how she ac
 
 Retail is an industry where the data science fails at the organizational layer far more often than at the technical layer. Before you write a single line of code, you need to know who makes decisions, what they actually care about, and — crucially — how they'll interpret your output.
 
-![A group of people in a meeting around a table](./stakeholders-hero.jpg)
+![A group of people in a meeting around a table](../../assets/blog/stakeholders-hero.jpg)
 
 *Photo by [Rodeo Project Management Software](https://unsplash.com/@getrodeo) on [Unsplash](https://unsplash.com/).*
 

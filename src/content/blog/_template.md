@@ -58,14 +58,19 @@ set and nothing to keep in sync.
 
 ## Images and sketches
 
-Save the file next to this post (flat, not in a subfolder — a subfolder would change the URL,
-since the filename *is* the slug) and reference it with a relative Markdown image:
+Save the file under `src/assets/blog/` (flat, named after the post it belongs to, e.g.
+`my-post-slug-diagram.png`) rather than next to the post itself — that keeps binary assets out
+of the content directory entirely, so `src/content/blog/` stays pure Markdown. Reference it
+with a relative Markdown image, `../../assets/blog/` from any file in `src/content/blog/`:
 
 ```markdown
-![Alt text describing the diagram](./my-post-diagram.png)
+![Alt text describing the diagram](../../assets/blog/my-post-slug-diagram.png)
 ```
 
-This applies to SVG sketches too, not just photos/screenshots — one convention for both.
+This applies to SVG sketches too, not just photos/screenshots — one convention for both. The
+relative path still resolves and still gets optimized even though the image lives outside
+`src/content/` — Astro's content-layer image resolution is plain Vite import resolution
+underneath, not something that requires colocation in the same directory.
 
 **Always use `![]()` Markdown syntax, never a raw `<img>` tag.** Astro's content pipeline only
 optimizes and resolves the Markdown form; a raw `<img src="./file.png">` is passed through

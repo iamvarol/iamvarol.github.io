@@ -20,7 +20,7 @@ Not hard in a technical sense. Hard in a *business* sense. The models are often 
 
 This is the first post in a series about what retail actually looks like from the inside — and why it demands a different kind of data science thinking than almost any other industry.
 
-![A busy retail store aisle](./why-retail-is-hard-hero.jpg)
+![A busy retail store aisle](../../assets/blog/why-retail-is-hard-hero.jpg)
 
 *Photo by [Lance Chang](https://unsplash.com/@carmendis) on [Unsplash](https://unsplash.com/).*
 
