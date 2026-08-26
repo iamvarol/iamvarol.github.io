@@ -29,7 +29,7 @@ const newest = posts[0];
         <ol class="entries">
           {group.map((post) => (
             <li class="entry" data-active={post.id === newest?.id ? '' : undefined}>
-              <a class="link" href={`/blog/${post.id}/`}>
+              <a class="link" href={`/blog/${post.id}/`} target="_blank" rel="noopener noreferrer">
                 {/* datetime carries the full ISO value for machines; the year a
                     human hears comes from the group marker above. */}
                 <FormattedDate date={post.data.date} format="day-month" class="when" />

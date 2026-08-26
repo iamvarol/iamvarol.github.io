@@ -38,7 +38,7 @@ const links = socials.filter((s) => s.href.startsWith('http'));
           <div class="channel">
             <dt>{link.label}</dt>
             <dd>
-              <a href={link.href} rel="me noopener">
+              <a href={link.href} target="_blank" rel="me noopener noreferrer">
                 <Icon name={link.icon} />
                 <span>{link.href.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}</span>
               </a>

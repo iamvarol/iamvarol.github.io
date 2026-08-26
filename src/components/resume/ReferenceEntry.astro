@@ -19,7 +19,7 @@ const { title, venue, date, url } = Astro.props;
   <span class="ref-title">
     {
       url ? (
-        <a href={url} rel="noopener">
+        <a href={url} target="_blank" rel="noopener noreferrer">
           {title}
         </a>
       ) : (

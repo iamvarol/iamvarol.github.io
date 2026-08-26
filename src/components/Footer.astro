@@ -17,7 +17,8 @@ const links = socials.filter((s) => s.primary);
             <a
               href={link.href}
               class="link"
-              rel={link.href.startsWith('http') ? 'me noopener' : undefined}
+              target={link.href.startsWith('http') ? '_blank' : undefined}
+              rel={link.href.startsWith('http') ? 'me noopener noreferrer' : undefined}
             >
               <Icon name={link.icon} />
               {link.label}

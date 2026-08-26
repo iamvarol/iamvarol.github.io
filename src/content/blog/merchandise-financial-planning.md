@@ -4,7 +4,7 @@ date: 2026-08-25
 description: "By the time a buyer picks next season's dresses, the most important number is already decided — by a spreadsheet built six to nine months earlier, in a room the data team was never in."
 tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
-link: 
+link: https://medium.com/@a.emrevarol/the-money-map-how-retail-decides-your-budget-before-you-buy-anything-2bbdc05ad838
 link_text: Read on Medium
 published: true
 ---
@@ -150,7 +150,7 @@ If MFP is so logical, why is it so often a mess? Because in most retailers it is
 
 Finance builds the strategic budget in one tool. Merchandising builds product plans in another — often offline workbooks with hundreds of tabs. The two are reconciled only when someone consolidates them by hand for a quarterly review. By then the market has moved, and the meeting that was supposed to chart strategy degrades into an argument about *why the numbers don't match and whose fault it is.* This is the **planning gap** — the silo between financial intent and merchandising reality — and it's the number-one reason MFP transformations get funded.
 
-You'll recognize the shape of this problem from Season 1's [post on the metric layer](/blog/metric-layer/): **two teams, same data, different numbers.** The fix is the same in spirit — a single, shared, granular source of truth that finance and merchandising both read from, each through their own lens, without a manual consolidation step in between. Modern planning platforms (RELEX, o9, Blue Yonder, Oracle, SAP) are, at their core, selling exactly that: one data model that turns financial targets from passive goals into active constraints on every downstream plan.
+You'll recognize the shape of this problem from Season 1's [post on the metric layer](/blog/metric-layer/): **two teams, same data, different numbers.** The fix is the same in spirit — a single, shared, granular source of truth that finance and merchandising both read from, each through their own lens, without a manual consolidation step in between. Modern planning platforms are, at their core, selling exactly that: one data model that turns financial targets from passive goals into active constraints on every downstream plan.
 
 ---
 
