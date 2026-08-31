@@ -4,7 +4,7 @@ date: 2026-08-26
 description: "Your best-selling style is invisible in 90 of your 120 stores. Not because it flopped there — because it was never ranged there at all."
 tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
-link: 
+link: https://medium.com/@a.emrevarol/choosing-what-to-sell-where-the-assortment-problem-80839c1e666f
 link_text: Read on Medium
 published: true
 ---

@@ -54,7 +54,7 @@ Continuous replenishment turns on two parameters. We met both in Season 1's [inv
 
 - **Safety Stock** — the buffer against the two things that go wrong: demand spikes above forecast, or deliveries arrive late. Modern systems don't hold it as a fixed number — they flex it per SKU based on how volatile that product's demand and lead time actually are.
 
-**FreshMart — Reorder Point for Greek Yogurt (one store)**
+**FreshMart — Reorder Point for Yogurt (one store)**
 
 | Input | Value |
 |---|---|
@@ -78,7 +78,7 @@ Here's the failure I opened with. The entire replenishment engine trusts one num
 
 | SKU | System stock | Actual shelf | Phantom gap | vs. reorder point | What happens |
 |---|---|---|---|---|---|
-| Greek Yogurt 500g | 138 | 138 | 0 | Genuinely above | Correct — no action needed |
+| Yogurt 500g | 138 | 138 | 0 | Genuinely above | Correct — no action needed |
 | Oat Milk 1L | 96 | 12 | 84 | System reads above; shelf is below | **Silent stockout — no reorder fires** |
 | Butter 250g | 61 | 61 | 0 | Genuinely above | Correct |
 | Kefir 500ml | 44 | 0 | 44 | System reads above; shelf is empty | **Silent stockout — no reorder fires** |

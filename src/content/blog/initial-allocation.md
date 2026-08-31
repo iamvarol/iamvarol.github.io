@@ -1,13 +1,14 @@
 ---
-title: "The First Irreversible Bet: Initial Allocation"
+
+## title: "The First Irreversible Bet: Initial Allocation"
 date: 2026-08-28
 description: "In most fashion retail, the first shipment to stores is also the last. Whatever each store gets on day one is, more or less, what it has to sell the whole season."
 tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
-link: 
+link: https://medium.com/@a.emrevarol/the-first-irreversible-bet-initial-allocation-aa9a750a7f3c
 link_text: Read on Medium
 published: true
----
+
 # The First Irreversible Bet: Initial Allocation
 
 *Part 14 of "The Retail Data Playbook" — Season 2: Inside the Planning Machine*
@@ -26,21 +27,27 @@ Season 1 introduced allocation as one of the three ways inventory moves (allocat
 
 ---
 
+
+
 ## Allocation Is Not Replenishment
 
 It's worth being precise, because retailers who blur these two make expensive mistakes:
 
-| | Initial Allocation | Replenishment |
-|---|---|---|
-| Purpose | Proactively distribute new/limited inventory across locations | Reactively restock what's sold |
-| Timing | Once, at season start (or a phased first wave) | Continuous, throughout the season |
-| Supply assumption | **Finite** — you distribute what you have, once | **Ongoing** — you reorder as needed |
-| Character | Predictive bet | Correction engine |
-| If you get it wrong | End-of-season markdowns and dead stock | Stockouts, or costly store transfers |
+
+|                     | Initial Allocation                                            | Replenishment                        |
+| ------------------- | ------------------------------------------------------------- | ------------------------------------ |
+| Purpose             | Proactively distribute new/limited inventory across locations | Reactively restock what's sold       |
+| Timing              | Once, at season start (or a phased first wave)                | Continuous, throughout the season    |
+| Supply assumption   | **Finite** — you distribute what you have, once               | **Ongoing** — you reorder as needed  |
+| Character           | Predictive bet                                                | Correction engine                    |
+| If you get it wrong | End-of-season markdowns and dead stock                        | Stockouts, or costly store transfers |
+
 
 Replenishment is a *correction engine* — it responds to live sales signals. Initial allocation sets the starting position of the whole board. For a style with limited or no reorders — a capsule collection, a seasonal trend piece — allocation isn't just important, it's essentially the only decision that matters.
 
 ---
+
+
 
 ## The Anatomy of an Allocation
 
@@ -53,9 +60,14 @@ A modern initial allocation runs through a recognizable sequence, most of which 
 5. **Execution** — route the trucks.
 6. **Monitor & call back** — watch actuals, trigger replenishment/transfers, and at season end recall or mark down the stragglers.
 
-Two of these deserve real attention: how you split units when you don't have enough (the constrained case), and how you split across sizes (the size curve). The second is where the money hides.
+Two of these deserve real attention: 
+(i) how you split units when you don't have enough (the constrained case), and 
+(ii)how you split across sizes (the size curve). 
+The second is where the money hides.
 
 ---
+
+
 
 ## The Constrained Case: When You Can't Fill Everyone
 
@@ -68,6 +80,8 @@ The hold-back is one of the most underrated moves in fashion. It converts a pure
 
 ---
 
+
+
 ## The Size Curve: The Quiet Margin Killer
 
 Here's the trap. You can forecast a style's *total* units perfectly and still lose serious margin — if you split those units across sizes wrong. Sell out of M and L in week three while XS and XXL pile up, and your "80% available" style is really serving maybe 40% of demand. It's the [brokenness problem](/blog/brokenness/) from Season 1, created at birth by a bad size curve.
@@ -78,21 +92,25 @@ Watch why that's broken. Suppose last season's knitwear sold in this size mix:
 
 **Knitwear — Last Season, As Sold**
 
+
 | Size | Units sold | % of sales |
-|---|---|---|
-| S | 400 | 20% |
-| M | 1,200 | 60% |
-| L | 400 | 20% |
+| ---- | ---------- | ---------- |
+| S    | 400        | 20%        |
+| M    | 1,200      | 60%        |
+| L    | 400        | 20%        |
+
 
 So the system allocates the new style 20/60/20. Looks data-driven. But look at *when* each size sold out:
 
 **Knitwear — Last Season, With Stockout Timing**
 
-| Size | Units received | Sold out? | True demand signal |
-|---|---|---|---|
-| S | 500 | No — leftovers | ~ demand met |
-| M | 1,200 | No — leftovers | ~ demand met |
-| L | 400 | **Yes, week 6** | demand was *higher* — customers walked |
+
+| Size | Units received | Sold out?       | True demand signal                     |
+| ---- | -------------- | --------------- | -------------------------------------- |
+| S    | 500            | No — leftovers  | ~ demand met                           |
+| M    | 1,200          | No — leftovers  | ~ demand met                           |
+| L    | 400            | **Yes, week 6** | demand was *higher* — customers walked |
+
 
 L sold out halfway through the season. Every L customer who arrived after week 6 either walked or bought nothing. The "20%" for L isn't demand — it's the ceiling of what you happened to stock. True L demand might have been 35%. Allocate 20/60/20 again next season and you *re-create the exact same stockout*, then read the sales, and conclude — again — that L is 20%. That's the **circular logic of constrained data**: your allocation caps your sales, and then you use those capped sales to set your next allocation. The error is self-perpetuating.
 
@@ -100,11 +118,13 @@ The fix is **demand unconstraining**. Instead of trusting raw sales, the model f
 
 **Knitwear — Corrected (Unconstrained) Size Curve**
 
-| Size | As-sold % (wrong) | Unconstrained % (right) | Allocation impact |
-|---|---|---|---|
-| S | 20% | 18% | Slightly less |
-| M | 60% | 47% | Meaningfully less |
-| L | 20% | 35% | **Substantially more** |
+
+| Size | As-sold % (wrong) | Unconstrained % (right) | Allocation impact      |
+| ---- | ----------------- | ----------------------- | ---------------------- |
+| S    | 20%               | 18%                     | Slightly less          |
+| M    | 60%               | 47%                     | Meaningfully less      |
+| L    | 20%               | 35%                     | **Substantially more** |
+
 
 Same total units — but this split keeps L on the shelf all season instead of losing it in week six. This is the exact same censoring problem Season 1's [forecasting post](/blog/demand-forecasting/) described (out-of-stock records zero sales, poisoning the training data), applied to the size dimension. If you build nothing else for allocation, build this.
 
@@ -112,19 +132,23 @@ For genuinely new styles with no history at all, the tools shift to **attribute-
 
 ---
 
+
+
 ## The Scenario: TrendCo Allocates the Floral Wrap
 
 TrendCo has 6,400 units of the Floral Wrap Midi to ship on day one (1,600 held back), across four store clusters. Naive approach: split pro-rata by total store revenue. Better approach: allocate to *clustered, unconstrained demand*.
 
 **TrendCo — Initial Allocation, Naive vs Demand-Based**
 
-| Cluster | Stores | Pro-rata by revenue | Demand-based (clustered) | Why the difference |
-|---|---|---|---|---|
-| Urban Flagship | 12 | 1,900 | 2,600 | Trend-forward; this style over-indexes here |
-| Regional City | 34 | 2,400 | 2,500 | On-profile; roughly matched |
-| Suburban Family | 58 | 1,700 | 1,100 | Under-indexes on premium trend styles |
-| Compact / Outlet | 16 | 400 | 200 | Below minimum shipment for most |
-| **Total** | **120** | **6,400** | **6,400** | Same units, different split |
+
+| Cluster          | Stores  | Pro-rata by revenue | Demand-based (clustered) | Why the difference                          |
+| ---------------- | ------- | ------------------- | ------------------------ | ------------------------------------------- |
+| Urban Flagship   | 12      | 1,900               | 2,600                    | Trend-forward; this style over-indexes here |
+| Regional City    | 34      | 2,400               | 2,500                    | On-profile; roughly matched                 |
+| Suburban Family  | 58      | 1,700               | 1,100                    | Under-indexes on premium trend styles       |
+| Compact / Outlet | 16      | 400                 | 200                      | Below minimum shipment for most             |
+| **Total**        | **120** | **6,400**           | **6,400**                | Same units, different split                 |
+
 
 Pro-rata by revenue over-ships the suburbs (where this premium style will stall and get marked down) and starves the flagships (where it would sell at full price). The demand-based split — built on unconstrained, size-correct, cluster-level demand — puts the units where the margin is. Same 6,400 units; a materially different season.
 
@@ -132,21 +156,21 @@ One constraint reality check: the Compact/Outlet cluster gets only 200 units bec
 
 ---
 
+
+
 ## What the Data Scientist Actually Builds
 
 1. **A demand-unconstraining pipeline.** Detect stockout timing per SKU/size/store, estimate lost sales, and correct the size curve *before* it feeds allocation. The single highest-value thing you can build here — it breaks the circular-data trap that costs margin every season.
-
 2. **Behavioral store clustering.** The same clustering that powers assortment (Part 12) powers allocation. K-means on sales velocity, category affinity, and capacity — validated (silhouette score, Davies-Bouldin), not eyeballed.
-
 3. **A constrained allocation optimizer.** Given finite supply, maximize expected full-price sell-through across clusters subject to MSQ, receiving, and capacity constraints — with cluster-priority and hold-back logic baked in.
-
 4. **Attribute / regression-tree models for cold start.** Allocate new styles on their attributes and competitive context, not on a size curve borrowed blindly from one predecessor.
-
 5. **The allocation-quality feedback loop.** Track full-price sell-through and — critically — transfer volume by store. Heavy mid-season transfers out of a store mean you over-allocated it. That signal is next season's training data (which sets up Part 16).
 
 Measure it with the right KPIs: **allocation accuracy**, **full-price sell-through rate** (the cleanest proof the allocation matched demand), **broken-size ratio**, and stock-to-sales. Full-price sell-through is the one to anchor on — it's the number that goes down, invisibly, when a bad size curve breaks the run.
 
 ---
+
+
 
 ## Key Takeaways
 
@@ -159,6 +183,8 @@ Measure it with the right KPIs: **allocation accuracy**, **full-price sell-throu
 - **Anchor on full-price sell-through, and feed transfers back.** Rising transfers out of a store are proof you over-allocated it — and the training data to fix it.
 
 ---
+
+
 
 ## What's Next
 

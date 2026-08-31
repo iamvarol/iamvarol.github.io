@@ -4,7 +4,7 @@ date: 2026-08-27
 description: "A retailer runs on two clocks at the same time, and they tick at completely different speeds."
 tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
-link: 
+link: https://medium.com/@a.emrevarol/the-two-clocks-of-retail-pre-season-vs-in-season-planning-af4b807fae34
 link_text: Read on Medium
 published: true
 ---
