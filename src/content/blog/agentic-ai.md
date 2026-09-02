@@ -1,6 +1,6 @@
 ---
 title: "The Autonomous Planner: What Agentic AI Actually Changes in Retail"
-date: 2026-08-31
+date: 2026-09-05
 description: "Every retail technology deck you'll see this year promises the same thing: an autonomous, self-healing, agentic supply chain that plans itself while you sleep."
 tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
@@ -14,7 +14,7 @@ published: true
 
 ---
 
-Every retail technology deck you'll see this year promises the same thing: an autonomous, self-healing, agentic supply chain that plans itself while you sleep. RELEX has "Rebot." Blue Yonder has "Pulse AI" micro-services and an Inventory Ops Agent. Oracle's agents write financial revisions back into the system on their own. Walmart's "Pactum" bots negotiate with a hundred thousand suppliers without a human in the room. The word "agentic" is on every slide.
+Every retail technology deck you'll see this year promises the same thing: an autonomous, self-healing, agentic supply chain that plans itself while you sleep. RELEX has "Rebot." Blue Yonder has "Pulse AI" micro-services and an Inventory Ops Agent. Oracle's agents write financial revisions back into the system on their own. invent.ai, where I work, has "Remi" — a supervisory agent coordinating specialized agents across forecasting, allocation, replenishment and pricing. Walmart's "Pactum" bots negotiate with a hundred thousand suppliers without a human in the room. The word "agentic" is on every slide.
 
 Some of this is real and already saving money. Some of it is a roadmap wearing a product name. This finale cuts through it with one question: **for the seven decisions we spent this season inside — the budget, the assortment, the two clocks, allocation, replenishment, transfers, the DC — what does agentic AI actually change, what genuinely improves, and what still needs a human?**
 
@@ -77,7 +77,7 @@ The autonomous-planner pitch quietly skips the hard parts. Every one of these is
 
 - **Dirty data still poisons everything.** Phantom inventory (Part 15), censored size curves (Part 14), the planning gap between finance and merchandising (Part 11). An agent acting confidently on bad data is *worse* than a human hesitating over it — it executes the mistake at machine speed. Garbage in, autonomous garbage out.
 - **Judgment on strategy and taste.** Assortment (Part 12) and the financial plan (Part 11) encode brand identity and risk appetite. "Science ranks, art decides" doesn't disappear when the science gets an agent.
-- **Guardrails and human-in-the-loop.** The mature deployments don't unleash agents — they sandbox them: agents act within approval barriers, on bounded budgets, with a human owning the exceptions. Autonomy is earned incrementally, decision by decision, as trust is proven.
+- **Guardrails and human-in-the-loop.** The mature deployments don't unleash agents — they sandbox them: agents act within approval barriers, on bounded budgets, with a human owning the exceptions. Autonomy is earned incrementally, decision by decision, as trust is proven. Remi is explicit about this shape: explainable recommendations rather than black-box output, and controls that let a planner approve, adjust or override an action, scoped by category, region or channel.
 - **Change management.** The single most-cited reason these projects fail isn't the algorithm — it's the organization. Roughly 60% of failures trace to workforce resistance, training gaps, and fear, not to bad math. If planners don't trust the agent, they quietly revert to spreadsheets, and the ROI evaporates.
 
 The uncomfortable truth: the bottleneck to the autonomous planner is rarely the AI. It's the data quality, the org design, and the trust — the same three things that were the bottleneck before anyone said "agentic."

@@ -1,10 +1,10 @@
 ---
 title: "The Arbitrage Hiding in Your Network: Store-to-Store Transfers"
-date: 2026-08-30
+date: 2026-09-02
 description: "Somewhere in your store network, right now, there's a style that's sold out in the stores that want it and gathering dust in the stores that don't. The demand is real. The stock is real. They're just in different postcodes."
 tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
-link: 
+link: https://medium.com/@a.emrevarol/the-arbitrage-hiding-in-your-network-store-to-store-transfers-142b3965a776
 link_text: Read on Medium
 published: true
 ---

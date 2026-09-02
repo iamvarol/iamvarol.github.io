@@ -1,6 +1,5 @@
 ---
-
-## title: "The First Irreversible Bet: Initial Allocation"
+title: "The First Irreversible Bet: Initial Allocation"
 date: 2026-08-28
 description: "In most fashion retail, the first shipment to stores is also the last. Whatever each store gets on day one is, more or less, what it has to sell the whole season."
 tags: [retail, data-science, inventory-management, data-analytics]
@@ -8,7 +7,7 @@ draft: false
 link: https://medium.com/@a.emrevarol/the-first-irreversible-bet-initial-allocation-aa9a750a7f3c
 link_text: Read on Medium
 published: true
-
+---
 # The First Irreversible Bet: Initial Allocation
 
 *Part 14 of "The Retail Data Playbook" — Season 2: Inside the Planning Machine*
