@@ -38,6 +38,13 @@ const { eyebrow, as: Tag = 'h2', size = 'display', id } = Astro.props;
     color: var(--fg);
   }
 
+  /* The serif is loaded at one weight; semibold is that weight. */
+  .display,
+  .hero {
+    font-family: var(--face-display);
+    font-weight: var(--w-semibold);
+  }
+
   .display {
     font-size: var(--t-display);
     line-height: var(--lh-display);

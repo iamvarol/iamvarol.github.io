@@ -54,14 +54,16 @@ const ogImage = new URL('/og/default.png', Astro.site).href;
   Both families are self-hosted with size-adjusted local fallbacks, so a swap
   does not shift layout.
 
-  Only the Latin sans subset is preloaded (47 KB). Preloading is deliberately
+  Only the Latin subsets of the sans and the display face are preloaded — the
+  two that paint above the fold on every page. Preloading is deliberately
   narrow: `preload` defeats the whole point of unicode-range, and preloading
-  every subset of both families would force 183 KB on every visit to fetch
+  every subset of every family would force far more on each visit to fetch
   latin-ext glyphs that most pages never use. The rest is declared in CSS and
   fetched on demand — latin-ext only when a Turkish glyph like ğ or ş actually
   appears, and mono only because eyebrow labels reference it.
 */}
 <Font cssVariable="--font-sans" preload={[{ subset: 'latin' }]} />
+<Font cssVariable="--font-display" preload={[{ subset: 'latin' }]} />
 <Font cssVariable="--font-mono" />
 
 {/*

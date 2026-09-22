@@ -29,10 +29,16 @@ export default defineConfig({
   // there is no third-party request and nothing blocks render. It also emits the
   // preload links and generates size-adjusted local fallbacks, which is what
   // keeps the swap from shifting layout.
+  //
+  // Three families, three jobs. Inter is the neutral body and UI face. Libertinus
+  // Serif carries only display sizes — the hero name, page titles, the metric
+  // figures — and is the same face the Typst resume PDF and the OG card already
+  // use, so a LinkedIn preview, the CV and the site read as one document.
+  // JetBrains Mono is the eyebrow and metadata voice.
   fonts: [
     {
       provider: fontProviders.fontsource(),
-      name: 'Montserrat',
+      name: 'Inter',
       cssVariable: '--font-sans',
       weights: ['400 700'],
       styles: ['normal'],
@@ -40,6 +46,18 @@ export default defineConfig({
       subsets: ['latin', 'latin-ext'],
       display: 'swap',
       fallbacks: ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+    },
+    {
+      provider: fontProviders.fontsource(),
+      name: 'Libertinus Serif',
+      cssVariable: '--font-display',
+      // Static family (400 / 600 / 700). One weight is enough for display type;
+      // semibold reads better than bold at 7rem.
+      weights: ['600'],
+      styles: ['normal'],
+      subsets: ['latin', 'latin-ext'],
+      display: 'swap',
+      fallbacks: ['Georgia', 'Times New Roman', 'serif'],
     },
     {
       provider: fontProviders.fontsource(),

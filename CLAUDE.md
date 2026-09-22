@@ -147,13 +147,17 @@ suspensions held separately from the `playing` flag, so leaving a hover resumes 
 pause stays paused; any deliberate navigation calls `takeOver()` and stops it for good, so the
 button always reflects the truth and nothing yanks a card away just after someone picked it.
 
-**Fonts.** Inter and JetBrains Mono are self-hosted through Astro's `fonts` API in
+**Fonts.** Inter (body and UI), Libertinus Serif (display sizes only) and JetBrains Mono
+(eyebrows, metadata) are self-hosted through Astro's `fonts` API in
 [astro.config.mjs](astro.config.mjs), which emits size-adjusted local fallbacks so the swap
-doesn't shift layout. `latin-ext` is required for Turkish — `ı ç ö ü` are already in the
-`latin` subset (which explicitly includes `U+0131`), but `ğ ş İ Ğ Ş` are not. Only the
-Latin sans subset is preloaded; preloading more defeats `unicode-range`. Never re-declare the
-fallback stack in CSS — `--font-sans` / `--font-mono` already resolve to the full chain, and
-`--face-sans` / `--face-mono` in `tokens.css` are the aliases everything downstream uses.
+doesn't shift layout. Libertinus is the same face the Typst PDF and OG card use, so the CV, a
+LinkedIn preview and the site read as one document; it is loaded at one weight (600), so
+display type is `--w-semibold`, never bold. `latin-ext` is required for Turkish — `ı ç ö ü`
+are already in the `latin` subset (which explicitly includes `U+0131`), but `ğ ş İ Ğ Ş` are
+not. Only the Latin subsets of the sans and the display face are preloaded; preloading more
+defeats `unicode-range`. Never re-declare the fallback stack in CSS — `--font-sans` /
+`--font-display` / `--font-mono` already resolve to the full chain, and `--face-sans` /
+`--face-display` / `--face-mono` in `tokens.css` are the aliases everything downstream uses.
 
 **Two formatters are mirrored across languages and will drift silently.**
 [src/lib/resume.ts](src/lib/resume.ts) and [resume/lib.typ](resume/lib.typ) each implement the
