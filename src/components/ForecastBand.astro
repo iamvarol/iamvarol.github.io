@@ -14,60 +14,22 @@
  * Decorative: aria-hidden, and the labels are part of the picture.
  */
 
-// Deterministic series so the build is reproducible: seasonality on a gentle
-// trend with a seeded noise term. Coordinates are in a 1000×200 box; the SVG
-// stretches to the container (preserveAspectRatio="none") and strokes keep
-// their width via vector-effect, so the proportions are the layout's, not the
-// data's.
-const W = 1000;
-const H = 200;
-const TODAY = 620;
-const N_HIST = 32;
-const N_FCST = 18;
+// Geometry from src/lib/forecast.mjs — shared with the OG cards so the motif
+// is the same everywhere. Coordinates are in a W×H box; the SVG stretches to
+// the container (preserveAspectRatio="none") and strokes keep their width via
+// vector-effect, so the proportions are the layout's, not the data's.
+import { forecastGeometry, svgPath, svgBand, W, H, TODAY } from '../lib/forecast.mjs';
 
-let seed = 7;
-const noise = () => {
-  seed = (seed * 48271) % 2147483647;
-  return seed / 2147483647 - 0.5;
-};
-
-const level = (i: number, total: number) =>
-  0.5 + 0.06 * (i / total) + 0.17 * Math.sin((i / total) * Math.PI * 4.6 - 0.8);
-
-const y = (v: number) => (H - 24) - v * (H - 48);
-
-const hist: [number, number][] = [];
-for (let i = 0; i <= N_HIST; i++) {
-  const x = (i / N_HIST) * TODAY;
-  hist.push([x, y(level(i, N_HIST) + noise() * 0.11)]);
-}
-
-const last = hist[hist.length - 1];
-const mid: [number, number][] = [last];
-const hi: [number, number][] = [last];
-const lo: [number, number][] = [last];
-for (let j = 1; j <= N_FCST; j++) {
-  const t = j / N_FCST;
-  const x = TODAY + t * (W - TODAY);
-  const v = level(N_HIST + j * (N_HIST / TODAY) * ((W - TODAY) / N_FCST), N_HIST);
-  const spread = 0.05 + 0.24 * Math.sqrt(t);
-  mid.push([x, y(v)]);
-  hi.push([x, y(v + spread)]);
-  lo.push([x, y(v - spread)]);
-}
-
-const path = (pts: [number, number][]) =>
-  pts.map(([px, py], i) => `${i === 0 ? 'M' : 'L'}${px.toFixed(1)} ${py.toFixed(1)}`).join(' ');
-
-const bandPath = `${path(hi)} ${[...lo].reverse().map(([px, py]) => `L${px.toFixed(1)} ${py.toFixed(1)}`).join(' ')} Z`;
+const { hist, mid, hi, lo } = forecastGeometry();
+const bandPath = svgBand(hi, lo);
 const todayPct = ((TODAY / W) * 100).toFixed(1);
 ---
 
 <figure class="band" aria-hidden="true">
   <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" focusable="false">
     <path class="range" d={bandPath} />
-    <path class="hist" d={path(hist)} pathLength="1" />
-    <path class="fcst" d={path(mid)} pathLength="1" />
+    <path class="hist" d={svgPath(hist)} pathLength="1" />
+    <path class="fcst" d={svgPath(mid)} pathLength="1" />
     <line class="today" x1={TODAY} y1="0" x2={TODAY} y2={H} />
   </svg>
   <span class="label label-hist">Actuals</span>

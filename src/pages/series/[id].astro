@@ -4,6 +4,7 @@ import SectionHeading from '../../components/SectionHeading.astro';
 import PostListItem from '../../components/PostListItem.astro';
 import { getSeriesList, type Post, type Series } from '../../lib/posts';
 import { site } from '../../lib/site';
+import { breadcrumbs } from '../../lib/jsonld';
 import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -18,6 +19,13 @@ const count = `${posts.length} part${posts.length === 1 ? '' : 's'}`;
 <Base
   title={`${series.data.title} — ${site.name}`}
   description={series.data.description ?? `${series.data.title}: ${count}, by ${site.name}.`}
+  schema={[
+    breadcrumbs([
+      { name: site.shortName, path: '/' },
+      { name: 'Blog', path: '/blog/' },
+      { name: series.data.title, path: `/series/${series.id}/` },
+    ]),
+  ]}
 >
   <div class="wrap page">
     <SectionHeading as="h1" size="display" eyebrow="Series">

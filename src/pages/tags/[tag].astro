@@ -5,6 +5,7 @@ import PostListItem from '../../components/PostListItem.astro';
 import { getTags, getPostsByTag } from '../../lib/posts';
 import type { GetStaticPaths } from 'astro';
 import { site } from '../../lib/site';
+import { breadcrumbs } from '../../lib/jsonld';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const tags = await getTags();
@@ -22,6 +23,13 @@ const count = `${posts.length} post${posts.length === 1 ? '' : 's'}`;
   title={`#${tag} — ${site.name}`}
   description={`Posts tagged ${tag} — ${count}.`}
   noindex
+  schema={[
+    breadcrumbs([
+      { name: site.shortName, path: '/' },
+      { name: 'Blog', path: '/blog/' },
+      { name: `#${tag}`, path: `/tags/${tag}/` },
+    ]),
+  ]}
 >
   <div class="wrap page">
     <SectionHeading as="h1" size="display" eyebrow="Tag">#{tag}</SectionHeading>

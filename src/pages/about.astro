@@ -5,8 +5,11 @@ import Eyebrow from '../components/Eyebrow.astro';
 import Portrait from '../components/Portrait.astro';
 import { Content as Bio } from '../data/bio.md';
 import { aboutIsDraft } from '../lib/about';
+import { getImage } from 'astro:assets';
+import portrait from '../assets/portrait.png';
 import { getResume } from '../lib/resume';
 import { site } from '../lib/site';
+import { profilePage, breadcrumbs } from '../lib/jsonld';
 import '../styles/prose.css';
 
 // The facts beside the narrative come from data that already exists — no new
@@ -14,12 +17,23 @@ import '../styles/prose.css';
 const { experience, publications } = await getResume();
 const now = experience[0];
 const since = experience[experience.length - 1].start.slice(0, 4);
+
+// The headshot as the Person's image — a URL a search engine can fetch.
+const headshot = await getImage({ src: portrait, width: 531, format: 'png' });
+const headshotUrl = new URL(headshot.src, Astro.site).href;
 ---
 
 <Base
   title={`About — ${site.shortName}`}
   description={`${site.name} — background, and how he works.`}
   noindex={aboutIsDraft}
+  schema={[
+    profilePage('/about/', headshotUrl),
+    breadcrumbs([
+      { name: site.shortName, path: '/' },
+      { name: 'About', path: '/about/' },
+    ]),
+  ]}
 >
   <div class="wrap page">
     {

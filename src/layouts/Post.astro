@@ -6,6 +6,7 @@ import TagList from '../components/TagList.astro';
 import Icon from '../components/Icon.astro';
 import { readingTime, seriesFor, type Post } from '../lib/posts';
 import { site } from '../lib/site';
+import { blogPosting, breadcrumbs } from '../lib/jsonld';
 import '../styles/prose.css';
 
 interface Props {
@@ -16,9 +17,35 @@ const { post } = Astro.props;
 const { title, date, description, tags, draft, link, link_text } = post.data;
 const minutes = readingTime(post.body);
 const series = await seriesFor(post);
+
+const path = `/blog/${post.id}/`;
+// Per-post share card, compiled by scripts/og.mjs into dist/og/.
+const image = `/og/${post.id}.png`;
 ---
 
-<Base title={`${title} — ${site.name}`} description={description} type="article" noindex={draft}>
+<Base
+  title={`${title} — ${site.name}`}
+  description={description}
+  type="article"
+  noindex={draft}
+  image={image}
+  schema={[
+    blogPosting({
+      path,
+      title,
+      description,
+      date,
+      image,
+      sameAs: link,
+      series: series?.series.data.title,
+    }),
+    breadcrumbs([
+      { name: site.shortName, path: '/' },
+      { name: 'Blog', path: '/blog/' },
+      { name: title, path },
+    ]),
+  ]}
+>
   <article class="wrap post">
     <header class="head">
       {draft && <Eyebrow accent>Draft — not published</Eyebrow>}

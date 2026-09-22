@@ -4,6 +4,7 @@ import Eyebrow from '../components/Eyebrow.astro';
 import Icon from '../components/Icon.astro';
 import type { CaseStudy } from '../lib/work';
 import { site } from '../lib/site';
+import { article, breadcrumbs } from '../lib/jsonld';
 
 interface Props {
   study: CaseStudy;
@@ -16,9 +17,26 @@ const { study: s, prev, next } = Astro.props;
 // Section labels are words, not 01–03: the ordinal register belongs to the
 // landing focus list and the resume headings.
 const isExternal = (href: string) => href.startsWith('http');
+
+// Per-case share card, compiled by scripts/og.mjs into dist/og/.
+const image = `/og/${s.id}.png`;
 ---
 
-<Base title={`${s.title} — ${site.name}`} description={s.summary} type="article" noindex={s.draft}>
+<Base
+  title={`${s.title} — ${site.name}`}
+  description={s.summary}
+  type="article"
+  noindex={s.draft}
+  image={image}
+  schema={[
+    article({ path: s.href, title: s.title, description: s.summary, image }),
+    breadcrumbs([
+      { name: site.shortName, path: '/' },
+      { name: 'Selected work', path: '/work/' },
+      { name: s.title, path: s.href },
+    ]),
+  ]}
+>
   <article class="wrap case">
     <header class="head">
       {s.draft && <Eyebrow accent>Draft — not published</Eyebrow>}

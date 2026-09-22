@@ -9,17 +9,27 @@ interface Props {
   noindex?: boolean;
   /** Set on blog posts so the OG type is `article` rather than `website`. */
   type?: 'website' | 'article';
+  /** Site-relative path of a page-specific card (see scripts/og.mjs); the
+   *  default card is used when absent. */
+  image?: string;
 }
 
-const { title, description = site.description, noindex = false, type = 'website' } = Astro.props;
+const {
+  title,
+  description = site.description,
+  noindex = false,
+  type = 'website',
+  image,
+} = Astro.props;
 
 // Astro.site is guaranteed here because `site` is set in astro.config.mjs.
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 
-// Generated at build time from og/card.typ, which reads the same resume.yml as
-// the CV — so the name and title on a LinkedIn share cannot drift from the site.
-// Must be absolute: crawlers do not resolve relative OG URLs.
-const ogImage = new URL('/og/default.png', Astro.site).href;
+// Generated at build time by Typst: og/card.typ for the default (reading the
+// same resume.yml as the CV, so a LinkedIn share cannot drift from the site)
+// and og/page.typ per post and case study via scripts/og.mjs. Must be
+// absolute: crawlers do not resolve relative OG URLs.
+const ogImage = new URL(image ?? '/og/default.png', Astro.site).href;
 ---
 
 <meta charset="utf-8" />
@@ -48,6 +58,7 @@ const ogImage = new URL('/og/default.png', Astro.site).href;
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="alternate" type="application/rss+xml" title={site.name} href="/rss.xml" />
 
 {/*

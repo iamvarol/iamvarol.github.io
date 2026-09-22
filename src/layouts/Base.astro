@@ -12,16 +12,23 @@ interface Props {
   description?: string;
   noindex?: boolean;
   type?: 'website' | 'article';
+  /** Site-relative path of a page-specific Open Graph image. */
+  image?: string;
+  /** schema.org nodes from src/lib/jsonld.ts, one <script type="application/ld+json"> each. */
+  schema?: object[];
 }
 
-const { title, description, noindex, type } = Astro.props;
+const { title, description, noindex, type, image, schema = [] } = Astro.props;
 ---
 
 {/* data-theme is stamped pre-paint by the inline script in BaseHead. The dark
     default here is what a no-JS visitor gets, matching the design intent. */}
 <html lang={site.locale} data-theme="dark">
   <head>
-    <BaseHead title={title} description={description} noindex={noindex} type={type} />
+    <BaseHead title={title} description={description} noindex={noindex} type={type} image={image} />
+    {/* Structured data. Data, not code: these do not count against the
+        two-client-script budget in CLAUDE.md. */}
+    {schema.map((node) => <script type="application/ld+json" set:html={JSON.stringify(node)} is:inline />)}
   </head>
 
   <body>

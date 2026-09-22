@@ -13,7 +13,8 @@
     "resume:pdf": "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct 2>/dev/null || echo 0) typst compile --root . --ignore-system-fonts resume/resume.typ dist/emre-varol-resume.pdf",
     "resume:verify": "npm run resume:pdf && node scripts/verify-pdf.mjs dist/emre-varol-resume.pdf",
     "og:png": "mkdir -p dist/og && SOURCE_DATE_EPOCH=$(git log -1 --format=%ct 2>/dev/null || echo 0) typst compile --root . --ignore-system-fonts --format png --ppi 72 og/card.typ dist/og/default.png",
-    "assets": "npm run resume:pdf && npm run og:png"
+    "og:pages": "node scripts/og.mjs",
+    "assets": "npm run resume:pdf && npm run og:png && npm run og:pages"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",
