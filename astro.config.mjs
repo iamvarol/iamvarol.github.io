@@ -2,13 +2,28 @@
 import { readFileSync } from 'node:fs';
 import { defineConfig, fontProviders } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import { parse as parseYaml } from 'yaml';
 
-// Read directly rather than importing src/lib/about.ts: this config is loaded
-// outside Vite, so the `?raw` import there would not resolve. Same file, same
-// marker, so the two cannot disagree about whether About is publishable.
-const aboutIsDraft = readFileSync('./src/data/bio.md', 'utf8').includes('TODO(emre)');
+// Read directly rather than importing src/lib/about.ts or src/lib/gate.ts:
+// this config is loaded outside Vite, so the `?raw` import there would not
+// resolve. Same files, same marker, so the two cannot disagree about what is
+// publishable.
+const MARKER = 'TODO(emre)';
+const aboutIsDraft = readFileSync('./src/data/bio.md', 'utf8').includes(MARKER);
 
-const excluded = ['/404/', ...(aboutIsDraft ? ['/about/'] : [])];
+// A case study still carrying a marker has no route in production (see
+// src/lib/work.ts), but the sitemap filter runs on the page list, so the
+// exclusion is repeated here; /work/ itself drops out when nothing is
+// published, since the page then carries noindex.
+/** @type {{ id: string }[]} */
+const work = parseYaml(readFileSync('./src/data/work.yml', 'utf8')) ?? [];
+const pendingWork = work.filter((entry) => JSON.stringify(entry).includes(MARKER));
+const workUrls = [
+  ...pendingWork.map((entry) => `/work/${entry.id}/`),
+  ...(pendingWork.length === work.length ? ['/work/'] : []),
+];
+
+const excluded = ['/404/', ...(aboutIsDraft ? ['/about/'] : []), ...workUrls];
 
 export default defineConfig({
   integrations: [

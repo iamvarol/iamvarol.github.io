@@ -1,0 +1,363 @@
+---
+import Base from './Base.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Icon from '../components/Icon.astro';
+import type { CaseStudy } from '../lib/work';
+import { site } from '../lib/site';
+
+interface Props {
+  study: CaseStudy;
+  prev?: CaseStudy;
+  next?: CaseStudy;
+}
+
+const { study: s, prev, next } = Astro.props;
+
+// Section labels are words, not 01–03: the ordinal register belongs to the
+// landing focus list and the resume headings.
+const isExternal = (href: string) => href.startsWith('http');
+---
+
+<Base title={`${s.title} — ${site.name}`} description={s.summary} type="article" noindex={s.draft}>
+  <article class="wrap case">
+    <header class="head">
+      {s.draft && <Eyebrow accent>Draft — not published</Eyebrow>}
+      <Eyebrow>Selected work · {s.year}</Eyebrow>
+      <h1 class="title">{s.title}</h1>
+      <p class="lead summary">{s.summary}</p>
+
+      <dl class="facts">
+        <div>
+          <dt>Role</dt>
+          <dd><a href={s.roleHref}>{s.role}</a></dd>
+        </div>
+        <div>
+          <dt>Where</dt>
+          <dd>{s.company} <span class="sep" aria-hidden="true">·</span> {s.sector}</dd>
+        </div>
+        <div>
+          <dt>When</dt>
+          <dd>{s.range}</dd>
+        </div>
+        {
+          s.stack.length > 0 && (
+            <div>
+              <dt>Stack</dt>
+              <dd class="stack">{s.stack.join(' · ')}</dd>
+            </div>
+          )
+        }
+      </dl>
+    </header>
+
+    {
+      s.metrics.length > 0 && (
+        <dl class="metrics reveal">
+          {s.metrics.map((m) => (
+            <div>
+              <dt>{m.label}</dt>
+              <dd>{m.value}</dd>
+            </div>
+          ))}
+        </dl>
+      )
+    }
+
+    <section class="part reveal" aria-labelledby="problem">
+      <h2 id="problem" class="h">Problem</h2>
+      <p class="text">{s.problem}</p>
+    </section>
+
+    <section class="part reveal" aria-labelledby="approach">
+      <h2 id="approach" class="h">Approach</h2>
+      <ul class="steps">
+        {s.approach.map((step) => <li>{step}</li>)}
+      </ul>
+    </section>
+
+    <section class="part reveal" aria-labelledby="outcome">
+      <h2 id="outcome" class="h">Outcome</h2>
+      <ul class="steps">
+        {s.outcomes.map((o) => <li>{o}</li>)}
+      </ul>
+    </section>
+
+    {
+      s.links.length > 0 && (
+        <section class="part reveal" aria-labelledby="related">
+          <h2 id="related" class="h">Related</h2>
+          <ul class="links">
+            {s.links.map((l) => (
+              <li>
+                <a
+                  href={l.href}
+                  target={isExternal(l.href) ? '_blank' : undefined}
+                  rel={isExternal(l.href) ? 'noopener noreferrer' : undefined}
+                >
+                  {l.label}
+                  {isExternal(l.href) && <Icon name="external" />}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      (prev || next) && (
+        <nav class="pager reveal" aria-label="Other case studies">
+          {prev && (
+            <a class="pager-link" href={prev.href} rel="prev">
+              <span class="pager-dir">← Previous</span>
+              <span class="pager-title">
+                <span class="seq" aria-hidden="true">{prev.year}</span> {prev.title}
+              </span>
+            </a>
+          )}
+          {next && (
+            <a class="pager-link is-next" href={next.href} rel="next">
+              <span class="pager-dir">Next →</span>
+              <span class="pager-title">
+                <span class="seq" aria-hidden="true">{next.year}</span> {next.title}
+              </span>
+            </a>
+          )}
+        </nav>
+      )
+    }
+
+    <p class="back"><a href="/work/">← Selected work</a></p>
+  </article>
+</Base>
+
+<style>
+  .case {
+    padding-block: var(--s-section);
+  }
+
+  .head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-4);
+  }
+
+  .title {
+    max-width: 22ch;
+    font-family: var(--face-display);
+    font-weight: var(--w-semibold);
+    font-size: var(--t-display);
+    line-height: var(--lh-display);
+    letter-spacing: var(--tr-display);
+    color: var(--fg);
+  }
+
+  .summary {
+    max-width: var(--w-text);
+  }
+
+  /* The facts, as tiles: the same chip language as the resume's date range,
+     one surface fill and a hairline, no elevation. */
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--hairline);
+    margin: var(--s-6) 0 0;
+    border: var(--hairline) solid var(--rule);
+    border-radius: var(--r-2);
+    overflow: hidden;
+    background: var(--rule);
+  }
+
+  @media (min-width: 48rem) {
+    .facts {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .facts > div {
+    padding: var(--s-4);
+    background: var(--surface);
+  }
+
+  .facts dt {
+    font-family: var(--face-mono);
+    font-size: var(--t-eyebrow);
+    font-weight: var(--w-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tr-eyebrow);
+    color: var(--faint);
+  }
+
+  .facts dd {
+    margin: var(--s-2) 0 0;
+    font-size: var(--t-small);
+    color: var(--fg);
+    text-wrap: pretty;
+  }
+
+  .facts dd a {
+    color: inherit;
+  }
+
+  .facts .stack {
+    font-family: var(--face-mono);
+    font-size: var(--t-meta);
+    color: var(--muted);
+  }
+
+  .sep {
+    color: var(--faint);
+  }
+
+  /* The figures. Display face at display size on the tone the current-role
+     card uses — the accent's own ramp, so still one hue. --fg on --tone-2 is
+     12.70:1; the captions use --muted (5.80:1), never --faint. */
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-6);
+    margin: var(--s-8) 0 0;
+    padding: var(--s-6);
+    border-radius: var(--r-2);
+    background: var(--tone-2);
+  }
+
+  @media (min-width: 48rem) {
+    .metrics {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .metrics > div {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: var(--s-2);
+  }
+
+  .metrics dd {
+    margin: 0;
+    font-family: var(--face-display);
+    font-weight: var(--w-semibold);
+    font-size: var(--t-display);
+    line-height: 1;
+    letter-spacing: var(--tr-display);
+    font-variant-numeric: tabular-nums;
+    color: var(--fg);
+  }
+
+  .metrics dt {
+    font-family: var(--face-mono);
+    font-size: var(--t-meta);
+    line-height: 1.45;
+    color: var(--muted);
+    text-wrap: pretty;
+  }
+
+  .part {
+    margin-block-start: var(--s-8);
+    padding-block-start: var(--s-6);
+    border-block-start: var(--hairline) solid var(--rule);
+  }
+
+  .h {
+    font-size: var(--t-h3);
+    font-weight: var(--w-semibold);
+    color: var(--fg);
+  }
+
+  .text,
+  .steps {
+    max-width: var(--w-text);
+    margin-block-start: var(--s-4);
+    font-size: var(--t-lead);
+    line-height: var(--lh-body);
+    color: var(--muted);
+    text-wrap: pretty;
+  }
+
+  .steps {
+    padding: 0;
+    list-style: none;
+  }
+
+  .steps li + li {
+    margin-block-start: var(--s-4);
+    padding-block-start: var(--s-4);
+    border-block-start: var(--hairline) solid var(--rule);
+  }
+
+  .links {
+    margin-block-start: var(--s-4);
+    padding: 0;
+    list-style: none;
+  }
+
+  .links li + li {
+    margin-block-start: var(--s-2);
+  }
+
+  .links a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-1);
+    color: var(--fg);
+  }
+
+  .pager {
+    display: grid;
+    gap: var(--s-4);
+    margin-block-start: var(--s-9);
+    padding-block-start: var(--s-6);
+    border-block-start: var(--hairline) solid var(--rule);
+  }
+
+  @media (min-width: 48rem) {
+    .pager {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .is-next {
+      grid-column: 2;
+      text-align: end;
+    }
+  }
+
+  .pager-link {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+    text-decoration: none;
+    color: var(--fg);
+  }
+
+  .pager-dir {
+    font-family: var(--face-mono);
+    font-size: var(--t-meta);
+    color: var(--faint);
+  }
+
+  .pager-title {
+    text-wrap: balance;
+    transition: color var(--dur) var(--ease);
+  }
+
+  .pager-link:hover .pager-title {
+    color: var(--accent);
+  }
+
+  .back {
+    margin-block-start: var(--s-7);
+    font-size: var(--t-small);
+  }
+
+  .back a {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color var(--dur) var(--ease);
+  }
+
+  .back a:hover {
+    color: var(--accent);
+  }
+</style>

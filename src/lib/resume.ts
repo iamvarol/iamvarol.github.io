@@ -52,6 +52,17 @@ export function formatRefDate(value: string): string {
   return `${Number(d)} ${MONTHS[Number(m) - 1]} ${y}`;
 }
 
+/** 'Turkish Government — Defense Sector' → 'turkish-government-defense-sector'.
+ *  Anchor ids for roles on /resume/, shared with the case studies that link to them. */
+export function companyId(company: string): string {
+  return company
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
 export async function getResume() {
   const entry = await getEntry('resume', 'main');
   if (!entry) {
@@ -78,6 +89,8 @@ export interface CareerStage {
   range: string;
   blurb: string;
   stack: string[];
+  /** The case study written up from this role, when one is published. */
+  href?: string;
 }
 
 /**
@@ -88,7 +101,10 @@ export interface CareerStage {
  * because index 0 is also the scroll origin — what lets the carousel render its
  * correct initial state on the server and never scroll on load.
  */
-export async function getCareerStages(idBase = 'career'): Promise<CareerStage[]> {
+export async function getCareerStages(
+  idBase = 'career',
+  links: ReadonlyMap<string, string> = new Map(),
+): Promise<CareerStage[]> {
   const { experience } = await getResume();
 
   return experience.map((role, i) => ({
@@ -102,6 +118,7 @@ export async function getCareerStages(idBase = 'career'): Promise<CareerStage[]>
     // Capped so a card cannot grow a second line of chips and break the row
     // height the coverflow scaling depends on.
     stack: role.stack.slice(0, 4),
+    href: links.get(role.company),
   }));
 }
 

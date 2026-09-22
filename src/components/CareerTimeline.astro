@@ -94,6 +94,11 @@ const { stages } = Astro.props;
             <p class="card-company">{s.company}</p>
             <p class="card-blurb">{s.blurb}</p>
             {s.stack.length > 0 && <p class="card-stack">{s.stack.join(' · ')}</p>}
+            {s.href && (
+              <p class="card-more">
+                <a href={s.href}>Case study →</a>
+              </p>
+            )}
           </li>
         ))
       }
@@ -344,6 +349,30 @@ const { stages } = Astro.props;
     font-family: var(--face-mono);
     font-size: var(--t-meta);
     color: var(--muted);
+  }
+
+  /* Link to the case study, where one exists. Under the script, cards that
+     are not active are inert (pointer-events: none) but a link inside one
+     would still be reachable by Tab, so it is hidden there — visibility, not
+     display, so the card keeps its height and the fan stays even. The no-JS
+     baseline shows every card in full, links included. */
+  .card-more {
+    margin-block-start: var(--s-4);
+    font-family: var(--face-mono);
+    font-size: var(--t-meta);
+  }
+
+  .card-more a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .card-more a:hover {
+    text-decoration: underline;
+  }
+
+  [data-enhanced] .card:not([data-state='active']) .card-more {
+    visibility: hidden;
   }
 
   /* The current role, marked wherever it sits in the fan. The tone ramp already

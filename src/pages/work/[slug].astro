@@ -1,0 +1,23 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudy.astro';
+import { getWork, type CaseStudy } from '../../lib/work';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // getWork() already drops pending entries in production, so an unapproved
+  // case study has no route at all rather than an unlinked-but-reachable one.
+  const all = await getWork();
+  return all.map((study, i) => ({
+    params: { slug: study.id },
+    props: { study, prev: all[i - 1], next: all[i + 1] },
+  }));
+};
+
+const { study, prev, next } = Astro.props as {
+  study: CaseStudy;
+  prev?: CaseStudy;
+  next?: CaseStudy;
+};
+---
+
+<CaseStudyLayout study={study} prev={prev} next={next} />

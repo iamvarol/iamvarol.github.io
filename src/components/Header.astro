@@ -16,7 +16,7 @@ const items = await visibleNav();
       {site.shortName}
     </a>
 
-    <nav aria-label="Primary">
+    <nav aria-label="Primary" class="primary">
       <ul class="nav">
         {
           items.map((item) => (
@@ -31,9 +31,12 @@ const items = await visibleNav();
             </li>
           ))
         }
-        <li><ThemeToggle /></li>
       </ul>
     </nav>
+
+    <div class="tools">
+      <ThemeToggle />
+    </div>
   </div>
 </header>
 
@@ -41,15 +44,16 @@ const items = await visibleNav();
   /* Deliberately not sticky. A fixed bar costs a compositor layer and a blur on
      every scroll frame, and the pages here are short enough not to need it. */
   .site-header {
-    border-block-end: 1px solid var(--rule);
+    border-block-end: var(--hairline) solid var(--rule);
   }
 
   .bar {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
-    gap: var(--s-5);
+    gap: var(--s-3) var(--s-5);
     min-block-size: 4rem;
+    padding-block: var(--s-3);
   }
 
   .wordmark {
@@ -62,20 +66,42 @@ const items = await visibleNav();
     view-transition-name: wordmark;
   }
 
+  .primary {
+    margin-inline-start: auto;
+  }
+
   .nav {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: var(--s-5);
+    gap: var(--s-3) var(--s-5);
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  /* Four items plus a toggle fit on a 320px screen at this size, so there is no
-     hamburger — which keeps the header at zero JavaScript. */
-  @media (max-width: 26rem) {
+  .tools {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Five links, a wordmark and a toggle do not fit on one 320px row, and a
+     hamburger would cost the header its zero JavaScript. So below 30rem the
+     bar becomes two rows — wordmark and toggle above, the links below — which
+     is plain flex wrapping and needs no script. */
+  @media (max-width: 30rem) {
+    .primary {
+      order: 3;
+      flex-basis: 100%;
+      margin-inline-start: 0;
+    }
+
+    .tools {
+      margin-inline-start: auto;
+    }
+
     .nav {
-      gap: var(--s-4);
+      gap: var(--s-3) var(--s-4);
     }
   }
 

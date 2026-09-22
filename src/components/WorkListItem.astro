@@ -1,0 +1,140 @@
+---
+import Eyebrow from './Eyebrow.astro';
+import type { CaseStudy } from '../lib/work';
+
+interface Props {
+  study: CaseStudy;
+  /** The first row on a page takes the accent — the same rule every sequence
+   *  on the site follows. */
+  active?: boolean;
+}
+
+const { study: s, active = false } = Astro.props;
+
+// The marker is a year in the .seq slot, not an ordinal: the landing focus
+// list and the /resume headings own 01–0n, and CLAUDE.md says to reach for a
+// year before inventing a third sequence.
+---
+
+<li class="row">
+  <a class="link" href={s.href}>
+    <span class="seq" data-active={active ? '' : undefined} aria-hidden="true">{s.year}</span>
+
+    <div class="body">
+      <p class="meta">
+        <Eyebrow>{s.company} · {s.sector}</Eyebrow>
+        {s.draft && <Eyebrow accent>Draft</Eyebrow>}
+      </p>
+      <h3 class="title">{s.title}</h3>
+      <p class="summary">{s.summary}</p>
+
+      {
+        s.metrics.length > 0 && (
+          <dl class="metrics">
+            {s.metrics.slice(0, 3).map((m) => (
+              <div>
+                <dt>{m.label}</dt>
+                <dd>{m.value}</dd>
+              </div>
+            ))}
+          </dl>
+        )
+      }
+    </div>
+  </a>
+</li>
+
+<style>
+  .row {
+    border-block-start: var(--hairline) solid var(--rule);
+  }
+
+  /* The whole row is the target. On hover the surface bleeds a gutter past the
+     text on both sides, so the row lifts without a shadow — the site's depth
+     is a fill, not an elevation. */
+  .link {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: var(--s-4);
+    margin-inline: calc(-1 * var(--s-4));
+    padding: var(--s-6) var(--s-4);
+    border-radius: var(--r-2);
+    color: inherit;
+    text-decoration: none;
+    transition: background-color var(--dur) var(--ease);
+  }
+
+  .link:hover,
+  .link:focus-visible {
+    background: var(--surface);
+    color: inherit;
+  }
+
+  @media (max-width: 34rem) {
+    .link {
+      grid-template-columns: 1fr;
+      gap: var(--s-2);
+    }
+  }
+
+  .seq {
+    padding-block-start: 0.3rem;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-4);
+  }
+
+  .title {
+    margin-block-start: var(--s-2);
+    font-size: var(--t-h3);
+    font-weight: var(--w-semibold);
+    line-height: 1.3;
+    color: var(--fg);
+    transition: color var(--dur) var(--ease);
+  }
+
+  .link:hover .title {
+    color: var(--accent);
+  }
+
+  .summary {
+    margin-block-start: var(--s-2);
+    max-width: var(--w-text);
+    color: var(--muted);
+    text-wrap: pretty;
+  }
+
+  /* Figures a reader can carry away, in the display face. Smaller than the
+     hero strip: this is a row in a list, not the page's opening statement. */
+  .metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-4) var(--s-7);
+    margin: var(--s-5) 0 0;
+  }
+
+  .metrics > div {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: var(--s-1);
+  }
+
+  .metrics dd {
+    margin: 0;
+    font-family: var(--face-display);
+    font-weight: var(--w-semibold);
+    font-size: 1.5rem;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: var(--fg);
+  }
+
+  .metrics dt {
+    font-family: var(--face-mono);
+    font-size: var(--t-meta);
+    color: var(--muted);
+  }
+</style>

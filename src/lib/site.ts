@@ -84,6 +84,7 @@ export type NavItem = {
 
 export const nav: NavItem[] = [
   { label: 'About', href: '/about/', ready: true },
+  { label: 'Work', href: '/work/', ready: true },
   { label: 'Resume', href: '/resume/', ready: true },
   { label: 'Blog', href: '/blog/', ready: true },
   { label: 'Contact', href: '/contact/', ready: true },

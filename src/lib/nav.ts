@@ -1,6 +1,7 @@
 import { readyNav, type NavItem } from './site';
 import { getPosts } from './posts';
 import { aboutIsDraft } from './about';
+import { hasWork } from './work';
 
 /**
  * The nav as a visitor should see it: `ready` flags from site.ts, then the
@@ -14,9 +15,11 @@ import { aboutIsDraft } from './about';
  */
 export async function visibleNav(): Promise<NavItem[]> {
   const hasPosts = (await getPosts()).length > 0;
+  const hasCases = await hasWork();
   return readyNav().filter((item) => {
     if (item.href === '/blog/') return hasPosts;
     if (item.href === '/about/') return !aboutIsDraft;
+    if (item.href === '/work/') return hasCases;
     return true;
   });
 }

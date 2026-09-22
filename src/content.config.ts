@@ -230,4 +230,50 @@ const landing = defineCollection({
   }),
 });
 
-export const collections = { blog, resume, landing };
+/**
+ * Selected work — case studies.
+ *
+ * An array with an `id` per item, so `file()` needs no parser. The role,
+ * dates and card line are joined from resume.yml by `company` in
+ * src/lib/work.ts, which is also where the publication gate lives: an entry
+ * still carrying a TODO(emre) marker never gets a route in production.
+ */
+const work = defineCollection({
+  loader: file('./src/data/work.yml'),
+  schema: z.object({
+    title: z.string().min(1).max(80),
+    company: z.string().min(1),
+    sector: z.string().min(1).max(40),
+    period: z
+      .object({
+        start: yearMonth,
+        end: yearMonth.nullable(),
+      })
+      .optional(),
+    summary: z.string().min(1).max(200).optional(),
+    problem: z.string().min(1),
+    approach: z.array(z.string().min(1)).min(1),
+    outcomes: z.array(z.string().min(1)).min(1),
+    metrics: z
+      .array(
+        z.object({
+          value: z.string().min(1).max(12),
+          label: z.string().min(1).max(60),
+        }),
+      )
+      .max(4)
+      .default([]),
+    stack: z.array(z.string()).default([]),
+    links: z
+      .array(
+        z.object({
+          label: z.string().min(1),
+          href: z.string().min(1),
+        }),
+      )
+      .default([]),
+    order: z.number().int().positive(),
+  }),
+});
+
+export const collections = { blog, resume, landing, work };

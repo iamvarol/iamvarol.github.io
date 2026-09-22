@@ -7,14 +7,22 @@ import PostTimeline from '../components/PostTimeline.astro';
 import CareerTimeline from '../components/CareerTimeline.astro';
 import Portrait from '../components/Portrait.astro';
 import ForecastBand from '../components/ForecastBand.astro';
+import WorkListItem from '../components/WorkListItem.astro';
 import Icon from '../components/Icon.astro';
 import { site, socials } from '../lib/site';
 import { getPosts } from '../lib/posts';
 import { getLanding, getCareerStages } from '../lib/resume';
+import { getWork } from '../lib/work';
 import { approved } from '../lib/gate';
 
 const { hero, focus, proof } = await getLanding();
-const stages = await getCareerStages();
+// Empty until a case study clears its markers; the section then appears on
+// its own, before the focus list, because it is the evidence for it.
+const work = (await getWork()).slice(0, 4);
+const stages = await getCareerStages(
+  'career',
+  new Map(work.map((s) => [s.company, s.href])),
+);
 
 // His line, not mine: withheld until the marker in landing.yml is gone.
 const status = approved(hero.status);
@@ -102,6 +110,22 @@ const jsonLd = {
       <ForecastBand />
     </div>
   </section>
+
+  {
+    work.length > 0 && (
+      <section class="wrap block reveal" aria-labelledby="selected">
+        <SectionHeading eyebrow="Work" id="selected">Selected work</SectionHeading>
+        <ol class="cases">
+          {work.map((s, i) => (
+            <WorkListItem study={s} active={i === 0} />
+          ))}
+        </ol>
+        <p class="more">
+          <a href="/work/">All case studies →</a>
+        </p>
+      </section>
+    )
+  }
 
   <section class="wrap block reveal" aria-labelledby="work">
     <SectionHeading eyebrow="Focus" id="work">What I work on</SectionHeading>
@@ -357,6 +381,12 @@ const jsonLd = {
   .block {
     padding-block: var(--s-section);
     border-block-start: 1px solid var(--rule);
+  }
+
+  .cases {
+    margin-block-start: var(--s-7);
+    padding: 0;
+    list-style: none;
   }
 
   /* Numbered sequence ---------------------------------------------------- */

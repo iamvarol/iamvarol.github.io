@@ -1,0 +1,76 @@
+---
+import Base from '../../layouts/Base.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import WorkListItem from '../../components/WorkListItem.astro';
+import { getWork, hasWork } from '../../lib/work';
+import { site } from '../../lib/site';
+
+const studies = await getWork();
+
+// With nothing published the page still builds (so the route is stable) but
+// carries noindex and is left out of the sitemap by astro.config.mjs.
+const empty = !(await hasWork());
+---
+
+<Base
+  title={`Selected work — ${site.shortName}`}
+  description={`Case studies by ${site.name}: the problem, the approach, and what it produced.`}
+  noindex={empty}
+>
+  <div class="wrap page">
+    <SectionHeading as="h1" size="display" eyebrow="Work">Selected work</SectionHeading>
+
+    {
+      studies.length > 0 ? (
+        <ol class="cases">
+          {studies.map((s, i) => (
+            <WorkListItem study={s} active={i === 0} />
+          ))}
+        </ol>
+      ) : (
+        <p class="empty">Nothing published yet.</p>
+      )
+    }
+
+    <p class="next">
+      <a href="/resume/">Full resume →</a>
+    </p>
+  </div>
+</Base>
+
+<style>
+  .page {
+    padding-block: var(--s-section);
+  }
+
+  .cases {
+    margin-block-start: var(--s-7);
+    padding: 0;
+    list-style: none;
+  }
+
+  .empty {
+    margin-block-start: var(--s-7);
+    padding-block-start: var(--s-6);
+    border-block-start: var(--hairline) solid var(--rule);
+    max-width: var(--w-text);
+    color: var(--muted);
+  }
+
+  .next {
+    margin-block-start: var(--s-8);
+    padding-block-start: var(--s-5);
+    border-block-start: var(--hairline) solid var(--rule);
+    font-size: var(--t-small);
+  }
+
+  .next a {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color var(--dur) var(--ease);
+  }
+
+  .next a:hover {
+    color: var(--accent);
+  }
+</style>

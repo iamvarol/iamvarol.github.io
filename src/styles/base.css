@@ -239,7 +239,10 @@ pre {
   .reveal {
     animation: reveal linear both;
     animation-timeline: view();
-    animation-range: entry 0% cover 25%;
+    /* Complete once 40% of the element has entered — so anything already in
+       view on load, and any page too short to scroll, is fully visible. A
+       `cover`-based range can leave a row on a short page stuck half-faded. */
+    animation-range: entry 0% entry 40%;
   }
 
   @keyframes reveal {

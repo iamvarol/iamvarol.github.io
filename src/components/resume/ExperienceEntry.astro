@@ -11,17 +11,32 @@ interface Props {
   highlights: string[];
   stack?: string[];
   tone: number;
+  /** Anchor target, so a case study can point back at the role it came from. */
+  id?: string;
+  /** The case study written up from this role, when one is published. */
+  caseStudy?: { href: string; title: string };
 }
 
 // Roles are deliberately not numbered. The sections already carry 01–06, and a
 // second zero-padded sequence inside them reads as two competing systems — the
 // PDF numbers sections only, so this keeps both renderings speaking the same
 // visual language.
-const { company, role, location, start, end, context, highlights, stack = [], tone } =
-  Astro.props;
+const {
+  company,
+  role,
+  location,
+  start,
+  end,
+  context,
+  highlights,
+  stack = [],
+  tone,
+  id,
+  caseStudy,
+} = Astro.props;
 ---
 
-<article class="role">
+<article class="role" id={id}>
   <div class="body">
     <header class="head">
       <h3 class="title">
@@ -49,13 +64,23 @@ const { company, role, location, start, end, context, highlights, stack = [], to
         </p>
       )
     }
+
+    {
+      caseStudy && (
+        <p class="more">
+          <a href={caseStudy.href}>Case study: {caseStudy.title} →</a>
+        </p>
+      )
+    }
   </div>
 </article>
 
 <style>
   .role {
     padding-block: var(--s-6);
-    border-block-start: 1px solid var(--rule);
+    border-block-start: var(--hairline) solid var(--rule);
+    /* Jumped to from a case study: keep the heading clear of the top edge. */
+    scroll-margin-block-start: var(--s-7);
   }
 
   .title {
@@ -122,5 +147,20 @@ const { company, role, location, start, end, context, highlights, stack = [], to
 
   .sep {
     opacity: 0.5;
+  }
+
+  .more {
+    margin-block-start: var(--s-4);
+    font-size: var(--t-small);
+  }
+
+  .more a {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color var(--dur) var(--ease);
+  }
+
+  .more a:hover {
+    color: var(--accent);
   }
 </style>

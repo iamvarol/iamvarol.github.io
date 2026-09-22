@@ -1,0 +1,110 @@
+# Selected work — the case studies.
+#
+# Each entry is a skeleton lifted from src/data/resume.yml: the company, the
+# figures and the stack are facts already on the resume; the prose fields are
+# yours. Every field that begins with `TODO(emre):` describes what belongs there
+# and is a placeholder, not copy. While any marker remains in an entry, that
+# entry has no route, no nav link and no sitemap line in production; `npm run
+# dev` shows it with a Draft badge so the layout can be checked. Removing the
+# last marker publishes it — nothing else to flip.
+#
+# Fields
+#   id        URL slug: /work/<id>/
+#   company   must equal an experience[].company in resume.yml — the role,
+#             dates and card line are read from there, never repeated here
+#   sector    the client's world, for the eyebrow (company · sector)
+#   summary   optional one-liner for cards; falls back to the role's `blurb`
+#   metrics   value must appear verbatim in that role's highlights (checked at build)
+#   period    optional 'YYYY-MM' start/end override when the case spans less
+#             than the role; end: null means ongoing
+#   links     internal ('/blog/…') or absolute URLs
+#   order     display order, 1 first
+
+- id: berlin-tires-forecasting
+  title: Demand forecasting and the data function at Berlin Tires
+  company: Berlin Tires
+  sector: Tyre retail & distribution
+  problem: 'TODO(emre): the situation before — what was failing, for whom, at what cost (2–3 sentences)'
+  approach:
+    - 'TODO(emre): how you framed the problem and what you chose to measure'
+    - 'TODO(emre): the modelling and data decisions that mattered (Darts / Nixtla / Prophet — and why)'
+    - 'TODO(emre): how it reached production and who ran on it'
+  outcomes:
+    - 'TODO(emre): what changed for the business, in their terms'
+    - 'TODO(emre): what you would do differently'
+  metrics:
+    - value: '95%'
+      label: quarterly forecast accuracy
+    - value: '22%'
+      label: excess stock reduced
+    - value: '€1.2M'
+      label: saved per year
+    - value: '45%'
+      label: faster query resolution with the internal AI assistant
+  stack: [Python, FastAPI, PostgreSQL, DuckDB, Darts, Nixtla, Prophet, Streamlit]
+  links: []
+  order: 1
+
+- id: invent-ai-data-validation
+  title: A data-validation platform that gates every client project
+  company: invent.ai
+  sector: Retail supply-chain AI
+  # Current employer: publish only what resume.yml already says, nothing more
+  # specific about clients or internals. The decision is recorded in
+  # decisions.yml as `invent-disclosure`.
+  problem: 'TODO(emre): why data validation was the bottleneck before any model could run'
+  approach:
+    - 'TODO(emre): the rule-pool design — YAML-defined checks, severity tiers CRITICAL → LOW, grain-uniqueness enforcement'
+    - 'TODO(emre): APPROX vs EXACT scan modes and the runtime/depth trade-off they give teams'
+    - 'TODO(emre): the pre- / post-operation split into two repositories, and the multi-repo sync with GitHub Actions'
+  outcomes:
+    - 'TODO(emre): days of manual SQL triage → an automated GO / NO-GO — what that changed for delivery'
+  metrics: []
+  stack: [Python, DuckDB, Delta Lake, Azure Blob Storage, Streamlit, GitHub Actions]
+  links: []
+  order: 2
+
+- id: john-snow-labs-clinical-nlp
+  title: Clinical NLP and a knowledge-graph Q&A system for US healthcare
+  company: John Snow Labs
+  sector: Healthcare NLP
+  problem: 'TODO(emre): what the healthcare clients needed from clinical text and why off-the-shelf models fell short'
+  approach:
+    - 'TODO(emre): fine-tuning BERT-family and BioBERT for NER, relation extraction, negation and de-identification'
+    - 'TODO(emre): the clinical knowledge graph (Spark NLP + Neo4j) behind the Q&A application'
+    - 'TODO(emre): the FastAPI AutoNLP service and what it removed from the deployment path'
+  outcomes:
+    - 'TODO(emre): proofs of concept delivered for Optum Health, CVS Health, Philips, Veradigm, Boehringer Ingelheim, Onco Health — what they led to'
+  metrics:
+    - value: '65%'
+      label: less model deployment effort with the AutoNLP service
+  stack: [Spark NLP, PySpark, PyTorch, TensorFlow, HF Transformers, Neo4j, MLflow, SynapseML, Databricks, FastAPI]
+  links:
+    - label: 'Creating a Clinical Knowledge Graph with Spark NLP & Neo4j'
+      href: '/blog/clinical-knowledge-graph/'
+  order: 3
+
+- id: defense-decision-support
+  title: Enterprise decision support and simulation in the defense sector
+  company: Turkish Government — Defense Sector
+  sector: Defense operations research
+  problem: 'TODO(emre): the planning decisions that had no system behind them, and what that cost'
+  approach:
+    - 'TODO(emre): the decision-support platform — cost-effectiveness, stock planning, workforce planning, scenario comparison'
+    - 'TODO(emre): discrete-event and agent-based simulation for naval logistics and counter-piracy'
+    - 'TODO(emre): leading the software test division on ADVENT CMS across 30+ vessels'
+  outcomes:
+    - 'TODO(emre): the inventory redesign and duty-scheduling results, and how they were held'
+    - 'TODO(emre): the two peer-reviewed publications that came out of the simulation work'
+  metrics:
+    - value: '50,000+'
+      label: personnel served
+    - value: '17%'
+      label: inventory cost cut, availability held
+    - value: '40%'
+      label: overtime reduced through OR duty scheduling
+    - value: '30+'
+      label: vessels running the combat system tested
+  stack: [Java, Spring, Hibernate, Oracle, Linux, Python, Plotly Dash, Tableau]
+  links: []
+  order: 4

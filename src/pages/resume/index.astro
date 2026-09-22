@@ -6,11 +6,15 @@ import Icon from '../../components/Icon.astro';
 import ExperienceEntry from '../../components/resume/ExperienceEntry.astro';
 import SkillGroup from '../../components/resume/SkillGroup.astro';
 import ReferenceEntry from '../../components/resume/ReferenceEntry.astro';
-import { getResume, formatYears } from '../../lib/resume';
+import { getResume, formatYears, companyId } from '../../lib/resume';
+import { getWork } from '../../lib/work';
 import { site } from '../../lib/site';
 
 const r = await getResume();
 const b = r.basics;
+
+// Published case studies by company, so a role can point at its write-up.
+const cases = new Map((await getWork()).map((s) => [s.company, s]));
 
 const PDF = site.resumePdf;
 ---
@@ -63,6 +67,12 @@ const PDF = site.resumePdf;
               highlights={role.highlights}
               stack={role.stack}
               tone={Math.min(i + 1, 7)}
+              id={`exp-${companyId(role.company)}`}
+              caseStudy={
+                cases.has(role.company)
+                  ? { href: cases.get(role.company)!.href, title: cases.get(role.company)!.title }
+                  : undefined
+              }
             />
           ))
         }
