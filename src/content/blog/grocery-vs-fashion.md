@@ -9,8 +9,6 @@ draft: false
 link: https://medium.com/@a.emrevarol/grocery-vs-fashion-two-completely-different-retail-games-b4640b0ad74b
 link_text: Read on Medium
 ---
-# Grocery vs. Fashion: Two Completely Different Retail Games
-
 *Part 5 of "The Retail Data Playbook"*
 
 ---

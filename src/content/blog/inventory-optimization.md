@@ -9,8 +9,6 @@ draft: false
 link: https://medium.com/@a.emrevarol/the-inventory-optimization-trap-why-more-stock-isnt-always-better-889ba6c1e9b2
 link_text: Read on Medium
 ---
-# The Inventory Optimization Trap: Why More Stock Isn't Always Better
-
 *Part 8 of "The Retail Data Playbook"*
 
 ---

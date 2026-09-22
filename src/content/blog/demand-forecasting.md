@@ -9,9 +9,6 @@ draft: false
 link: https://medium.com/@a.emrevarol/demand-forecasting-in-retail-why-its-harder-than-predicting-the-stock-market-2b1aed78a63c
 link_text: Read on Medium
 ---
-
-# Demand Forecasting in Retail: Why It's Harder Than Predicting the Stock Market
-
 *Part 7 of "The Retail Data Playbook"*
 
 ---

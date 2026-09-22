@@ -9,8 +9,6 @@ draft: false
 link: https://medium.com/@a.emrevarol/10-data-science-problems-every-retailer-wants-solved-and-how-to-frame-them-abb4a6650f83
 link_text: Read on Medium
 ---
-# 10 Data Science Problems Every Retailer Wants Solved (And How to Frame Them)
-
 *Part 9 of "The Retail Data Playbook"*
 
 ---

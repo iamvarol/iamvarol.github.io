@@ -9,8 +9,6 @@ draft: false
 link: https://medium.com/@a.emrevarol/the-first-irreversible-bet-initial-allocation-aa9a750a7f3c
 link_text: Read on Medium
 ---
-# The First Irreversible Bet: Initial Allocation
-
 *Part 14 of "The Retail Data Playbook" — Season 2: Inside the Planning Machine*
 
 ---

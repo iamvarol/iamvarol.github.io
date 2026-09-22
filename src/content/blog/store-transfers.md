@@ -9,8 +9,6 @@ draft: false
 link: https://medium.com/@a.emrevarol/the-arbitrage-hiding-in-your-network-store-to-store-transfers-142b3965a776
 link_text: Read on Medium
 ---
-# The Arbitrage Hiding in Your Network: Store-to-Store Transfers
-
 *Part 16 of "The Retail Data Playbook" — Season 2: Inside the Planning Machine*
 
 ---

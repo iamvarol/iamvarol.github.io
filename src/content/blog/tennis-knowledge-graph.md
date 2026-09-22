@@ -7,8 +7,6 @@ draft: false
 link: https://medium.com/@a.emrevarol/analyzing-roland-garros-and-us-open-tennis-tournaments-via-neo4j-9be55e3044a4
 link_text: Read on Medium
 ---
-# Analyzing Roland Garros and US Open Tennis Tournaments via Neo4j
-
 ![A tennis ball on a clay court](../../assets/blog/tennis-knowledge-graph-hero.jpg)
 
 *Photo by [Kevin Mueller](https://unsplash.com/@kevinmueller) on [Unsplash](https://unsplash.com/).*

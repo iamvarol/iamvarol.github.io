@@ -9,8 +9,6 @@ draft: false
 link: https://medium.com/@a.emrevarol/choosing-what-to-sell-where-the-assortment-problem-80839c1e666f
 link_text: Read on Medium
 ---
-# Choosing What to Sell Where: The Assortment Problem
-
 *Part 12 of "The Retail Data Playbook" — Season 2: Inside the Planning Machine*
 
 ---

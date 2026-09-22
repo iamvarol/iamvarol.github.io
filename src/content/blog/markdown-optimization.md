@@ -9,8 +9,6 @@ draft: false
 link: https://medium.com/@a.emrevarol/the-art-of-marking-down-how-data-science-can-save-margins-5f1be9305792
 link_text: Read on Medium
 ---
-# The Art of Marking Down: How Data Science Can Save Margins
-
 *Part 6 of "The Retail Data Playbook"*
 
 ---

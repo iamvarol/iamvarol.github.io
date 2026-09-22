@@ -7,8 +7,6 @@ draft: false
 link: https://medium.com/@a.emrevarol/creating-knowledge-graph-by-spark-nlp-neo4j-9d18706aa08b
 link_text: Read on Medium
 ---
-# Creating Clinical Knowledge Graph by Spark NLP & Neo4j
-
 *The first end-to-end clinical knowledge graph creation using Spark NLP and Neo4j.*
 
 ---

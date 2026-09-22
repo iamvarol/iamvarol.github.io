@@ -8,9 +8,6 @@ part: 1
 draft: false
 link_text: Read on Medium
 ---
-
-# Why Retail is the Hardest Industry for Data Scientists
-
 *Part 1 of "The Retail Data Playbook"*
 
 ---

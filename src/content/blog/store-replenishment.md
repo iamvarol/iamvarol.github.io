@@ -9,8 +9,6 @@ draft: false
 link: https://medium.com/@a.emrevarol/keeping-shelves-full-without-drowning-in-stock-store-replenishment-b26b75b52419
 link_text: Read on Medium
 ---
-# Keeping Shelves Full Without Drowning in Stock: Store Replenishment
-
 *Part 15 of "The Retail Data Playbook" — Season 2: Inside the Planning Machine*
 
 ---

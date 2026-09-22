@@ -9,8 +9,6 @@ draft: false
 link: https://medium.com/@a.emrevarol/the-money-map-how-retail-decides-your-budget-before-you-buy-anything-2bbdc05ad838
 link_text: Read on Medium
 ---
-# The Money Map: How Retail Decides Your Budget Before You Buy Anything
-
 *Part 11 of "The Retail Data Playbook" — Season 2: Inside the Planning Machine*
 
 ---

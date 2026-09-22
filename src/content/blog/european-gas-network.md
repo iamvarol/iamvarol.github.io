@@ -7,8 +7,6 @@ draft: false
 link: https://medium.com/@a.emrevarol/european-natural-gas-network-via-knowledge-graph-3c3decb5f2ec
 link_text: Read on Medium
 ---
-# Exploring the European Natural Gas Network as a Knowledge Graph
-
 In this post, we'll use Neo4j to turn the European gas network into a knowledge graph and analyze the data.
 
 ![Industrial gas pipeline infrastructure](../../assets/blog/european-gas-network-hero.jpg)

@@ -9,9 +9,6 @@ draft: false
 link: https://medium.com/@a.emrevarol/the-hidden-language-of-retail-a-data-scientists-field-guide-to-stakeholders-946787f0fe9d
 link_text: Read on Medium
 ---
-
-# The Hidden Language of Retail: A Data Scientist's Field Guide to Stakeholders
-
 *Part 2 of "The Retail Data Playbook"*
 
 ---

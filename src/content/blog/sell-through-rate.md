@@ -9,10 +9,6 @@ draft: false
 link: https://medium.com/@a.emrevarol/sell-through-rate-the-one-metric-that-rules-them-all-cd17c604c13b
 link_text: Read on Medium
 ---
-
-
-# Sell-Through Rate: The One Metric That Rules Them All
-
 *Part 3 of "The Retail Data Playbook"*
 
 ---

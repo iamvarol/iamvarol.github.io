@@ -9,8 +9,6 @@ draft: false
 link: https://medium.com/@a.emrevarol/building-a-canonical-metric-layer-the-foundation-of-retail-analytics-abbe746cd66d
 link_text: Read on Medium
 ---
-# Building a Canonical Metric Layer: The Foundation of Retail Analytics
-
 *Part 10 of "The Retail Data Playbook"*
 
 ---

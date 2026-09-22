@@ -9,8 +9,6 @@ draft: false
 link: https://medium.com/@a.emrevarol/the-engine-upstream-dc-replenishment-multi-echelon-optimization-51aa254c82e6
 link_text: Read on Medium
 ---
-# The Engine Upstream: DC Replenishment & Multi-Echelon Optimization
-
 *Part 17 of "The Retail Data Playbook" — Season 2: Inside the Planning Machine*
 
 ---
