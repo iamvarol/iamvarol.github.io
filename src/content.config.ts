@@ -185,8 +185,25 @@ const landing = defineCollection({
         label: z.string().min(1),
         href: z.string().min(1),
       }),
+      // A quieter second action beside the pill — the PDF, today.
+      secondary: z
+        .object({
+          label: z.string().min(1),
+          href: z.string().min(1),
+        })
+        .optional(),
+      // The availability line: level open to, remote posture, from when. His
+      // words; while the text still carries TODO(emre) the line is withheld
+      // from production by src/lib/gate.ts and shown only in `npm run dev`.
+      status: z
+        .object({
+          text: z.string().min(1).max(120),
+          href: z.string().min(1).optional(),
+        })
+        .optional(),
     }),
-    work: z
+    // "What I work on" — the numbered 01–0n list.
+    focus: z
       .array(
         z.object({
           title: z.string().min(1),
@@ -195,6 +212,21 @@ const landing = defineCollection({
       )
       .min(1)
       .max(6), // beyond six the sequence stops reading as a shortlist
+    // The proof strip under the hero. `value` must appear verbatim in the
+    // highlights of the experience entry named by `source` (or in
+    // basics.summary for 'summary'); getLanding() throws otherwise, so a number
+    // changed in resume.yml fails the build here instead of drifting.
+    proof: z
+      .array(
+        z.object({
+          value: z.string().min(1).max(12),
+          label: z.string().min(1).max(60),
+          source: z.string().min(1),
+        }),
+      )
+      .min(3)
+      .max(4)
+      .optional(),
   }),
 });
 

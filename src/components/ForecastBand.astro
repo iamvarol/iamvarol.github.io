@@ -1,0 +1,172 @@
+---
+/**
+ * The site's one piece of imagery that is not a photograph: a demand series,
+ * a "today" line, and a forecast with its P10–P90 band. It says what the work
+ * is — forecasting under uncertainty — in the shape the work actually takes,
+ * and the widening band is the honest part: a forecast without one is a guess.
+ *
+ * Inline SVG, no script. The strokes draw themselves in on load via
+ * stroke-dashoffset over --dur-draw; under reduced motion the token is zero
+ * and the band is simply there, fully drawn, which is the correct end state.
+ * The same geometry is reused by the favicon and the OG template so one motif
+ * appears on three surfaces.
+ *
+ * Decorative: aria-hidden, and the labels are part of the picture.
+ */
+
+// Deterministic series so the build is reproducible: seasonality on a gentle
+// trend with a seeded noise term. Coordinates are in a 1000×200 box; the SVG
+// stretches to the container (preserveAspectRatio="none") and strokes keep
+// their width via vector-effect, so the proportions are the layout's, not the
+// data's.
+const W = 1000;
+const H = 200;
+const TODAY = 620;
+const N_HIST = 32;
+const N_FCST = 18;
+
+let seed = 7;
+const noise = () => {
+  seed = (seed * 48271) % 2147483647;
+  return seed / 2147483647 - 0.5;
+};
+
+const level = (i: number, total: number) =>
+  0.5 + 0.06 * (i / total) + 0.17 * Math.sin((i / total) * Math.PI * 4.6 - 0.8);
+
+const y = (v: number) => (H - 24) - v * (H - 48);
+
+const hist: [number, number][] = [];
+for (let i = 0; i <= N_HIST; i++) {
+  const x = (i / N_HIST) * TODAY;
+  hist.push([x, y(level(i, N_HIST) + noise() * 0.11)]);
+}
+
+const last = hist[hist.length - 1];
+const mid: [number, number][] = [last];
+const hi: [number, number][] = [last];
+const lo: [number, number][] = [last];
+for (let j = 1; j <= N_FCST; j++) {
+  const t = j / N_FCST;
+  const x = TODAY + t * (W - TODAY);
+  const v = level(N_HIST + j * (N_HIST / TODAY) * ((W - TODAY) / N_FCST), N_HIST);
+  const spread = 0.05 + 0.24 * Math.sqrt(t);
+  mid.push([x, y(v)]);
+  hi.push([x, y(v + spread)]);
+  lo.push([x, y(v - spread)]);
+}
+
+const path = (pts: [number, number][]) =>
+  pts.map(([px, py], i) => `${i === 0 ? 'M' : 'L'}${px.toFixed(1)} ${py.toFixed(1)}`).join(' ');
+
+const bandPath = `${path(hi)} ${[...lo].reverse().map(([px, py]) => `L${px.toFixed(1)} ${py.toFixed(1)}`).join(' ')} Z`;
+const todayPct = ((TODAY / W) * 100).toFixed(1);
+---
+
+<figure class="band" aria-hidden="true">
+  <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" focusable="false">
+    <path class="range" d={bandPath} />
+    <path class="hist" d={path(hist)} pathLength="1" />
+    <path class="fcst" d={path(mid)} pathLength="1" />
+    <line class="today" x1={TODAY} y1="0" x2={TODAY} y2={H} />
+  </svg>
+  <span class="label label-hist">Actuals</span>
+  <span class="label label-fcst" style={`--x: ${todayPct}%`}>Forecast · P10–P90</span>
+</figure>
+
+<style>
+  .band {
+    position: relative;
+    margin: 0;
+    block-size: clamp(6rem, 12vw, 10rem);
+  }
+
+  svg {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    overflow: visible;
+  }
+
+  path,
+  line {
+    fill: none;
+    vector-effect: non-scaling-stroke;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+
+  .hist {
+    stroke: var(--fg);
+    stroke-width: 1.5;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: draw var(--dur-draw) var(--ease-out) both;
+  }
+
+  .fcst {
+    stroke: var(--accent);
+    stroke-width: 1.5;
+    /* Solid, not dashed: the draw-in trick owns stroke-dasharray, and the band
+       plus the accent already say "forecast". Starts once the history is most
+       of the way in. */
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: draw calc(var(--dur-draw) * 0.7) var(--ease-out) both;
+    animation-delay: calc(var(--dur-draw) * 0.55);
+  }
+
+  .today {
+    stroke: var(--rule-strong);
+    stroke-width: 1;
+  }
+
+  .range {
+    fill: color-mix(in srgb, var(--accent) 16%, transparent);
+    stroke: none;
+    opacity: 0;
+    animation: appear var(--dur-move) var(--ease) both;
+    animation-delay: var(--dur-draw);
+  }
+
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes appear {
+    to {
+      opacity: 1;
+    }
+  }
+
+  .label {
+    position: absolute;
+    inset-block-start: 0;
+    font-family: var(--face-mono);
+    font-size: var(--t-eyebrow);
+    font-weight: var(--w-semibold);
+    line-height: 1.45;
+    text-transform: uppercase;
+    letter-spacing: var(--tr-eyebrow);
+    color: var(--faint);
+    white-space: nowrap;
+  }
+
+  .label-hist {
+    inset-inline-start: 0;
+  }
+
+  .label-fcst {
+    inset-inline-start: calc(var(--x) + var(--s-3));
+    color: var(--accent);
+  }
+
+  @media (max-width: 34rem) {
+    .label-fcst {
+      inset-inline-start: auto;
+      inset-inline-end: 0;
+    }
+  }
+</style>

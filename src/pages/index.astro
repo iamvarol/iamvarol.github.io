@@ -5,13 +5,19 @@ import SectionHeading from '../components/SectionHeading.astro';
 import PostListItem from '../components/PostListItem.astro';
 import PostTimeline from '../components/PostTimeline.astro';
 import CareerTimeline from '../components/CareerTimeline.astro';
+import Portrait from '../components/Portrait.astro';
+import ForecastBand from '../components/ForecastBand.astro';
 import Icon from '../components/Icon.astro';
 import { site, socials } from '../lib/site';
 import { getPosts } from '../lib/posts';
 import { getLanding, getCareerStages } from '../lib/resume';
+import { approved } from '../lib/gate';
 
-const { hero, work } = await getLanding();
+const { hero, focus, proof } = await getLanding();
 const stages = await getCareerStages();
+
+// His line, not mine: withheld until the marker in landing.yml is gone.
+const status = approved(hero.status);
 
 // One read, two depths: three cards with descriptions, then five titles as a
 // chronological index. /blog/ stays the full archive.
@@ -40,13 +46,60 @@ const jsonLd = {
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
 
   <section class="wrap hero">
-    <Eyebrow>{site.tagline}</Eyebrow>
-    <h1 class="name">{site.name}</h1>
-    <p class="statement">{hero.statement}</p>
+    <div class="intro">
+      <p class="enter" style="--i: 0"><Eyebrow>{site.tagline}</Eyebrow></p>
 
-    <div class="actions">
-      <a class="btn" href={hero.cta.href}>{hero.cta.label}</a>
-      <a class="quiet" href={`mailto:${site.email}`}>{site.email}</a>
+      {/* No entrance on the name: it is the LCP element on a phone, and Chrome
+          skips anything at opacity 0 when it picks one. */}
+      <h1 class="name">{site.name}</h1>
+
+      <p class="statement enter" style="--i: 1">{hero.statement}</p>
+
+      {
+        status &&
+          (status.href ? (
+            <a class="status enter" style="--i: 2" href={status.href}>
+              {status.text}
+            </a>
+          ) : (
+            <p class="status enter" style="--i: 2">
+              {status.text}
+            </p>
+          ))
+      }
+
+      <div class="actions enter" style="--i: 3">
+        <a class="btn" href={hero.cta.href}>{hero.cta.label}</a>
+        {
+          hero.secondary && (
+            <a class="quiet" href={hero.secondary.href} download>
+              {hero.secondary.label}
+            </a>
+          )
+        }
+        <a class="quiet" href={`mailto:${site.email}`}>{site.email}</a>
+      </div>
+    </div>
+
+    <div class="figure">
+      <Portrait size="hero" priority />
+    </div>
+
+    {
+      proof && (
+        <dl class="proof enter" style="--i: 4">
+          {proof.map((item) => (
+            <div>
+              <dt>{item.label}</dt>
+              <dd>{item.value}</dd>
+            </div>
+          ))}
+        </dl>
+      )
+    }
+
+    <div class="band-wrap enter" style="--i: 5">
+      <ForecastBand />
     </div>
   </section>
 
@@ -55,7 +108,7 @@ const jsonLd = {
 
     <ol class="work">
       {
-        work.map((item, i) => (
+        focus.map((item, i) => (
           <li class="item">
             {/* Only the first number takes the accent — the reference's tell, and
                 what makes the sequence read as a system rather than decoration. */}
@@ -127,8 +180,44 @@ const jsonLd = {
 </Base>
 
 <style>
+  /* One column on a phone, the portrait first as an avatar; from 48rem the
+     intro takes the left column and the portrait stands at the right edge of
+     the same row, bottom-aligned with the actions. The proof strip and the
+     forecast band span both. */
   .hero {
-    padding-block: clamp(4rem, 3rem + 8vw, 9rem) var(--s-8);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    padding-block: clamp(3rem, 2rem + 6vw, 7rem) var(--s-8);
+  }
+
+  .figure {
+    order: -1;
+    margin-block-end: var(--s-5);
+  }
+
+  @media (min-width: 48rem) {
+    .hero {
+      grid-template-columns: minmax(0, 1fr) auto;
+      column-gap: clamp(var(--s-7), 6vw, var(--s-9));
+      align-items: end;
+    }
+
+    .intro {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .figure {
+      order: 0;
+      grid-column: 2;
+      grid-row: 1;
+      margin: 0;
+    }
+
+    .proof,
+    .band-wrap {
+      grid-column: 1 / -1;
+    }
   }
 
   .name {
@@ -151,12 +240,88 @@ const jsonLd = {
     text-wrap: pretty;
   }
 
+  /* The availability line. A status indicator, not a sequence marker — hence
+     a dot, not a .seq — and mono because it is metadata about the person. */
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    margin-block-start: var(--s-5);
+    font-family: var(--face-mono);
+    font-size: var(--t-meta);
+    color: var(--muted);
+    text-decoration: none;
+    transition: color var(--dur) var(--ease);
+  }
+
+  .status::before {
+    content: '';
+    flex: none;
+    inline-size: var(--s-2);
+    block-size: var(--s-2);
+    border-radius: var(--r-pill);
+    background: var(--accent);
+  }
+
+  a.status:hover {
+    color: var(--accent);
+  }
+
   .actions {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: var(--s-4) var(--s-5);
     margin-block-start: var(--s-7);
+  }
+
+  /* Proof strip: the figures a hiring manager can carry into a debrief. The
+     numbers take the display face at display size; the captions are mono
+     metadata. Values first visually, labels first in the markup — a <dl> reads
+     label then value, so the column is reversed. No ordinals: this page's
+     01–05 belongs to the focus list below. */
+  .proof {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-6) var(--s-6);
+    margin: var(--s-8) 0 0;
+    padding-block-start: var(--s-6);
+    border-block-start: var(--hairline) solid var(--rule);
+  }
+
+  @media (min-width: 48rem) {
+    .proof {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .proof > div {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: var(--s-2);
+  }
+
+  .proof dd {
+    margin: 0;
+    font-family: var(--face-display);
+    font-weight: var(--w-semibold);
+    font-size: var(--t-display);
+    line-height: 1;
+    letter-spacing: var(--tr-display);
+    font-variant-numeric: tabular-nums;
+    color: var(--fg);
+  }
+
+  .proof dt {
+    font-family: var(--face-mono);
+    font-size: var(--t-meta);
+    line-height: 1.45;
+    color: var(--muted);
+    text-wrap: pretty;
+  }
+
+  .band-wrap {
+    margin-block-start: var(--s-8);
   }
 
   .btn {

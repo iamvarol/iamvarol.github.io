@@ -1,0 +1,107 @@
+---
+import { Picture } from 'astro:assets';
+import portrait from '../assets/portrait.png';
+import { site } from '../lib/site';
+
+interface Props {
+  /** `hero`: 18rem tile at ≥48rem, 4.5rem avatar below. `about`: 10rem tile.
+   *  `avatar`: 4.5rem everywhere (the resume masthead). */
+  size: 'hero' | 'about' | 'avatar';
+  /** Only the landing hero paints above the fold; everything else is lazy. */
+  priority?: boolean;
+  class?: string;
+}
+
+const { size, priority = false, class: className } = Astro.props;
+
+// The cut-out from the archived site (iamvarol.github.io_OLD, hugo-archive),
+// background removed so it sits on a tone tile in either theme. The source is
+// a PNG for the alpha channel; Astro emits AVIF and WebP with alpha from it.
+const sizes = {
+  hero: '(min-width: 48rem) 18rem, 4.5rem',
+  about: '10rem',
+  avatar: '4.5rem',
+}[size];
+---
+
+<figure class:list={['portrait', size, className]}>
+  <Picture
+    src={portrait}
+    formats={['avif', 'webp']}
+    widths={[144, 288, 432, 531]}
+    sizes={sizes}
+    alt={site.name}
+    loading={priority ? 'eager' : 'lazy'}
+    fetchpriority={priority ? 'high' : undefined}
+    decoding="async"
+  />
+</figure>
+
+<style>
+  /* A tile, not a circle: the crop is head-and-shoulders and cut flat at the
+     bottom, so a square frame reads as intended while a circle would clip the
+     shoulders on both sides. Tone-2 is the accent's own ramp, so the tile is
+     the same violet the career cards carry. */
+  .portrait {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    background: var(--tone-2);
+    border: var(--hairline) solid var(--rule);
+    border-radius: var(--r-2);
+  }
+
+  .portrait :global(img) {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    object-position: center bottom;
+    /* Nearly monochrome, so the photograph joins the one-hue system rather
+       than bringing a blue shirt into it; the trace of colour left keeps it
+       from reading as a memorial. */
+    filter: grayscale(0.85) contrast(1.04);
+  }
+
+  /* The violet cast. A scrim in the accent, not a change to the image, so the
+     same file serves both themes: soft-light lifts on dark, multiply settles
+     on light. Border-radius on the overlay so it never squares the corners. */
+  .portrait::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--accent);
+    opacity: 0.12;
+    mix-blend-mode: soft-light;
+    pointer-events: none;
+  }
+
+  :global(:root[data-theme='light']) .portrait::after {
+    mix-blend-mode: multiply;
+    opacity: 0.08;
+  }
+
+  .hero {
+    inline-size: 18rem;
+    max-inline-size: 100%;
+  }
+
+  .about {
+    inline-size: 10rem;
+  }
+
+  .avatar {
+    inline-size: 4.5rem;
+    aspect-ratio: 1;
+  }
+
+  /* Below 48rem the hero portrait is an avatar beside the eyebrow, so the h1
+     stays the largest paint and therefore the LCP element on a phone. */
+  @media (max-width: 47.99rem) {
+    .hero {
+      inline-size: 4.5rem;
+      aspect-ratio: 1;
+    }
+  }
+</style>

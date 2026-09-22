@@ -110,5 +110,31 @@ export async function getLanding() {
   if (!entry) {
     throw new Error('landing entry "main" not found — check src/data/landing.yml');
   }
-  return entry.data;
+  const landing = entry.data;
+
+  // The proof strip quotes the resume; make that literal. Each value has to be
+  // a substring of the bullets it is sourced from, so editing a number in
+  // resume.yml without editing landing.yml fails the build rather than leaving
+  // two figures on the site that disagree.
+  if (landing.proof) {
+    const { experience, basics } = await getResume();
+    for (const item of landing.proof) {
+      const haystack =
+        item.source === 'summary'
+          ? basics.summary
+          : experience.find((role) => role.company === item.source)?.highlights.join(' ');
+      if (haystack === undefined) {
+        throw new Error(
+          `landing.yml proof "${item.value}": source "${item.source}" is not a company in resume.yml`,
+        );
+      }
+      if (!haystack.includes(item.value)) {
+        throw new Error(
+          `landing.yml proof "${item.value}" does not appear in resume.yml under "${item.source}" — the strip must quote the resume verbatim`,
+        );
+      }
+    }
+  }
+
+  return landing;
 }

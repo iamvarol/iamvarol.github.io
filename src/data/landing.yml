@@ -1,8 +1,9 @@
-# Landing page copy (Phase 2).
+# Landing page copy.
 #
 # Derived from src/data/resume.yml — every claim below traces to a bullet there.
-# If a number changes in the resume, change it here too; nothing enforces that
-# link, because the two say it at different lengths for different readers.
+# `proof[]` is held to that literally (see getLanding() in src/lib/resume.ts);
+# `focus[]` says the same things at a different length for a different reader,
+# so if a number changes in the resume, change it here too.
 
 hero:
   statement: >-
@@ -13,6 +14,36 @@ hero:
     label: Read the resume
     href: '/resume/'
 
+  secondary:
+    label: Download the PDF
+    href: '/emre-varol-resume.pdf'
+
+  # The availability line — the first thing a recruiter looks for and the one
+  # thing on this page only you can say. Hidden from production while the
+  # marker remains; visible in `npm run dev` so the layout can be checked.
+  # Facts, one line: the level you are open to · remote / hybrid posture · from
+  # when. Leave the whole block out to publish without one.
+  status:
+    text: 'TODO(emre): availability — level open to · remote/hybrid posture · from when'
+    href: '/contact/'
+
+# The proof strip. Three or four figures a hiring manager can carry into a
+# debrief, each quoted verbatim from a resume.yml bullet (`source` names the
+# company). Values, not sentences; the label is the neutral caption.
+proof:
+  - value: '95%'
+    label: quarterly forecast accuracy
+    source: Berlin Tires
+  - value: '€1.2M'
+    label: saved per year in excess stock
+    source: Berlin Tires
+  - value: '50,000+'
+    label: personnel on one decision-support platform
+    source: Turkish Government — Defense Sector
+  - value: '17%'
+    label: inventory cost cut, availability held
+    source: Turkish Government — Defense Sector
+
 # The numbered sequence — the 01 / 02 / 03 element from the reference design.
 # Current work first, since the first item renders as the active one; the defense
 # years come last because they are the differentiator, not the headline.
@@ -21,7 +52,7 @@ hero:
 # difference: data quality gets its own item here because it is most of the
 # current role, and operations research gets one because fourteen years of it is
 # unusual for a data scientist.
-work:
+focus:
   - title: Retail Supply Chain AI
     detail: >-
       Demand forecasting, replenishment, assortment and price optimization for
