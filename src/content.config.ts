@@ -107,6 +107,16 @@ const resume = defineCollection({
       phone: z.string().optional(),
       linkedin: z.string().url(),
       github: z.string().url(),
+      // Optional until he fills it in; rendered in both mastheads when present.
+      languages: z
+        .array(
+          z.object({
+            name: z.string().min(1),
+            level: z.string().min(1),
+          }),
+        )
+        .min(1)
+        .optional(),
       summary: z.string(),
     }),
 

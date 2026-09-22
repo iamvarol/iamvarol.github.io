@@ -2,10 +2,18 @@
 import Base from '../layouts/Base.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import Eyebrow from '../components/Eyebrow.astro';
+import Portrait from '../components/Portrait.astro';
 import { Content as Bio } from '../data/bio.md';
 import { aboutIsDraft } from '../lib/about';
+import { getResume } from '../lib/resume';
 import { site } from '../lib/site';
 import '../styles/prose.css';
+
+// The facts beside the narrative come from data that already exists — no new
+// copy. The current role is resume.yml's first entry; "since" is the earliest.
+const { experience, publications } = await getResume();
+const now = experience[0];
+const since = experience[experience.length - 1].start.slice(0, 4);
 ---
 
 <Base
@@ -27,15 +35,52 @@ import '../styles/prose.css';
       )
     }
 
-    <SectionHeading as="h1" size="display" eyebrow="About">{site.name}</SectionHeading>
+    <div class="layout">
+      <div class="main">
+        <SectionHeading as="h1" size="display" eyebrow="About">{site.name}</SectionHeading>
 
-    <div class="prose body">
-      <Bio />
+        <div class="prose body reveal">
+          <Bio />
+        </div>
+
+        <p class="next">
+          <a href="/resume/">Full resume →</a>
+        </p>
+      </div>
+
+      <aside class="side" aria-label="At a glance">
+        <Portrait size="about" />
+
+        <dl class="facts">
+          <div>
+            <dt>Based in</dt>
+            <dd>{site.location}</dd>
+          </div>
+          <div>
+            <dt>Now</dt>
+            <dd>{now.role} · {now.company}</dd>
+          </div>
+          <div>
+            <dt>In the field since</dt>
+            <dd>{since}</dd>
+          </div>
+          {
+            publications.length > 0 && (
+              <div>
+                <dt>Publications</dt>
+                <dd>
+                  <a href="/resume/#publications">{publications.length} peer-reviewed</a>
+                </dd>
+              </div>
+            )
+          }
+          <div>
+            <dt>Time zone</dt>
+            <dd>{site.timezone} <span class="quiet">({site.utcOffset})</span></dd>
+          </div>
+        </dl>
+      </aside>
     </div>
-
-    <p class="next">
-      <a href="/resume/">Full resume →</a>
-    </p>
   </div>
 </Base>
 
@@ -63,14 +108,81 @@ import '../styles/prose.css';
     color: var(--fg);
   }
 
+  /* One column with the aside above the prose on a phone; from 48rem the
+     aside stands at the right and, from 64rem, follows the reader down. */
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-7) var(--s-9);
+  }
+
+  .side {
+    order: -1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-5);
+  }
+
+  @media (min-width: 48rem) {
+    .layout {
+      grid-template-columns: minmax(0, 1fr) 14rem;
+      align-items: start;
+    }
+
+    .side {
+      order: 0;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .side {
+      position: sticky;
+      inset-block-start: var(--s-7);
+    }
+  }
+
   .body {
     margin-block-start: var(--s-6);
+  }
+
+  .facts {
+    margin: 0;
+    padding-block-start: var(--s-4);
+    border-block-start: var(--hairline) solid var(--rule);
+  }
+
+  .facts > div + div {
+    margin-block-start: var(--s-4);
+  }
+
+  .facts dt {
+    font-family: var(--face-mono);
+    font-size: var(--t-eyebrow);
+    font-weight: var(--w-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tr-eyebrow);
+    color: var(--faint);
+  }
+
+  .facts dd {
+    margin: var(--s-1) 0 0;
+    font-size: var(--t-small);
+    color: var(--fg);
+    text-wrap: pretty;
+  }
+
+  .facts a {
+    color: inherit;
+  }
+
+  .quiet {
+    color: var(--faint);
   }
 
   .next {
     margin-block-start: var(--s-8);
     padding-block-start: var(--s-5);
-    border-block-start: 1px solid var(--rule);
+    border-block-start: var(--hairline) solid var(--rule);
     font-size: var(--t-small);
   }
 

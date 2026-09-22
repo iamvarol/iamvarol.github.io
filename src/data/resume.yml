@@ -38,6 +38,15 @@ basics:
   # phone: '+90 542 657 6834'
   linkedin: https://www.linkedin.com/in/aliemre-v
   github: https://github.com/iamvarol
+  # TODO(emre): languages, in the shape below. Rendered in the masthead contact
+  # line on /resume/ and in the PDF; the two-page budget decides whether it
+  # fits (`npm run resume:verify`). A comment, not a field — nothing here is
+  # gated, so a marker in a rendered value would print on the PDF.
+  # languages:
+  #   - name: Turkish
+  #     level: native
+  #   - name: English
+  #     level: professional
   summary: >-
     Industrial engineer turned data scientist: 20+ years in engineering and analytics,
     7 of them building production machine learning. Fourteen years designing
@@ -305,9 +314,12 @@ education:
     gpa: 3.90 / 4.00
     detail: Graduated 2nd of 240.
 
-# TODO(content): narrow `date` to 'YYYY-MM' or 'YYYY-MM-DD' and add `url` per
-# entry as the values are confirmed. Both sections render newest-first in file
-# order — nothing sorts them — so insert new entries at the top.
+# TODO(emre): the publications need a `url` each (DOI or publisher page) and,
+# where known, month precision on `date` — ECIR 2022 (Stavanger), Journal of
+# the Operational Research Society 2015, SCITEPRESS 2013. Nothing is guessed
+# here: a missing `url` renders as plain text, never a dead link. Both sections
+# render newest-first in file order — nothing sorts them — so insert new
+# entries at the top.
 publications:
   - title: Understanding COVID-19 News Coverage using Medical NLP
     venue: ECIR 2022, Stavanger, Norway
@@ -319,16 +331,21 @@ publications:
     venue: SCITEPRESS
     date: '2013'
 
+# URLs and dates are the Medium originals, as recorded in the frontmatter of
+# the same three posts under src/content/blog/.
 writing:
   - title: Analyzing Roland Garros and the US Open via Neo4j
     venue: Medium
-    date: '2022'
+    date: '2022-05-16'
+    url: https://medium.com/@a.emrevarol/analyzing-roland-garros-and-us-open-tennis-tournaments-via-neo4j-9be55e3044a4
   - title: Exploring the European Natural Gas Network as a Knowledge Graph
     venue: Medium
-    date: '2022'
+    date: '2022-04-26'
+    url: https://medium.com/@a.emrevarol/european-natural-gas-network-via-knowledge-graph-3c3decb5f2ec
   - title: Creating a Clinical Knowledge Graph with Spark NLP & Neo4j
     venue: Medium
-    date: '2021'
+    date: '2021-09-21'
+    url: https://medium.com/@a.emrevarol/creating-knowledge-graph-by-spark-nlp-neo4j-9d18706aa08b
 
 certifications:
   - Neo4j Certified Professional

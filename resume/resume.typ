@@ -66,6 +66,9 @@
   #link(b.linkedin)[LinkedIn]
   #h(0.6em) · #h(0.6em)
   #link(b.github)[GitHub]
+  #if "languages" in b [
+    #h(0.6em) · #h(0.6em) #b.languages.map(l => l.name + " (" + l.level + ")").join(", ")
+  ]
 ]
 
 #v(0.5em)

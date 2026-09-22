@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import Eyebrow from '../../components/Eyebrow.astro';
 import Icon from '../../components/Icon.astro';
+import Portrait from '../../components/Portrait.astro';
 import ExperienceEntry from '../../components/resume/ExperienceEntry.astro';
 import SkillGroup from '../../components/resume/SkillGroup.astro';
 import ReferenceEntry from '../../components/resume/ReferenceEntry.astro';
@@ -13,18 +14,38 @@ import { site } from '../../lib/site';
 const r = await getResume();
 const b = r.basics;
 
+const PDF = site.resumePdf;
+
 // Published case studies by company, so a role can point at its write-up.
 const cases = new Map((await getWork()).map((s) => [s.company, s]));
 
-const PDF = site.resumePdf;
+// The section index. Same 01–06 the headings carry — the resume's own ordinal
+// register, not a new one — and only sections with content get a stop.
+const sections = [
+  { id: 'experience', label: 'Experience', show: true },
+  { id: 'skills', label: 'Skills', show: r.skills.length > 0 },
+  { id: 'education', label: 'Education', show: r.education.length > 0 },
+  { id: 'publications', label: 'Publications', show: r.publications.length > 0 },
+  { id: 'writing', label: 'Selected writing', show: r.writing.length > 0 },
+  { id: 'certifications', label: 'Certifications', show: r.certifications.length > 0 },
+]
+  .filter((s) => s.show)
+  .map((s, i) => ({ ...s, n: String(i + 1).padStart(2, '0'), timeline: `--sec-${i + 1}` }));
+
+const sec = (id: string) => sections.find((s) => s.id === id)!;
 ---
 
 <Base title={`Resume — ${site.shortName}`} description={b.summary.slice(0, 197)}>
   <div class="wrap page">
     <header class="masthead">
-      <SectionHeading as="h1" size="display" eyebrow="Resume">{b.name}</SectionHeading>
+      <div class="avatar">
+        <Portrait size="avatar" />
+      </div>
 
-      <p class="label">{b.label} <span class="focus">{b.focus.join(' · ')}</span></p>
+      <div class="ident">
+        <SectionHeading as="h1" size="display" eyebrow="Resume">{b.name}</SectionHeading>
+        <p class="label">{b.label} <span class="focus">{b.focus.join(' · ')}</span></p>
+      </div>
 
       <ul class="contact">
         <li>
@@ -43,6 +64,20 @@ const PDF = site.resumePdf;
           <Icon name="github" />
           <a href={b.github} target="_blank" rel="me noopener noreferrer">GitHub</a>
         </li>
+        {
+          b.languages && (
+            <li class="languages">
+              {b.languages.map((l, i) => (
+                <>
+                  {i > 0 && <span aria-hidden="true">·</span>}
+                  <span>
+                    {l.name} <span class="level">({l.level})</span>
+                  </span>
+                </>
+              ))}
+            </li>
+          )
+        }
       </ul>
 
       <p class="summary">{b.summary}</p>
@@ -52,124 +87,174 @@ const PDF = site.resumePdf;
       </p>
     </header>
 
-    <section class="block" aria-labelledby="experience">
-      <SectionHeading eyebrow="01" id="experience">Experience</SectionHeading>
-      <div class="entries">
-        {
-          r.experience.map((role, i) => (
-            <ExperienceEntry
-              company={role.company}
-              role={role.role}
-              location={role.location}
-              start={role.start}
-              end={role.end}
-              context={role.context}
-              highlights={role.highlights}
-              stack={role.stack}
-              tone={Math.min(i + 1, 7)}
-              id={`exp-${companyId(role.company)}`}
-              caseStudy={
-                cases.has(role.company)
-                  ? { href: cases.get(role.company)!.href, title: cases.get(role.company)!.title }
-                  : undefined
-              }
-            />
-          ))
-        }
-      </div>
-    </section>
+    <div class="body">
+      {/*
+        Sticky index at wide widths. The accent follows the section under the
+        middle of the viewport with no script: each section names a view
+        timeline pinched to a line at 50% (view-timeline-inset), and its link
+        runs a keyframe over that timeline's cover range. Browsers without
+        scroll-driven animations get a plain list of jump links.
+      */}
+      <nav class="index" aria-label="Resume sections">
+        <ol>
+          {
+            sections.map((s) => (
+              <li>
+                <a href={`#${s.id}`} style={`animation-timeline: ${s.timeline}`}>
+                  <span class="seq" aria-hidden="true">{s.n}</span>
+                  <span class="index-label">{s.label}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ol>
+      </nav>
 
-    {
-      r.skills.length > 0 && (
-        <section class="block" aria-labelledby="skills">
-          <SectionHeading eyebrow="02" id="skills">
-            Skills
-          </SectionHeading>
-          <dl class="skills">
-            {r.skills.map((group) => (
-              <SkillGroup group={group.group} items={group.items} />
-            ))}
-          </dl>
-        </section>
-      )
-    }
-
-    {
-      r.education.length > 0 && (
-        <section class="block" aria-labelledby="education">
-          <SectionHeading eyebrow="03" id="education">
-            Education
-          </SectionHeading>
+      <div class="content">
+        <section
+          class="block reveal"
+          aria-labelledby="experience"
+          style={`view-timeline-name: ${sec('experience').timeline}`}
+        >
+          <SectionHeading eyebrow={sec('experience').n} id="experience">Experience</SectionHeading>
           <div class="entries">
-            {r.education.map((e) => (
-              <article class="edu">
-                <h3 class="edu-degree">{e.degree}</h3>
-                <p class="edu-where">
-                  {e.institution}
-                  {e.location && <> · {e.location}</>}
-                </p>
-                <p class="edu-meta">
-                  {formatYears(e.start, e.end)}
-                  {e.gpa && <> · {e.gpa}</>}
-                  {e.note && <> · {e.note}</>}
-                </p>
-                {e.detail && <p class="edu-detail">{e.detail}</p>}
-              </article>
-            ))}
+            {
+              r.experience.map((role, i) => (
+                <ExperienceEntry
+                  company={role.company}
+                  role={role.role}
+                  location={role.location}
+                  start={role.start}
+                  end={role.end}
+                  context={role.context}
+                  highlights={role.highlights}
+                  stack={role.stack}
+                  tone={Math.min(i + 1, 7)}
+                  id={`exp-${companyId(role.company)}`}
+                  caseStudy={
+                    cases.has(role.company)
+                      ? { href: cases.get(role.company)!.href, title: cases.get(role.company)!.title }
+                      : undefined
+                  }
+                />
+              ))
+            }
           </div>
         </section>
-      )
-    }
 
-    {
-      r.publications.length > 0 && (
-        <section class="block" aria-labelledby="publications">
-          <SectionHeading eyebrow="04" id="publications">
-            Publications
-          </SectionHeading>
-          <ul class="refs">
-            {r.publications.map((p) => (
-              <ReferenceEntry {...p} />
-            ))}
-          </ul>
-        </section>
-      )
-    }
+        {
+          r.skills.length > 0 && (
+            <section
+              class="block reveal"
+              aria-labelledby="skills"
+              style={`view-timeline-name: ${sec('skills').timeline}`}
+            >
+              <SectionHeading eyebrow={sec('skills').n} id="skills">
+                Skills
+              </SectionHeading>
+              <dl class="skills">
+                {r.skills.map((group) => (
+                  <SkillGroup group={group.group} items={group.items} />
+                ))}
+              </dl>
+            </section>
+          )
+        }
 
-    {
-      r.writing.length > 0 && (
-        <section class="block" aria-labelledby="writing">
-          <SectionHeading eyebrow="05" id="writing">
-            Selected writing
-          </SectionHeading>
-          <ul class="refs">
-            {r.writing.map((w) => (
-              <ReferenceEntry {...w} />
-            ))}
-          </ul>
-        </section>
-      )
-    }
+        {
+          r.education.length > 0 && (
+            <section
+              class="block reveal"
+              aria-labelledby="education"
+              style={`view-timeline-name: ${sec('education').timeline}`}
+            >
+              <SectionHeading eyebrow={sec('education').n} id="education">
+                Education
+              </SectionHeading>
+              <div class="entries">
+                {r.education.map((e) => (
+                  <article class="edu">
+                    <h3 class="edu-degree">{e.degree}</h3>
+                    <p class="edu-where">
+                      {e.institution}
+                      {e.location && <> · {e.location}</>}
+                    </p>
+                    <p class="edu-meta">
+                      {formatYears(e.start, e.end)}
+                      {e.gpa && <> · {e.gpa}</>}
+                      {e.note && <> · {e.note}</>}
+                    </p>
+                    {e.detail && <p class="edu-detail">{e.detail}</p>}
+                  </article>
+                ))}
+              </div>
+            </section>
+          )
+        }
 
-    {
-      r.certifications.length > 0 && (
-        <section class="block" aria-labelledby="certifications">
-          <SectionHeading eyebrow="06" id="certifications">
-            Certifications
-          </SectionHeading>
-          <ul class="certs">
-            {r.certifications.map((c) => (
-              <li>{c}</li>
-            ))}
-          </ul>
-        </section>
-      )
-    }
+        {
+          r.publications.length > 0 && (
+            <section
+              class="block reveal"
+              aria-labelledby="publications"
+              style={`view-timeline-name: ${sec('publications').timeline}`}
+            >
+              <SectionHeading eyebrow={sec('publications').n} id="publications">
+                Publications
+              </SectionHeading>
+              <ul class="refs">
+                {r.publications.map((p) => (
+                  <ReferenceEntry {...p} />
+                ))}
+              </ul>
+            </section>
+          )
+        }
 
-    <p class="actions actions-end">
-      <a class="btn" href={PDF} download>Download PDF</a>
-      <Eyebrow>Same source as this page</Eyebrow>
-    </p>
+        {
+          r.writing.length > 0 && (
+            <section
+              class="block reveal"
+              aria-labelledby="writing"
+              style={`view-timeline-name: ${sec('writing').timeline}`}
+            >
+              <SectionHeading eyebrow={sec('writing').n} id="writing">
+                Selected writing
+              </SectionHeading>
+              <ul class="refs">
+                {r.writing.map((w) => (
+                  <ReferenceEntry {...w} />
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        {
+          r.certifications.length > 0 && (
+            <section
+              class="block reveal"
+              aria-labelledby="certifications"
+              style={`view-timeline-name: ${sec('certifications').timeline}`}
+            >
+              <SectionHeading eyebrow={sec('certifications').n} id="certifications">
+                Certifications
+              </SectionHeading>
+              <ul class="certs">
+                {r.certifications.map((c) => (
+                  <li>{c}</li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        <p class="actions actions-end">
+          <a class="btn" href={PDF} download>Download PDF</a>
+          <Eyebrow>Same source as this page</Eyebrow>
+        </p>
+      </div>
+    </div>
   </div>
 </Base>
 
@@ -178,8 +263,30 @@ const PDF = site.resumePdf;
     padding-block: var(--s-section);
   }
 
+  /* Masthead ------------------------------------------------------------ */
+  .masthead {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: var(--s-5);
+    align-items: center;
+  }
+
+  .avatar {
+    grid-row: 1;
+  }
+
+  .ident {
+    grid-row: 1;
+  }
+
+  .contact,
+  .summary,
+  .masthead .actions {
+    grid-column: 1 / -1;
+  }
+
   .label {
-    margin-block-start: var(--s-5);
+    margin-block-start: var(--s-4);
     font-size: var(--t-lead);
     color: var(--fg);
   }
@@ -196,7 +303,7 @@ const PDF = site.resumePdf;
     display: flex;
     flex-wrap: wrap;
     gap: var(--s-2) var(--s-4);
-    margin-block-start: var(--s-4);
+    margin-block-start: var(--s-5);
     padding: 0;
     list-style: none;
     font-size: var(--t-small);
@@ -219,6 +326,14 @@ const PDF = site.resumePdf;
     color: var(--accent);
   }
 
+  .languages {
+    gap: var(--s-2);
+  }
+
+  .level {
+    color: var(--faint);
+  }
+
   .summary {
     margin-block-start: var(--s-5);
     max-width: var(--w-text);
@@ -238,14 +353,14 @@ const PDF = site.resumePdf;
   .actions-end {
     margin-block-start: var(--s-8);
     padding-block-start: var(--s-6);
-    border-block-start: 1px solid var(--rule);
+    border-block-start: var(--hairline) solid var(--rule);
   }
 
   .btn {
     display: inline-flex;
     align-items: center;
     padding: var(--s-2) var(--s-5);
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     background: var(--accent);
     color: var(--on-accent);
     font-size: var(--t-small);
@@ -259,8 +374,101 @@ const PDF = site.resumePdf;
     color: var(--on-accent);
   }
 
+  /* Body: index + content ---------------------------------------------- */
+  .index {
+    display: none;
+  }
+
+  @media (min-width: 64rem) {
+    .body {
+      display: grid;
+      grid-template-columns: 12rem minmax(0, 1fr);
+      column-gap: var(--s-8);
+      margin-block-start: var(--s-9);
+    }
+
+    /* Sticky, not fixed: it only costs a layer while this one column is on
+       screen, and the header stays as it is. */
+    .index {
+      display: block;
+      position: sticky;
+      inset-block-start: var(--s-7);
+      align-self: start;
+      /* Line up with the first heading's eyebrow, not the section rule. */
+      padding-block-start: var(--s-9);
+    }
+
+    .content > .block:first-child {
+      margin-block-start: var(--s-9);
+    }
+  }
+
+  .index ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .index li + li {
+    margin-block-start: var(--s-3);
+  }
+
+  .index a {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s-3);
+    font-size: var(--t-small);
+    text-decoration: none;
+    color: var(--muted);
+    transition: color var(--dur) var(--ease);
+  }
+
+  .index a:hover {
+    color: var(--fg);
+  }
+
+  .index .seq {
+    color: var(--on-seq, var(--faint));
+  }
+
+  .index .index-label {
+    color: var(--on-label, inherit);
+  }
+
+  @supports (animation-timeline: view()) {
+    .page {
+      timeline-scope: --sec-1, --sec-2, --sec-3, --sec-4, --sec-5, --sec-6;
+    }
+
+    /* Each section's timeline is pinched to the line across the middle of the
+       viewport, so exactly one section "covers" it at a time. */
+    .block {
+      view-timeline-inset: 50% 50%;
+    }
+
+    .index a {
+      animation: spy linear;
+      animation-fill-mode: none;
+      animation-range: cover 0% cover 100%;
+    }
+
+    @keyframes spy {
+      from,
+      to {
+        --on-seq: var(--accent);
+        --on-label: var(--fg);
+      }
+    }
+  }
+
   .block {
     margin-block-start: var(--s-9);
+  }
+
+  @media (max-width: 63.99rem) {
+    .content > .block:first-child {
+      margin-block-start: var(--s-9);
+    }
   }
 
   .entries,
@@ -275,7 +483,8 @@ const PDF = site.resumePdf;
   /* Education ---------------------------------------------------------- */
   .edu {
     padding-block: var(--s-5);
-    border-block-start: 1px solid var(--rule);
+    border-block-start: var(--hairline) solid var(--rule);
+    break-inside: avoid;
   }
 
   .edu-degree {
@@ -319,7 +528,7 @@ const PDF = site.resumePdf;
     gap: var(--s-2) var(--s-5);
     margin-block-start: var(--s-5);
     padding-block-start: var(--s-5);
-    border-block-start: 1px solid var(--rule);
+    border-block-start: var(--hairline) solid var(--rule);
     padding-inline-start: 0;
     list-style: none;
     color: var(--muted);
@@ -327,10 +536,30 @@ const PDF = site.resumePdf;
   }
 
   /* Browser print path. The download button points at the Typst PDF; this is
-     just so Cmd+P produces something respectable. */
+     just so Cmd+P produces something respectable: light palette (tokens.css),
+     no chrome, no index, roles kept whole, and the contact links spelled out. */
   @media print {
-    .actions {
+    .page {
+      padding-block: 0;
+    }
+
+    .actions,
+    .index,
+    .avatar {
       display: none;
+    }
+
+    .body {
+      display: block;
+    }
+
+    .block {
+      margin-block-start: var(--s-7);
+    }
+
+    .contact a[href]::after {
+      content: ' (' attr(href) ')';
+      color: var(--faint);
     }
   }
 </style>

@@ -33,7 +33,13 @@ const links = socials.filter((s) => s.primary);
 <style>
   .site-footer {
     margin-block-start: var(--s-section);
-    border-block-start: 1px solid var(--rule);
+    border-block-start: var(--hairline) solid var(--rule);
+  }
+
+  @media print {
+    .site-footer {
+      display: none;
+    }
   }
 
   .inner {

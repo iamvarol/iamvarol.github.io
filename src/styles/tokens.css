@@ -171,6 +171,36 @@
   --stagger: 70ms;
 }
 
+/* Paper is white. Cmd+P on the dark theme would otherwise print white type on
+   a black page, so print always takes the light palette regardless of the
+   stored choice. The Typst PDF remains the real download; this only makes the
+   browser path respectable. Values mirror the light block above. */
+@media print {
+  :root,
+  :root[data-theme='dark'] {
+    --bg: #ffffff;
+    --surface: #f6f6f7;
+    --surface-hover: #eeeef0;
+    --fg: #17171a;
+    --muted: #5a5a63;
+    --faint: #6b6b74;
+    --accent: #6d28d9;
+    --accent-strong: #7c3aed;
+    --on-accent: #ffffff;
+    --rule: rgb(0 0 0 / 0.12);
+    --rule-strong: rgb(0 0 0 / 0.24);
+    --selection: rgb(109 40 217 / 0.18);
+    --tone-1: #e4dbf3;
+    --tone-2: #e8e0f4;
+    --tone-3: #ebe6f5;
+    --tone-4: #eeeaf5;
+    --tone-5: #f1eef6;
+    --tone-6: #f3f2f6;
+    --tone-7: #f6f6f7;
+    color-scheme: light;
+  }
+}
+
 /* Reduced motion zeroes every duration, so anything declared with these tokens
    completes instantly. Scroll-driven animations ignore duration and need their
    own kill — see .reveal in base.css. The inline script in BaseHead stamps

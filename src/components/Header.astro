@@ -47,6 +47,12 @@ const items = await visibleNav();
     border-block-end: var(--hairline) solid var(--rule);
   }
 
+  @media print {
+    .site-header {
+      display: none;
+    }
+  }
+
   .bar {
     display: flex;
     flex-wrap: wrap;
