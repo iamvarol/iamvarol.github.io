@@ -1,20 +1,13 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
-import { site, readyNav, isActive } from '../lib/site';
-import { getPosts } from '../lib/posts';
-import { aboutIsDraft } from '../lib/about';
+import { site, isActive } from '../lib/site';
+import { visibleNav } from '../lib/nav';
 
 const pathname = Astro.url.pathname;
 
-// Two links appear on their own rather than needing a flag flipped by hand:
-// an empty blog linked from every page reads worse than no blog at all, and
-// About stays hidden while its copy is still an unapproved draft.
-const hasPosts = (await getPosts()).length > 0;
-const items = readyNav().filter((item) => {
-  if (item.href === '/blog/') return hasPosts;
-  if (item.href === '/about/') return !aboutIsDraft;
-  return true;
-});
+// The gates (empty blog, draft About, unpublished Work) live in lib/nav.ts so
+// this header and the 404 page agree about which pages exist.
+const items = await visibleNav();
 ---
 
 <header class="site-header">
@@ -65,6 +58,8 @@ const items = readyNav().filter((item) => {
     letter-spacing: -0.01em;
     text-decoration: none;
     white-space: nowrap;
+    /* Held still across a page swap — see the view-transition block in base.css. */
+    view-transition-name: wordmark;
   }
 
   .nav {
@@ -85,6 +80,7 @@ const items = readyNav().filter((item) => {
   }
 
   .nav-link {
+    position: relative;
     font-size: var(--t-meta);
     font-weight: var(--w-medium);
     color: var(--muted);
@@ -99,5 +95,18 @@ const items = readyNav().filter((item) => {
 
   .is-current {
     color: var(--fg);
+  }
+
+  /* The current-page mark. One element on the site carries this
+     view-transition-name at a time, so on navigation the browser slides the
+     hairline from the old item to the new one with no script involved. */
+  .is-current::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: calc(-1 * var(--s-2));
+    block-size: var(--hairline);
+    background: var(--accent);
+    view-transition-name: nav-current;
   }
 </style>

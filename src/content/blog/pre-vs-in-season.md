@@ -6,7 +6,6 @@ tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link: https://medium.com/@a.emrevarol/the-two-clocks-of-retail-pre-season-vs-in-season-planning-af4b807fae34
 link_text: Read on Medium
-published: true
 ---
 # The Two Clocks of Retail: Pre-Season vs In-Season Planning
 

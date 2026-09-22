@@ -6,7 +6,6 @@ tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link: https://medium.com/@a.emrevarol/the-engine-upstream-dc-replenishment-multi-echelon-optimization-51aa254c82e6
 link_text: Read on Medium
-published: true
 ---
 # The Engine Upstream: DC Replenishment & Multi-Echelon Optimization
 

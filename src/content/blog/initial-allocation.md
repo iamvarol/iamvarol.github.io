@@ -6,7 +6,6 @@ tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link: https://medium.com/@a.emrevarol/the-first-irreversible-bet-initial-allocation-aa9a750a7f3c
 link_text: Read on Medium
-published: true
 ---
 # The First Irreversible Bet: Initial Allocation
 

@@ -24,6 +24,8 @@ html {
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    /* Without this a staggered .enter element stays hidden for its delay. */
+    animation-delay: 0s !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
@@ -72,7 +74,7 @@ h6 {
 a {
   color: inherit;
   text-decoration-color: var(--accent);
-  text-decoration-thickness: 1px;
+  text-decoration-thickness: var(--hairline);
   text-underline-offset: 0.22em;
   transition: color var(--dur) var(--ease);
 }
@@ -85,9 +87,9 @@ a:hover {
 /* One visible ring everywhere, in both themes. Never remove without replacing. */
 
 :focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 2px;
+  outline: var(--ring-w) solid var(--accent);
+  outline-offset: var(--ring-offset);
+  border-radius: var(--r-1);
 }
 
 :focus:not(:focus-visible) {
@@ -126,7 +128,7 @@ button {
 
 hr {
   border: none;
-  border-top: 1px solid var(--rule);
+  border-top: var(--hairline) solid var(--rule);
 }
 
 ul,
@@ -161,10 +163,10 @@ pre {
 /* Visually hidden but still announced by screen readers. */
 .sr-only {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  width: var(--hairline);
+  height: var(--hairline);
   padding: 0;
-  margin: -1px;
+  margin: calc(-1 * var(--hairline));
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
@@ -183,7 +185,7 @@ pre {
   font-size: var(--t-small);
   font-weight: var(--w-semibold);
   text-decoration: none;
-  border-radius: 4px;
+  border-radius: var(--r-1);
   transform: translateY(-200%);
 }
 
@@ -224,4 +226,104 @@ pre {
   font-size: var(--t-lead);
   color: var(--muted);
   text-wrap: pretty;
+}
+
+/* ---- Entrances --------------------------------------------------------- */
+
+/* Scroll-driven: progress comes from the element's own position in the
+   viewport, not a clock, so no observer and no script. Browsers without
+   animation-timeline keep the element fully visible — the same "already works
+   without it" contract the two client scripts follow. Each subject has its
+   own timeline, so a vertical list staggers itself. */
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 25%;
+  }
+
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      transform: translateY(var(--s-4));
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* animation-timeline progress isn't gated by animation-duration, so the zeroed
+     tokens do not neutralise this the way they do a transition. */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      animation: none;
+    }
+  }
+}
+
+/* Time-based, for things already in view on load. Pass the position as
+   style="--i: n" for a stagger. Never put this on the page's largest text or
+   image: Chrome skips elements at opacity 0 when picking the LCP candidate and
+   records the moment they appear instead. */
+.enter {
+  animation: enter var(--dur-reveal) var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * var(--stagger));
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--s-3));
+  }
+}
+
+@media print {
+  .reveal,
+  .enter {
+    animation: none;
+  }
+}
+
+/* ---- Cross-document view transitions ---------------------------------- */
+
+/* Pure CSS, no client router: Chromium 126+ and Safari 18.2+ animate the page
+   swap, everything else loads normally. Only <main> and the named header parts
+   take part — the root is opted out — so the chrome holds still while the
+   content changes beneath it, and the header's current-page underline slides
+   to the new item. Wrapped in no-preference rather than cancelled afterwards,
+   so a browser honouring reduced motion never starts one. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}
+
+:root {
+  view-transition-name: none;
+}
+
+main {
+  view-transition-name: main;
+}
+
+::view-transition-old(main) {
+  animation: vt-out var(--dur) var(--ease) both;
+}
+
+::view-transition-new(main) {
+  animation: vt-in var(--dur-move) var(--ease-out) both;
+}
+
+@keyframes vt-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--s-2));
+  }
 }

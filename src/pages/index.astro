@@ -50,7 +50,7 @@ const jsonLd = {
     </div>
   </section>
 
-  <section class="wrap block" aria-labelledby="work">
+  <section class="wrap block reveal" aria-labelledby="work">
     <SectionHeading eyebrow="Focus" id="work">What I work on</SectionHeading>
 
     <ol class="work">
@@ -72,7 +72,7 @@ const jsonLd = {
     </ol>
   </section>
 
-  <section class="wrap block" aria-labelledby="background">
+  <section class="wrap block reveal" aria-labelledby="background">
     <SectionHeading eyebrow="Background" id="background">How I got here</SectionHeading>
     <p class="bio">{site.bio}</p>
 
@@ -83,7 +83,7 @@ const jsonLd = {
 
   {
     posts.length > 0 && (
-      <section class="wrap block" aria-labelledby="writing">
+      <section class="wrap block reveal" aria-labelledby="writing">
         <SectionHeading eyebrow="Writing" id="writing">Recent posts</SectionHeading>
         <div class="posts">
           {posts.map((post) => (
@@ -102,7 +102,7 @@ const jsonLd = {
     )
   }
 
-  <section class="wrap block" aria-labelledby="contact">
+  <section class="wrap block reveal" aria-labelledby="contact">
     <SectionHeading eyebrow="Contact" id="contact">Get in touch</SectionHeading>
     <p class="bio">
       Based in {site.location}. The fastest way to reach me is email.
@@ -190,38 +190,6 @@ const jsonLd = {
   .block {
     padding-block: var(--s-section);
     border-block-start: 1px solid var(--rule);
-  }
-
-  /* Entrance on scroll, driven by the section's own position rather than a
-     duration — pure CSS, no observer. Unsupported browsers simply keep the
-     section fully visible, which is the same "already works without it"
-     contract the two client scripts on this site follow. */
-  @supports (animation-timeline: view()) {
-    .block {
-      animation: reveal linear both;
-      animation-timeline: view();
-      animation-range: entry 0% cover 25%;
-    }
-
-    @keyframes reveal {
-      from {
-        opacity: 0;
-        transform: translateY(var(--s-4));
-      }
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
-
-    /* animation-timeline progress isn't gated by animation-duration, so
-       --dur: 0ms alone (base.css's global reduced-motion rule) does not
-       neutralise this the way it does a transition — it needs its own kill. */
-    @media (prefers-reduced-motion: reduce) {
-      .block {
-        animation: none;
-      }
-    }
   }
 
   /* Numbered sequence ---------------------------------------------------- */

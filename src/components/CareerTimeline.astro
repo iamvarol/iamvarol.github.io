@@ -467,13 +467,9 @@ const { stages } = Astro.props;
     user-select: none;
   }
 
-  /* Slower than --dur (160ms), which is tuned for hovers. A card travelling
-     60% of its width needs longer to read as movement rather than a jump.
-     base.css zeroes transition-duration under reduced motion, so this is
-     already covered there. */
-  .timeline {
-    --dur-move: 420ms;
-  }
+  /* Travel uses --dur-move from tokens.css, not --dur: a card crossing 60% of
+     its width needs longer than a hover colour to read as movement rather than
+     a jump. The token is zeroed under reduced motion. */
 
   /* ---- Responsive ------------------------------------------------------ */
 

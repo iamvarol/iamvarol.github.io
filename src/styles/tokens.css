@@ -135,16 +135,46 @@
   --w-text: 42rem; /* prose — caps line length around 75ch */
   --gutter: clamp(1.25rem, 0.9rem + 1.8vw, 2.5rem);
 
+  /* ---- Shape --------------------------------------------------------- */
+  /* The only px values on the site. base.css must not contain a literal px, so
+     hairlines and the focus ring resolve through these. No shadow scale on
+     purpose: on a near-black page a shadow is invisible, so depth here is a
+     hairline, a surface fill, or a scrim — never elevation. */
+  --hairline: 1px;
+  --ring-w: 2px;
+  --ring-offset: 3px;
+  --r-1: 0.25rem; /* chips, inline code, the focus ring */
+  --r-2: 0.5rem; /* cards, images, code blocks */
+  --r-pill: 999px;
+  /* A hairline that carries the accent without reaching for --accent-strong,
+     which is tuned for fills. Border-only — never text. */
+  --rule-accent: color-mix(in srgb, var(--accent) 35%, transparent);
+
   /* ---- Motion -------------------------------------------------------- */
+  /* Three registers: --dur for state (hover, colour), --dur-move for travel
+     (the carousel, the page swap), --dur-reveal for entrances. --dur-draw is
+     the one long duration, for the hero's forecast band drawing itself in. */
   --ease: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --dur: 160ms;
+  --dur-move: 420ms;
+  --dur-reveal: 640ms;
+  --dur-draw: 1600ms;
+  --stagger: 70ms;
 }
 
-/* Honour the OS setting for anyone who has not chosen explicitly. The inline
-   script in BaseHead stamps data-theme before first paint, so this block is a
-   no-JS fallback rather than the primary mechanism. */
+/* Reduced motion zeroes every duration, so anything declared with these tokens
+   completes instantly. Scroll-driven animations ignore duration and need their
+   own kill — see .reveal in base.css. The inline script in BaseHead stamps
+   data-theme before first paint, so this block is a no-JS fallback rather than
+   the primary mechanism for motion, as it is for theme. */
 @media (prefers-reduced-motion: reduce) {
   :root {
     --dur: 0ms;
+    --dur-move: 0ms;
+    --dur-reveal: 0ms;
+    --dur-draw: 0ms;
+    --stagger: 0ms;
   }
 }

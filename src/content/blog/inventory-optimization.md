@@ -6,7 +6,6 @@ tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link: https://medium.com/@a.emrevarol/the-inventory-optimization-trap-why-more-stock-isnt-always-better-889ba6c1e9b2
 link_text: Read on Medium
-published: true
 ---
 # The Inventory Optimization Trap: Why More Stock Isn't Always Better
 

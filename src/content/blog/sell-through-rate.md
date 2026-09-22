@@ -6,7 +6,6 @@ tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link: https://medium.com/@a.emrevarol/sell-through-rate-the-one-metric-that-rules-them-all-cd17c604c13b
 link_text: Read on Medium
-published: true
 ---
 
 

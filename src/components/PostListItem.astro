@@ -12,7 +12,7 @@ const { title, date, description, tags, draft } = post.data;
 ---
 
 <article class="item">
-  <a href={`/blog/${post.id}/`} class="link" target="_blank" rel="noopener noreferrer">
+  <a href={`/blog/${post.id}/`} class="link">
     <span class="row">
       {/* Mono date rather than a counter: an index position shifts every time a
           post is added, so "01" would not mean anything stable. */}

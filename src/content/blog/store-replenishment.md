@@ -6,7 +6,6 @@ tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link: https://medium.com/@a.emrevarol/keeping-shelves-full-without-drowning-in-stock-store-replenishment-b26b75b52419
 link_text: Read on Medium
-published: true
 ---
 # Keeping Shelves Full Without Drowning in Stock: Store Replenishment
 

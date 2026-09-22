@@ -1,10 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import { site, readyNav } from '../lib/site';
+import { site } from '../lib/site';
+import { visibleNav } from '../lib/nav';
 
 // GitHub Pages serves dist/404.html for any unmatched path automatically.
-const items = readyNav();
+const items = await visibleNav();
 ---
 
 <Base title={`Not found — ${site.shortName}`} noindex>

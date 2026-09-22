@@ -5,6 +5,7 @@ import Eyebrow from '../components/Eyebrow.astro';
 import TagList from '../components/TagList.astro';
 import Icon from '../components/Icon.astro';
 import { readingTime, type Post } from '../lib/posts';
+import { site } from '../lib/site';
 import '../styles/prose.css';
 
 interface Props {
@@ -16,7 +17,7 @@ const { title, date, description, tags, draft, link, link_text } = post.data;
 const minutes = readingTime(post.body);
 ---
 
-<Base title={`${title} — Ali Emre Varol`} description={description} type="article" noindex={draft}>
+<Base title={`${title} — ${site.name}`} description={description} type="article" noindex={draft}>
   <article class="wrap post">
     <header class="head">
       {draft && <Eyebrow accent>Draft — not published</Eyebrow>}

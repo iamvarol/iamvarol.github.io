@@ -6,7 +6,6 @@ tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link: https://medium.com/@a.emrevarol/when-98-in-stock-is-a-lie-the-brokenness-problem-5379db72e004
 link_text: Read on Medium
-published: true
 ---
 # When "98% In Stock" Is a Lie: The Brokenness Problem
 

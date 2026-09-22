@@ -5,7 +5,6 @@ description: "I've talked to data scientists who have built fraud detection syst
 tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link_text: Read on Medium
-published: true
 ---
 
 # Why Retail is the Hardest Industry for Data Scientists

@@ -6,7 +6,6 @@ tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link: https://medium.com/@a.emrevarol/the-hidden-language-of-retail-a-data-scientists-field-guide-to-stakeholders-946787f0fe9d
 link_text: Read on Medium
-published: true
 ---
 
 # The Hidden Language of Retail: A Data Scientist's Field Guide to Stakeholders

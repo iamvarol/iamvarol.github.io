@@ -9,6 +9,7 @@
     "preview": "astro preview",
     "check": "astro check",
     "todo": "node scripts/list-todos.mjs",
+    "verify:dist": "node scripts/verify-dist.mjs",
     "resume:pdf": "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct 2>/dev/null || echo 0) typst compile --root . --ignore-system-fonts resume/resume.typ dist/emre-varol-resume.pdf",
     "resume:verify": "npm run resume:pdf && node scripts/verify-pdf.mjs dist/emre-varol-resume.pdf",
     "og:png": "mkdir -p dist/og && SOURCE_DATE_EPOCH=$(git log -1 --format=%ct 2>/dev/null || echo 0) typst compile --root . --ignore-system-fonts --format png --ppi 72 og/card.typ dist/og/default.png",

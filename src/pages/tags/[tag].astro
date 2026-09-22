@@ -4,6 +4,7 @@ import SectionHeading from '../../components/SectionHeading.astro';
 import PostListItem from '../../components/PostListItem.astro';
 import { getTags, getPostsByTag } from '../../lib/posts';
 import type { GetStaticPaths } from 'astro';
+import { site } from '../../lib/site';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const tags = await getTags();
@@ -16,7 +17,7 @@ const count = `${posts.length} post${posts.length === 1 ? '' : 's'}`;
 ---
 
 <Base
-  title={`#${tag} — Ali Emre Varol`}
+  title={`#${tag} — ${site.name}`}
   description={`Posts tagged ${tag} — ${count}.`}
 >
   <div class="wrap page">

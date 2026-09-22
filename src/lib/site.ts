@@ -36,7 +36,15 @@ export const site = {
 
   locale: 'en',
   location: 'Istanbul, Türkiye',
+  /** Türkiye has had no daylight saving since 2016, so the offset is a constant. */
+  timezone: 'Europe/Istanbul',
+  utcOffset: 'UTC+3',
   email: 'a.emrevarol@gmail.com',
+
+  /** The compiled resume, dropped into dist/ by `npm run assets`. Stable so a
+   *  recruiter's saved copy keeps a sensible name, and named once so the
+   *  download links and the CI parity check cannot disagree about the path. */
+  resumePdf: '/emre-varol-resume.pdf',
 } as const;
 
 export type SocialLink = {

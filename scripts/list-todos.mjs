@@ -18,9 +18,14 @@ const SKIP = new Set(['node_modules', 'dist', '.astro', '.git']);
 
 /** What each file is for, so the report explains itself. */
 const CONTEXT = {
-  'src/data/landing.yml': 'Landing page — blocks Phase 2',
-  'src/data/bio.md': 'About narrative — blocks Phase 3',
-  'src/data/decisions.yml': 'Open decisions — none of these block a phase',
+  'src/data/landing.yml': 'Landing — a hero field stays hidden until its marker is replaced',
+  'src/data/bio.md': 'About narrative — the page is hidden while a marker remains',
+  'src/data/work.yml':
+    'Selected work — a case study stays unpublished (no route, no nav, no sitemap) until its markers are gone',
+  'src/data/contact.yml': 'Contact — pending fields are hidden one by one; the page itself is live',
+  'src/data/resume.yml':
+    'Resume — comment-only markers (URLs, languages); nothing here is gated, so never leave a marker in a rendered field',
+  'src/data/decisions.yml': 'Open decisions — none of these block anything; each has a default',
 };
 
 function* walk(dir) {

@@ -34,6 +34,12 @@ jobs:
 
       - run: npm run build
 
+      # Fails the deploy if unapproved copy (a TODO(emre) marker) reached the
+      # built HTML, an internal link opens a new tab, or the sitemap and the
+      # noindex pages disagree.
+      - name: Verify publication gates
+        run: npm run verify:dist
+
       # Both are compiled from the same src/data/resume.yml the /resume page
       # renders, then dropped into dist/ so Pages serves them alongside the site.
       # --ignore-system-fonts plus a pinned SOURCE_DATE_EPOCH keeps the output

@@ -1,4 +1,5 @@
 import raw from '../data/bio.md?raw';
+import { MARKER } from './gate';
 
 /**
  * True while src/data/bio.md still carries an unanswered marker.
@@ -9,4 +10,4 @@ import raw from '../data/bio.md?raw';
  * (see astro.config.mjs, which reads the same file). Removing the marker line
  * publishes it — there is no second switch to remember.
  */
-export const aboutIsDraft: boolean = raw.includes('TODO(emre)');
+export const aboutIsDraft: boolean = raw.includes(MARKER);

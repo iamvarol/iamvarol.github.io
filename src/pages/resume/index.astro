@@ -12,9 +12,7 @@ import { site } from '../../lib/site';
 const r = await getResume();
 const b = r.basics;
 
-// Filename is stable so a recruiter's saved copy keeps a sensible name, and so
-// the CI parity check and the download link cannot disagree about the path.
-const PDF = '/emre-varol-resume.pdf';
+const PDF = site.resumePdf;
 ---
 
 <Base title={`Resume — ${site.shortName}`} description={b.summary.slice(0, 197)}>

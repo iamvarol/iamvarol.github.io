@@ -6,7 +6,6 @@ tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link: https://medium.com/@a.emrevarol/the-autonomous-planner-what-agentic-ai-actually-changes-in-retail-719681b656a8
 link_text: Read on Medium
-published: true
 ---
 # The Autonomous Planner: What Agentic AI Actually Changes in Retail
 

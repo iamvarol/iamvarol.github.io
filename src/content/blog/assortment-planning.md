@@ -6,7 +6,6 @@ tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link: https://medium.com/@a.emrevarol/choosing-what-to-sell-where-the-assortment-problem-80839c1e666f
 link_text: Read on Medium
-published: true
 ---
 # Choosing What to Sell Where: The Assortment Problem
 

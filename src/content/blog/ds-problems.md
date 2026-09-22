@@ -6,7 +6,6 @@ tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
 link: https://medium.com/@a.emrevarol/10-data-science-problems-every-retailer-wants-solved-and-how-to-frame-them-abb4a6650f83
 link_text: Read on Medium
-published: true
 ---
 # 10 Data Science Problems Every Retailer Wants Solved (And How to Frame Them)
 

@@ -38,7 +38,7 @@
   font-weight: var(--w-semibold);
 }
 
-/* Anchor targets sit under the sticky header without the heading hiding behind it. */
+/* Room above an anchor target so a jumped-to heading does not sit flush with the top edge. */
 .prose :is(h2, h3, h4):target {
   scroll-margin-block-start: var(--s-7);
 }
@@ -82,7 +82,7 @@
   padding: 0.15em 0.4em;
   background: var(--surface);
   border: 1px solid var(--rule);
-  border-radius: 4px;
+  border-radius: var(--r-1);
   color: var(--fg);
   font-size: 0.875em;
   white-space: nowrap;
@@ -93,7 +93,7 @@
 .prose pre {
   padding: var(--s-4);
   border: 1px solid var(--rule);
-  border-radius: 8px;
+  border-radius: var(--r-2);
   overflow-x: auto;
   font-size: var(--t-small);
   line-height: 1.6;
@@ -108,7 +108,7 @@
 }
 
 .prose img {
-  border-radius: 8px;
+  border-radius: var(--r-2);
   border: 1px solid var(--rule);
 }
 
