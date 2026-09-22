@@ -1,26 +1,42 @@
 ---
+import { getEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import Icon from '../components/Icon.astro';
 import { site, socials } from '../lib/site';
+import { getResume } from '../lib/resume';
+import { approved, isPending } from '../lib/gate';
+import { breadcrumbs } from '../lib/jsonld';
 
 // No form, by request. A form on a static site needs a third-party endpoint,
 // which means a network request, a privacy surface and a thing that can break
 // silently between a recruiter hitting send and Emre not receiving it.
 const links = socials.filter((s) => s.href.startsWith('http'));
+
+const entry = await getEntry('contact', 'main');
+if (!entry) throw new Error('contact entry "main" not found — check src/data/contact.yml');
+const c = entry.data;
+
+// His fields, gated one by one; the page itself is always live.
+const responseTime = approved(c.responseTime);
+const include = c.include.length > 0 && (approved(c.include) ?? []);
+const { basics } = await getResume();
 ---
 
 <Base
   title={`Contact — ${site.shortName}`}
   description={`How to reach ${site.name} — email, LinkedIn and GitHub.`}
+  schema={[
+    breadcrumbs([
+      { name: site.shortName, path: '/' },
+      { name: 'Contact', path: '/contact/' },
+    ]),
+  ]}
 >
   <div class="wrap page">
     <SectionHeading as="h1" size="display" eyebrow="Contact">Get in touch</SectionHeading>
 
-    <p class="lead intro">
-      Based in {site.location}, working with teams across Europe and the US. Email is the
-      surest way to reach me; I read everything.
-    </p>
+    <p class="lead intro">{c.intro}</p>
 
     <dl class="channels">
       <div class="channel">
@@ -46,11 +62,56 @@ const links = socials.filter((s) => s.href.startsWith('http'));
           </div>
         ))
       }
+
+      <div class="channel">
+        <dt>Time zone</dt>
+        <dd class="plain">
+          {site.timezone} <span class="quiet">({site.utcOffset})</span>
+        </dd>
+      </div>
+
+      {
+        basics.languages && (
+          <div class="channel">
+            <dt>Languages</dt>
+            <dd class="plain">
+              {basics.languages.map((l, i) => (
+                <>
+                  {i > 0 && <span class="quiet" aria-hidden="true"> · </span>}
+                  {l.name} <span class="quiet">({l.level})</span>
+                </>
+              ))}
+            </dd>
+          </div>
+        )
+      }
+
+      {
+        responseTime && (
+          <div class="channel">
+            <dt>Reply time</dt>
+            <dd class:list={['plain', isPending(responseTime) && 'pending']}>
+              {responseTime}
+            </dd>
+          </div>
+        )
+      }
     </dl>
 
+    {
+      include && include.length > 0 && (
+        <section class="include" aria-labelledby="include">
+          <h2 id="include" class="include-title">When you write</h2>
+          <ul class:list={['include-list', isPending(include) && 'pending']}>
+            {include.map((item) => <li>{item}</li>)}
+          </ul>
+        </section>
+      )
+    }
+
     <p class="aside">
-      Looking for the CV? The <a href="/resume/">resume</a> is on this site, and there is a
-      PDF if you need something to forward.
+      Looking for the CV? The <a href="/resume/">resume</a> is on this site, and there is a{' '}
+      <a href={site.resumePdf} download>PDF</a> if you need something to forward.
     </p>
   </div>
 </Base>
@@ -74,7 +135,7 @@ const links = socials.filter((s) => s.href.startsWith('http'));
     grid-template-columns: 9rem 1fr;
     gap: var(--s-4);
     padding-block: var(--s-4);
-    border-block-start: 1px solid var(--rule);
+    border-block-start: var(--hairline) solid var(--rule);
   }
 
   @media (max-width: 32rem) {
@@ -98,6 +159,14 @@ const links = socials.filter((s) => s.href.startsWith('http'));
     margin: 0;
   }
 
+  .plain {
+    color: var(--fg);
+  }
+
+  .quiet {
+    color: var(--faint);
+  }
+
   dd a {
     display: inline-flex;
     align-items: center;
@@ -108,7 +177,7 @@ const links = socials.filter((s) => s.href.startsWith('http'));
   }
 
   dd a span {
-    border-block-end: 1px solid var(--rule-strong);
+    border-block-end: var(--hairline) solid var(--rule-strong);
     padding-block-end: 2px;
     /* Long handles must not push the page wide on a phone. */
     overflow-wrap: anywhere;
@@ -125,6 +194,38 @@ const links = socials.filter((s) => s.href.startsWith('http'));
 
   .primary {
     font-size: var(--t-lead);
+  }
+
+  .include {
+    margin-block-start: var(--s-8);
+    max-width: var(--w-text);
+  }
+
+  .include-title {
+    font-size: var(--t-h3);
+    font-weight: var(--w-semibold);
+    color: var(--fg);
+  }
+
+  .include-list {
+    margin-block-start: var(--s-4);
+    padding-inline-start: 1.1em;
+    color: var(--muted);
+  }
+
+  .include-list li + li {
+    margin-block-start: var(--s-2);
+  }
+
+  .include-list li::marker {
+    color: var(--faint);
+  }
+
+  /* Dev only: a placeholder still carrying its marker reads as one. */
+  .pending {
+    color: var(--accent);
+    font-family: var(--face-mono);
+    font-size: var(--t-small);
   }
 
   .aside {

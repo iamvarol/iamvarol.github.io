@@ -5,24 +5,29 @@
 #
 # Answer by replacing the `answer:` value. Anything left marked is still open;
 # where a `default:` is given, that is what happens if you never answer, so an
-# unanswered question never blocks a phase.
+# unanswered question never blocks anything. Decided items keep their entry
+# with the date, so the reasoning stays next to the answer.
 
 - id: nav-label
   question: Should the nav read "Blog" or "Writing"?
   note: >-
     "Writing" reads slightly more senior and matches the /blog eyebrow, which
-    already says WRITING. "Blog" is unambiguous. It appears on every page.
+    already says WRITING. "Blog" is unambiguous. It appears on every page, and
+    the header now carries five links: below 30rem it wraps to two rows, so
+    label length no longer decides whether it fits at 320px.
   default: Blog
   answer: 'TODO(emre)'
 
 - id: photo
   question: Headshot on the About page, or text only?
   note: >-
-    Text only is more consistent with the restraint direction. A photo helps a
-    recruiter connect a name to a face, and you already have one in the archive
-    at `git show hugo-archive:assets/images/author/aliemrevarol.png`.
+    A photo helps a recruiter connect a name to a face. The archived one
+    (iamvarol.github.io_OLD, hugo-archive:assets/images/author/aliemrevarol.png)
+    now lives at src/assets/portrait.png with its background removed, on the
+    landing hero, the About page and the resume masthead. Replace that one
+    file to change it everywhere.
   default: text only
-  answer: 'TODO(emre)'
+  answer: 'Yes — the archived headshot, background removed, on /, /about/ and /resume/ (decided 2026-09-22).'
 
 - id: analytics
   question: Do you want to know whether recruiters are reading the site?
@@ -45,22 +50,110 @@
 - id: theme-default
   question: Should the site force dark, or keep following the visitor's OS setting?
   note: >-
-    You asked for both "dark as the default" and "respect prefers-color-scheme",
-    which conflict in practice: browsers report `light` when the visitor has
-    expressed no preference, so most recruiters on a default phone currently see
-    the light theme and never the dark design. Forcing dark on first visit is a
-    one-line change in BaseHead.astro; the toggle keeps working either way.
+    Browsers report `light` when the visitor has expressed no preference, so
+    most recruiters on a default phone see the light theme first. Keeping the
+    OS preference means both palettes are first-class: every new treatment
+    ships a light variant and is checked in both.
   default: follow the OS, as originally specified
-  answer: 'TODO(emre)'
+  answer: 'Follow the OS. Both themes are maintained to the same standard (decided 2026-09-22).'
+
+- id: site-typeface
+  question: Which typefaces carry the site?
+  note: >-
+    Montserrat read as a SaaS landing page. Display sizes (hero name, page
+    titles, metric figures) now take Libertinus Serif at one weight — the face
+    the Typst PDF and the OG card already used, so the CV, a LinkedIn preview
+    and the site read as one document — with Inter for body and UI and
+    JetBrains Mono for eyebrows and metadata.
+  default: Libertinus Serif display, Inter body, JetBrains Mono
+  answer: 'Libertinus Serif display + Inter body + JetBrains Mono (decided 2026-09-22).'
 
 - id: pdf-typeface
   question: Should the resume PDF match the site's typeface?
   note: >-
-    The PDF is currently Libertinus Serif because Typst embeds only four fonts
-    and using a system font would make output depend on the build machine.
-    Matching Inter means committing two TTF files (~700 KB) to the repo. The
-    serif arguably suits a CV with three peer-reviewed publications.
-  default: keep Libertinus Serif
+    It now does for display type — the site's display face is Libertinus
+    Serif, which Typst embeds. The PDF body is also Libertinus; the site body
+    is Inter. Matching the body too would mean committing Inter TTFs to the
+    repo and losing --ignore-system-fonts determinism for nothing a reader
+    would notice.
+  default: keep Libertinus Serif throughout the PDF
+  answer: 'TODO(emre)'
+
+- id: positioning
+  question: >-
+    Should the headline positioning move from "Senior Data Scientist · Retail
+    Supply Chain AI" toward the Senior / Lead / Chief in AI · Data · Retail ·
+    Architecture image you described?
+  note: >-
+    The words appear in five places that must change together or an
+    interviewer sees two titles: `basics.label` and `basics.focus` in
+    src/data/resume.yml (resume page, PDF masthead, OG card), and `tagline`,
+    `title`, `description` in src/lib/site.ts (hero eyebrow, <title>, meta
+    description, JSON-LD jobTitle). Nothing else needs touching.
+  default: keep the current text
+  answer: 'TODO(emre)'
+
+- id: proof-numbers
+  question: Which four figures belong in the proof strip under the hero?
+  note: >-
+    landing.yml `proof[]` — each value must appear verbatim in the named role's
+    highlights in resume.yml, or the build fails. Current set: 95% quarterly
+    forecast accuracy, €1.2M saved per year (both Berlin Tires), 50,000+
+    personnel and 17% inventory cost cut (both defense sector). Candidates not
+    used: 22% excess stock, 45% faster query resolution, 27% lower forecast
+    error at eyva, ~65% less deployment effort at John Snow Labs, 8 hires.
+  default: the current four
+  answer: 'TODO(emre)'
+
+- id: writing-links
+  question: Should the three "Selected writing" entries link to Medium or to the on-site copies?
+  note: >-
+    They now link to the Medium originals, because the venue is Medium and
+    the schema wants absolute URLs; an on-site absolute URL would become a
+    fourth place to edit on a custom-domain move. The on-site copies are one
+    click away from the blog.
+  default: Medium
+  answer: 'TODO(emre)'
+
+- id: blog-tags
+  question: Re-tag the 18 Retail Data Playbook posts so the tag pages stop duplicating each other?
+  note: >-
+    All 18 carry the same four tags, so /tags/retail/, /tags/data-science/,
+    /tags/inventory-management/ and /tags/data-analytics/ are the same page
+    four times. Tag pages are noindex and out of the sitemap until the sets
+    are distinct; the series page carries the collection instead. A distinct
+    set per post is editorial — e.g. forecasting, replenishment, assortment,
+    allocation, markdown, pricing, planning, metrics, stakeholders, agentic-ai.
+  default: keep the tags; tag pages stay noindex
+  answer: 'TODO(emre)'
+
+- id: work-nav-label
+  question: Should the case-study section be called "Work", "Case studies" or "Projects"?
+  note: >-
+    "Work" is shortest and matches the /work/ path; the page heading reads
+    "Selected work" either way. The nav item is gated until a case study is
+    published, so this decides nothing until then.
+  default: Work
+  answer: 'TODO(emre)'
+
+- id: languages-on-pdf
+  question: Add a languages line to the resume, and should it reach the PDF?
+  note: >-
+    The field is wired through the schema, the /resume/ masthead and the
+    Typst masthead; the value is a comment in resume.yml waiting for you. The
+    PDF is tuned to exactly two pages, so `npm run resume:verify` decides
+    whether the extra masthead line fits — if it spills, trim a bullet.
+  default: add it if it fits two pages
+  answer: 'TODO(emre)'
+
+- id: invent-disclosure
+  question: How much of the invent.ai validation platform may the case study describe?
+  note: >-
+    Current employer. The skeleton in src/data/work.yml repeats only what
+    resume.yml already says publicly (rule pools, severity tiers, scan modes,
+    the repo split). Client names, data volumes and internals stay out unless
+    you decide otherwise.
+  default: only what resume.yml already says
   answer: 'TODO(emre)'
 
 - id: cv-gap

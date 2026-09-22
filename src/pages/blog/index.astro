@@ -123,6 +123,12 @@ const seriesList = await getSeriesList();
     margin-block-start: var(--s-4);
   }
 
+  /* On a tone, --faint fails AA (4.12 on tone-2 light) — the trap tokens.css
+     warns about — so the card's eyebrow steps up to --muted. */
+  .series-card :global(.eyebrow) {
+    color: var(--muted);
+  }
+
   .series-title {
     font-family: var(--face-display);
     font-weight: var(--w-semibold);

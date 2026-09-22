@@ -2,7 +2,7 @@
 #
 # Each entry is a skeleton lifted from src/data/resume.yml: the company, the
 # figures and the stack are facts already on the resume; the prose fields are
-# yours. Every field that begins with `TODO(emre):` describes what belongs there
+# yours. Every field that begins with the marker describes what belongs there
 # and is a placeholder, not copy. While any marker remains in an entry, that
 # entry has no route, no nav link and no sitemap line in production; `npm run
 # dev` shows it with a Draft badge so the layout can be checked. Removing the

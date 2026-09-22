@@ -208,7 +208,7 @@ const landing = defineCollection({
         })
         .optional(),
       // The availability line: level open to, remote posture, from when. His
-      // words; while the text still carries TODO(emre) the line is withheld
+      // words; while the text still carries the marker the line is withheld
       // from production by src/lib/gate.ts and shown only in `npm run dev`.
       status: z
         .object({
@@ -251,7 +251,7 @@ const landing = defineCollection({
  * An array with an `id` per item, so `file()` needs no parser. The role,
  * dates and card line are joined from resume.yml by `company` in
  * src/lib/work.ts, which is also where the publication gate lives: an entry
- * still carrying a TODO(emre) marker never gets a route in production.
+ * still carrying the marker never gets a route in production.
  */
 const work = defineCollection({
   loader: file('./src/data/work.yml'),
@@ -300,4 +300,19 @@ const series = defineCollection({
   }),
 });
 
-export const collections = { blog, resume, landing, work, series };
+/**
+ * Contact page copy — a single object like landing, so the parser names it.
+ * Fields still carrying the marker are withheld one by one by src/lib/gate.ts.
+ */
+const contact = defineCollection({
+  loader: file('./src/data/contact.yml', {
+    parser: (text) => ({ main: parseYaml(text) }),
+  }),
+  schema: z.object({
+    intro: z.string().min(1),
+    responseTime: z.string().min(1).max(120).optional(),
+    include: z.array(z.string().min(1).max(160)).max(5).default([]),
+  }),
+});
+
+export const collections = { blog, resume, landing, work, series, contact };

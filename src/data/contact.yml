@@ -1,0 +1,20 @@
+# Contact page copy.
+#
+# `intro` is the sentence that was on the page before this file existed, moved
+# here unchanged so content lives in data. The two fields carrying the marker are
+# yours: each is hidden on its own until its marker is replaced (the page
+# itself stays live), and `include` disappears while any item is pending.
+# Languages are not here — they come from resume.yml when you add them there.
+
+intro: >-
+  Based in Istanbul, Türkiye, working with teams across Europe and the US. Email is the
+  surest way to reach me; I read everything.
+
+# One clause: how quickly you usually reply.
+responseTime: 'TODO(emre): expected reply time, e.g. "within two working days"'
+
+# What makes an approach easy to answer. Up to five short items.
+include:
+  - 'TODO(emre): item 1 — e.g. the role, its level and whether it is remote'
+  - 'TODO(emre): item 2 — e.g. the company or client and the stage of the process'
+  - 'TODO(emre): item 3 — e.g. the compensation range, if you want it up front'

@@ -15,6 +15,8 @@ import { join, relative } from 'node:path';
 const MARKER = 'TODO(emre)';
 const ROOT = 'src';
 const SKIP = new Set(['node_modules', 'dist', '.astro', '.git']);
+// Defines the marker rather than carrying one.
+const SKIP_FILES = new Set(['src/lib/gate.ts']);
 
 /** What each file is for, so the report explains itself. */
 const CONTEXT = {
@@ -40,6 +42,7 @@ function* walk(dir) {
 const findings = new Map();
 
 for (const path of walk(ROOT)) {
+  if (SKIP_FILES.has(relative('.', path))) continue;
   let text;
   try {
     text = readFileSync(path, 'utf8');

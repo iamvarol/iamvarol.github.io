@@ -12,6 +12,9 @@ push to `main`.
 | `npm run build` | Static build into `dist/` |
 | `npm run preview` | Serve the built `dist/` locally |
 | `npm run check` | Type-check, including content collection schemas |
+| `npm run verify:dist` | After a build: no unapproved copy, no internal links in new tabs, sitemap consistent |
+| `npm run todo` | Everything still waiting on Emre (`TODO(emre)` markers) |
+| `npm run assets` | Resume PDF, default OG card and per-page share cards (needs `typst`) |
 
 ## Adding a blog post
 
