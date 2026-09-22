@@ -1,6 +1,6 @@
 ---
 title: "The Two Clocks of Retail: Pre-Season vs In-Season Planning"
-date: 2026-08-27
+date: 2026-08-29
 description: "A retailer runs on two clocks at the same time, and they tick at completely different speeds."
 tags: [retail, data-science, inventory-management, data-analytics]
 draft: false
