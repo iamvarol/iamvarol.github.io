@@ -1,6 +1,7 @@
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
 
 export type Post = CollectionEntry<'blog'>;
+export type Series = CollectionEntry<'series'>;
 
 /**
  * Drafts are visible in `npm run dev` so you can preview them, and stripped
@@ -70,4 +71,50 @@ export async function getPostsByTag(tag: string): Promise<Post[]> {
 export function readingTime(body: string | undefined): number {
   const words = (body ?? '').trim().split(/\s+/).filter(Boolean).length;
   return Math.max(1, Math.round(words / 200));
+}
+
+/** The posts of one series, in part order. */
+export async function getSeriesPosts(id: string): Promise<Post[]> {
+  const posts = await getPosts();
+  return posts
+    .filter((post) => post.data.series?.id === id)
+    .sort((a, b) => (a.data.part ?? 0) - (b.data.part ?? 0));
+}
+
+/** Every series that has at least one visible post, with its posts. */
+export async function getSeriesList(): Promise<{ series: Series; posts: Post[] }[]> {
+  const all = await getCollection('series');
+  const out = [];
+  for (const series of all) {
+    const posts = await getSeriesPosts(series.id);
+    if (posts.length > 0) out.push({ series, posts });
+  }
+  return out;
+}
+
+export type SeriesContext = {
+  series: Series;
+  posts: Post[];
+  /** 1-based position in the series — the `part` as written, not the index. */
+  part: number;
+  total: number;
+  prev?: Post;
+  next?: Post;
+};
+
+/** Where a post sits in its series, or undefined for a standalone post. */
+export async function seriesFor(post: Post): Promise<SeriesContext | undefined> {
+  if (!post.data.series) return undefined;
+  const series = await getEntry(post.data.series);
+  if (!series) return undefined;
+  const posts = await getSeriesPosts(series.id);
+  const i = posts.findIndex((p) => p.id === post.id);
+  return {
+    series,
+    posts,
+    part: post.data.part ?? i + 1,
+    total: posts.length,
+    prev: posts[i - 1],
+    next: posts[i + 1],
+  };
 }

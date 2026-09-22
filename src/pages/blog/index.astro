@@ -1,49 +1,83 @@
 ---
 import Base from '../../layouts/Base.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
+import Eyebrow from '../../components/Eyebrow.astro';
 import PostListItem from '../../components/PostListItem.astro';
+import PostTimeline from '../../components/PostTimeline.astro';
 import TagList from '../../components/TagList.astro';
 import Icon from '../../components/Icon.astro';
-import { getPosts, getTags } from '../../lib/posts';
+import { getPosts, getTags, getSeriesList } from '../../lib/posts';
 import { site } from '../../lib/site';
 
 const posts = await getPosts();
 const tags = await getTags();
 const tagCounts = Object.fromEntries(tags.map(({ tag, count }) => [tag, count]));
+const seriesList = await getSeriesList();
 ---
 
-<Base title={`Blog — ${site.shortName}`} description={`Writing by ${site.name}.`}>
+<Base title={`Blog — ${site.shortName}`} description={`Writing by ${site.name} on retail data science, forecasting and knowledge graphs.`}>
   <div class="wrap page">
     <SectionHeading as="h1" size="display" eyebrow="Writing">Blog</SectionHeading>
 
-    {
-      tags.length > 0 && (
-        <div class="taglist">
-          <TagList tags={tags.map((t) => t.tag)} counts={tagCounts} />
-        </div>
-      )
-    }
+    <div class="layout">
+      <div class="main">
+        {
+          seriesList.length > 0 && (
+            <section class="series" aria-labelledby="series">
+              <h2 id="series" class="sr-only">Series</h2>
+              {seriesList.map(({ series, posts: parts }) => (
+                <a class="series-card" href={`/series/${series.id}/`}>
+                  <Eyebrow>Series · {parts.length} parts</Eyebrow>
+                  <span class="series-title">{series.data.title}</span>
+                  {series.data.description && <span class="series-desc">{series.data.description}</span>}
+                  <span class="series-start">Start at part 1 →</span>
+                </a>
+              ))}
+            </section>
+          )
+        }
 
-    {
-      posts.length > 0 ? (
-        <div class="list">
-          {posts.map((post) => (
-            <PostListItem post={post} />
-          ))}
-        </div>
-      ) : (
-        /* Visitor-facing copy. Authoring instructions belong in CLAUDE.md and the
-           post template, not on a page a recruiter might land on. */
-        <p class="empty">Nothing published yet.</p>
-      )
-    }
+        {
+          posts.length > 0 ? (
+            <div class="list">
+              {posts.map((post) => (
+                <PostListItem post={post} />
+              ))}
+            </div>
+          ) : (
+            /* Visitor-facing copy. Authoring instructions belong in CLAUDE.md and the
+               post template, not on a page a recruiter might land on. */
+            <p class="empty">Nothing published yet.</p>
+          )
+        }
 
-    <p class="feed">
-      <a href="/rss.xml">
-        <Icon name="rss" />
-        RSS feed
-      </a>
-    </p>
+        <p class="feed">
+          <a href="/rss.xml">
+            <Icon name="rss" />
+            RSS feed
+          </a>
+        </p>
+      </div>
+
+      <aside class="rail">
+        {
+          tags.length > 0 && (
+            <div class="rail-block">
+              <Eyebrow>Tags</Eyebrow>
+              <TagList tags={tags.map((t) => t.tag)} counts={tagCounts} />
+            </div>
+          )
+        }
+        {
+          posts.length > 0 && (
+            <div class="rail-block">
+              <Eyebrow>Timeline</Eyebrow>
+              <PostTimeline posts={posts} />
+            </div>
+          )
+        }
+      </aside>
+    </div>
   </div>
 </Base>
 
@@ -52,8 +86,62 @@ const tagCounts = Object.fromEntries(tags.map(({ tag, count }) => [tag, count]))
     padding-block: var(--s-section);
   }
 
-  .taglist {
-    margin-block-start: var(--s-6);
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-8) var(--s-9);
+    margin-block-start: var(--s-7);
+  }
+
+  @media (min-width: 64rem) {
+    .layout {
+      grid-template-columns: minmax(0, 1fr) 18rem;
+      align-items: start;
+    }
+  }
+
+  /* The series card: a tone tile, the same surface the case-study figures
+     use, so "collected" reads the same way across the site. */
+  .series-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+    padding: var(--s-5);
+    border-radius: var(--r-2);
+    background: var(--tone-2);
+    text-decoration: none;
+    color: inherit;
+    transition: background-color var(--dur) var(--ease);
+  }
+
+  .series-card:hover {
+    background: var(--tone-1);
+    color: inherit;
+  }
+
+  .series-card + .series-card {
+    margin-block-start: var(--s-4);
+  }
+
+  .series-title {
+    font-family: var(--face-display);
+    font-weight: var(--w-semibold);
+    font-size: var(--t-h3);
+    line-height: 1.2;
+    color: var(--fg);
+  }
+
+  .series-desc {
+    max-width: var(--w-text);
+    font-size: var(--t-small);
+    color: var(--muted);
+  }
+
+  .series-start {
+    margin-block-start: var(--s-2);
+    font-family: var(--face-mono);
+    font-size: var(--t-meta);
+    color: var(--accent);
   }
 
   .list {
@@ -63,13 +151,9 @@ const tagCounts = Object.fromEntries(tags.map(({ tag, count }) => [tag, count]))
   .empty {
     margin-block-start: var(--s-7);
     padding-block-start: var(--s-6);
-    border-block-start: 1px solid var(--rule);
+    border-block-start: var(--hairline) solid var(--rule);
     max-width: var(--w-text);
     color: var(--muted);
-  }
-
-  .empty code {
-    color: var(--fg);
   }
 
   .feed {
@@ -88,5 +172,17 @@ const tagCounts = Object.fromEntries(tags.map(({ tag, count }) => [tag, count]))
 
   .feed a:hover {
     color: var(--accent);
+  }
+
+  .rail {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-7);
+  }
+
+  .rail-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-4);
   }
 </style>

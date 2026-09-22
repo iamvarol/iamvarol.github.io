@@ -1,0 +1,9 @@
+# Blog series. A post joins one by naming it in frontmatter:
+#
+#   series: retail-data-playbook
+#   part: 4
+#
+# `description` is optional and yours to write; nothing renders a blank one.
+
+- id: retail-data-playbook
+  title: The Retail Data Playbook

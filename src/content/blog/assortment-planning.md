@@ -3,6 +3,8 @@ title: "Choosing What to Sell Where: The Assortment Problem"
 date: 2026-08-27
 description: "Your best-selling style is invisible in 90 of your 120 stores. Not because it flopped there — because it was never ranged there at all."
 tags: [retail, data-science, inventory-management, data-analytics]
+series: retail-data-playbook
+part: 12
 draft: false
 link: https://medium.com/@a.emrevarol/choosing-what-to-sell-where-the-assortment-problem-80839c1e666f
 link_text: Read on Medium

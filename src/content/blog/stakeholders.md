@@ -3,6 +3,8 @@ title: "The Hidden Language of Retail: A Data Scientist's Field Guide to Stakeho
 date: 2026-03-28
 description: "Retail is an industry where the data science fails at the organizational layer far more often than at the technical layer. Before you write a single line of code, you need to know who makes decisions, what they actually care about, and — crucially — how they'll interpret your output."
 tags: [retail, data-science, inventory-management, data-analytics]
+series: retail-data-playbook
+part: 2
 draft: false
 link: https://medium.com/@a.emrevarol/the-hidden-language-of-retail-a-data-scientists-field-guide-to-stakeholders-946787f0fe9d
 link_text: Read on Medium

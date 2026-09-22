@@ -3,6 +3,8 @@ title: "The Inventory Optimization Trap: Why More Stock Isn't Always Better"
 date: 2026-04-10
 description: "Inventory optimization is one of the highest-impact, most structurally underappreciated applications of data science in retail."
 tags: [retail, data-science, inventory-management, data-analytics]
+series: retail-data-playbook
+part: 8
 draft: false
 link: https://medium.com/@a.emrevarol/the-inventory-optimization-trap-why-more-stock-isnt-always-better-889ba6c1e9b2
 link_text: Read on Medium

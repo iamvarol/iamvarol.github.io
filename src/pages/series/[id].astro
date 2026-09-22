@@ -2,30 +2,29 @@
 import Base from '../../layouts/Base.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import PostListItem from '../../components/PostListItem.astro';
-import { getTags, getPostsByTag } from '../../lib/posts';
-import type { GetStaticPaths } from 'astro';
+import { getSeriesList, type Post, type Series } from '../../lib/posts';
 import { site } from '../../lib/site';
+import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const tags = await getTags();
-  return tags.map(({ tag }) => ({ params: { tag } }));
+  const list = await getSeriesList();
+  return list.map(({ series, posts }) => ({ params: { id: series.id }, props: { series, posts } }));
 };
 
-const { tag } = Astro.params;
-const posts = await getPostsByTag(tag!);
-const count = `${posts.length} post${posts.length === 1 ? '' : 's'}`;
+const { series, posts } = Astro.props as { series: Series; posts: Post[] };
+const count = `${posts.length} part${posts.length === 1 ? '' : 's'}`;
 ---
 
-{/* noindex while the Playbook posts share one tag set and these pages
-    duplicate each other; the sitemap filter in astro.config.mjs matches. */}
 <Base
-  title={`#${tag} — ${site.name}`}
-  description={`Posts tagged ${tag} — ${count}.`}
-  noindex
+  title={`${series.data.title} — ${site.name}`}
+  description={series.data.description ?? `${series.data.title}: ${count}, by ${site.name}.`}
 >
   <div class="wrap page">
-    <SectionHeading as="h1" size="display" eyebrow="Tag">#{tag}</SectionHeading>
-    <p class="count">{count}</p>
+    <SectionHeading as="h1" size="display" eyebrow="Series">
+      {series.data.title}
+      {series.data.description && <Fragment slot="sub">{series.data.description}</Fragment>}
+    </SectionHeading>
+    <p class="count">{count}, in reading order</p>
 
     <div class="list">
       {posts.map((post) => <PostListItem post={post} />)}

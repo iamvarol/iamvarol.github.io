@@ -1,4 +1,4 @@
-import { defineCollection } from 'astro:content';
+import { defineCollection, reference } from 'astro:content';
 import { glob, file } from 'astro/loaders';
 import { parse as parseYaml } from 'yaml';
 // `import { z } from 'astro:content'` is deprecated in Astro 7; astro/zod is the
@@ -43,6 +43,11 @@ const blog = defineCollection({
 
     draft: z.boolean().default(false),
 
+    // Membership in a series (src/data/series.yml). `reference` makes a typo
+    // in the id a build error; `part` orders the posts within it.
+    series: reference('series').optional(),
+    part: z.number().int().positive().optional(),
+
     // Cross-post attribution. `link` is optional — some posts haven't been
     // cross-posted yet — and `.nullable()` because an empty `link:` in YAML
     // parses as null, not undefined. `link_text` alone never renders a
@@ -71,7 +76,7 @@ const refDate = z
 /** Publications and writing are the same shape; only the heading differs.
  *  `url` is optional: a piece that isn't online, or whose link hasn't been
  *  supplied yet, renders as plain text rather than a dead anchor. */
-const reference = z.object({
+const citation = z.object({
   title: z.string(),
   venue: z.string(),
   date: refDate,
@@ -169,9 +174,9 @@ const resume = defineCollection({
       )
       .default([]),
 
-    publications: z.array(reference).default([]),
+    publications: z.array(citation).default([]),
 
-    writing: z.array(reference).default([]),
+    writing: z.array(citation).default([]),
 
     certifications: z.array(z.string()).default([]),
   }),
@@ -286,4 +291,13 @@ const work = defineCollection({
   }),
 });
 
-export const collections = { blog, resume, landing, work };
+/** Blog series — the title a post's `series` id resolves to. */
+const series = defineCollection({
+  loader: file('./src/data/series.yml'),
+  schema: z.object({
+    title: z.string().min(1).max(80),
+    description: z.string().min(1).max(300).optional(),
+  }),
+});
+
+export const collections = { blog, resume, landing, work, series };

@@ -3,6 +3,8 @@ title: "The Art of Marking Down: How Data Science Can Save Margins"
 date: 2026-04-08
 description: "Markdowns are the most expensive routine decision in retail. Done well, they're a controlled release valve that clears inventory while protecting as much margin as possible. Done badly — too early, too deep, or too bluntly across the whole store network — they train customers to wait for sales, collapse blended margins, and shrink next season's buying budget."
 tags: [retail, data-science, inventory-management, data-analytics]
+series: retail-data-playbook
+part: 6
 draft: false
 link: https://medium.com/@a.emrevarol/the-art-of-marking-down-how-data-science-can-save-margins-5f1be9305792
 link_text: Read on Medium

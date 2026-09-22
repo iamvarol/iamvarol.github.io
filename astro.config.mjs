@@ -23,7 +23,12 @@ const workUrls = [
   ...(pendingWork.length === work.length ? ['/work/'] : []),
 ];
 
+// Tag pages are navigation, not content, while 18 posts share one identical
+// tag set — four near-identical pages would only dilute the series page. They
+// carry noindex (src/pages/tags/[tag].astro) and stay out of the sitemap until
+// the tags are distinct; see `blog-tags` in decisions.yml.
 const excluded = ['/404/', ...(aboutIsDraft ? ['/about/'] : []), ...workUrls];
+const excludedPrefixes = ['/tags/'];
 
 export default defineConfig({
   integrations: [
@@ -31,7 +36,9 @@ export default defineConfig({
       // Anything carrying `noindex` must not be advertised in the sitemap —
       // submitting a page for crawling while asking it not to be indexed is a
       // contradiction Search Console reports as an error.
-      filter: (page) => !excluded.some((p) => page.endsWith(p)),
+      filter: (page) =>
+        !excluded.some((p) => page.endsWith(p)) &&
+        !excludedPrefixes.some((p) => new URL(page).pathname.startsWith(p)),
     }),
   ],
 
@@ -39,6 +46,12 @@ export default defineConfig({
   // `base` is deliberately omitted. Adding a custom domain later is this one line
   // plus a `public/CNAME` file — no link in the codebase is base-prefixed.
   site: 'https://iamvarol.github.io',
+
+  // Every <Image> and Markdown image gets a srcset sized to its rendered
+  // width, so a phone stops downloading the desktop-width post heroes.
+  image: {
+    layout: 'constrained',
+  },
 
   // Astro downloads these at build time and serves them from our own origin, so
   // there is no third-party request and nothing blocks render. It also emits the

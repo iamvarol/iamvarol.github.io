@@ -3,6 +3,8 @@ title: "The Engine Upstream: DC Replenishment & Multi-Echelon Optimization"
 date: 2026-09-03
 description: "Every empty shelf has a cause, and it's usually not on the shelf."
 tags: [retail, data-science, inventory-management, data-analytics]
+series: retail-data-playbook
+part: 17
 draft: false
 link: https://medium.com/@a.emrevarol/the-engine-upstream-dc-replenishment-multi-echelon-optimization-51aa254c82e6
 link_text: Read on Medium

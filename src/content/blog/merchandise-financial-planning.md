@@ -3,6 +3,8 @@ title: "The Money Map: How Retail Decides Your Budget Before You Buy Anything"
 date: 2026-08-26
 description: "By the time a buyer picks next season's dresses, the most important number is already decided — by a spreadsheet built six to nine months earlier, in a room the data team was never in."
 tags: [retail, data-science, inventory-management, data-analytics]
+series: retail-data-playbook
+part: 11
 draft: false
 link: https://medium.com/@a.emrevarol/the-money-map-how-retail-decides-your-budget-before-you-buy-anything-2bbdc05ad838
 link_text: Read on Medium

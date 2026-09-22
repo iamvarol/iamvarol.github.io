@@ -3,6 +3,8 @@ title: "The Autonomous Planner: What Agentic AI Actually Changes in Retail"
 date: 2026-09-06
 description: "Every retail technology deck you'll see this year promises the same thing: an autonomous, self-healing, agentic supply chain that plans itself while you sleep."
 tags: [retail, data-science, inventory-management, data-analytics]
+series: retail-data-playbook
+part: 18
 draft: false
 link: https://medium.com/@a.emrevarol/the-autonomous-planner-what-agentic-ai-actually-changes-in-retail-719681b656a8
 link_text: Read on Medium

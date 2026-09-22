@@ -4,7 +4,7 @@ import FormattedDate from '../components/FormattedDate.astro';
 import Eyebrow from '../components/Eyebrow.astro';
 import TagList from '../components/TagList.astro';
 import Icon from '../components/Icon.astro';
-import { readingTime, type Post } from '../lib/posts';
+import { readingTime, seriesFor, type Post } from '../lib/posts';
 import { site } from '../lib/site';
 import '../styles/prose.css';
 
@@ -15,6 +15,7 @@ interface Props {
 const { post } = Astro.props;
 const { title, date, description, tags, draft, link, link_text } = post.data;
 const minutes = readingTime(post.body);
+const series = await seriesFor(post);
 ---
 
 <Base title={`${title} — ${site.name}`} description={description} type="article" noindex={draft}>
@@ -28,6 +29,17 @@ const minutes = readingTime(post.body);
         <FormattedDate date={date} />
         <span aria-hidden="true">·</span>
         <span>{minutes} min read</span>
+        {
+          series && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>
+                Part {series.part} of {series.total},{' '}
+                <a href={`/series/${series.series.id}/`}>{series.series.data.title}</a>
+              </span>
+            </>
+          )
+        }
       </p>
 
       {link && (
@@ -50,6 +62,25 @@ const minutes = readingTime(post.body);
           <Eyebrow>Tagged</Eyebrow>
           <TagList tags={tags} />
         </footer>
+      )
+    }
+
+    {
+      series && (series.prev || series.next) && (
+        <nav class="pager" aria-label={`More of ${series.series.data.title}`}>
+          {series.prev && (
+            <a class="pager-link" href={`/blog/${series.prev.id}/`} rel="prev">
+              <span class="pager-dir">← Part {series.prev.data.part}</span>
+              <span class="pager-title">{series.prev.data.title}</span>
+            </a>
+          )}
+          {series.next && (
+            <a class="pager-link is-next" href={`/blog/${series.next.id}/`} rel="next">
+              <span class="pager-dir">Part {series.next.data.part} →</span>
+              <span class="pager-title">{series.next.data.title}</span>
+            </a>
+          )}
+        </nav>
       )
     }
 
@@ -89,6 +120,10 @@ const minutes = readingTime(post.body);
     color: var(--faint);
   }
 
+  .meta a {
+    color: var(--muted);
+  }
+
   .crosspost {
     font-family: var(--face-mono);
     font-size: var(--t-small);
@@ -113,7 +148,51 @@ const minutes = readingTime(post.body);
     gap: var(--s-3);
     margin-block-start: var(--s-8);
     padding-block-start: var(--s-5);
-    border-block-start: 1px solid var(--rule);
+    border-block-start: var(--hairline) solid var(--rule);
+  }
+
+  /* Previous / next part of the series. */
+  .pager {
+    display: grid;
+    gap: var(--s-4);
+    margin-block-start: var(--s-7);
+    padding-block-start: var(--s-5);
+    border-block-start: var(--hairline) solid var(--rule);
+  }
+
+  @media (min-width: 40rem) {
+    .pager {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .is-next {
+      grid-column: 2;
+      text-align: end;
+    }
+  }
+
+  .pager-link {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+    color: var(--fg);
+    text-decoration: none;
+  }
+
+  .pager-dir {
+    font-family: var(--face-mono);
+    font-size: var(--t-meta);
+    color: var(--faint);
+  }
+
+  .pager-title {
+    font-size: var(--t-small);
+    text-wrap: balance;
+    transition: color var(--dur) var(--ease);
+  }
+
+  .pager-link:hover .pager-title {
+    color: var(--accent);
   }
 
   .back {

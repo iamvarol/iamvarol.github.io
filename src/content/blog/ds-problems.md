@@ -3,6 +3,8 @@ title: "10 Data Science Problems Every Retailer Wants Solved (And How to Frame T
 date: 2026-04-12
 description: "Most retail data science job descriptions read like a wish list: \"demand forecasting, pricing optimization, personalization, supply chain analytics…\" They rarely tell you what the problem actually looks like from the inside — what goes in, what comes out, who acts on it, and what it's worth when you get it right."
 tags: [retail, data-science, inventory-management, data-analytics]
+series: retail-data-playbook
+part: 9
 draft: false
 link: https://medium.com/@a.emrevarol/10-data-science-problems-every-retailer-wants-solved-and-how-to-frame-them-abb4a6650f83
 link_text: Read on Medium

@@ -3,6 +3,8 @@ title: "Grocery vs. Fashion: Two Completely Different Retail Games"
 date: 2026-04-07
 description: "Grocery and fashion are so structurally different that a data scientist who's excellent at one can be genuinely lost in the other — not because the technical skills don't transfer, but because the *business logic* is almost entirely different."
 tags: [retail, data-science, inventory-management, data-analytics]
+series: retail-data-playbook
+part: 5
 draft: false
 link: https://medium.com/@a.emrevarol/grocery-vs-fashion-two-completely-different-retail-games-b4640b0ad74b
 link_text: Read on Medium

@@ -1,22 +1,26 @@
 ---
 import FormattedDate from './FormattedDate.astro';
 import TagList from './TagList.astro';
-import type { Post } from '../lib/posts';
+import { readingTime, type Post } from '../lib/posts';
 
 interface Props {
   post: Post;
 }
 
 const { post } = Astro.props;
-const { title, date, description, tags, draft } = post.data;
+const { title, date, description, tags, draft, part } = post.data;
+const minutes = readingTime(post.body);
 ---
 
-<article class="item">
+<article class="item reveal">
   <a href={`/blog/${post.id}/`} class="link">
     <span class="row">
       {/* Mono date rather than a counter: an index position shifts every time a
-          post is added, so "01" would not mean anything stable. */}
+          post is added, so "01" would not mean anything stable. The series
+          part is the one number that is stable, so it may appear. */}
       <FormattedDate date={date} format="iso" class="date" />
+      {part && <span class="part">Part {part}</span>}
+      <span class="minutes">{minutes} min</span>
       {draft && <span class="draft">Draft</span>}
     </span>
     <h2 class="title">{title}</h2>
@@ -34,16 +38,23 @@ const { title, date, description, tags, draft } = post.data;
 
 <style>
   .item {
-    padding-block: var(--s-6);
-    border-block-start: 1px solid var(--rule);
+    border-block-start: var(--hairline) solid var(--rule);
   }
 
+  /* The surface bleeds a gutter past the text on hover: the row lifts without
+     a shadow. Tags sit outside the link so they stay separate targets. */
   .link {
     display: block;
+    margin-inline: calc(-1 * var(--s-4));
+    padding: var(--s-6) var(--s-4) var(--s-2);
+    border-radius: var(--r-2);
     text-decoration: none;
+    transition: background-color var(--dur) var(--ease);
   }
 
-  .link:hover {
+  .link:hover,
+  .link:focus-visible {
+    background: var(--surface);
     color: inherit;
   }
 
@@ -60,6 +71,23 @@ const { title, date, description, tags, draft } = post.data;
     letter-spacing: var(--tr-seq);
     color: var(--faint);
     font-variant-numeric: tabular-nums;
+  }
+
+  .part,
+  .minutes {
+    font-family: var(--face-mono);
+    font-size: var(--t-eyebrow);
+    font-weight: var(--w-semibold);
+    letter-spacing: var(--tr-seq);
+    color: var(--faint);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .part::before,
+  .minutes::before {
+    content: '·';
+    margin-inline-end: var(--s-3);
+    opacity: 0.6;
   }
 
   .draft {
@@ -91,6 +119,6 @@ const { title, date, description, tags, draft } = post.data;
   }
 
   .tags {
-    margin-block-start: var(--s-3);
+    padding-block: var(--s-2) var(--s-6);
   }
 </style>
