@@ -95,7 +95,10 @@
   /* Fluid where it earns it — display type only. Body sizes stay fixed so
      line length, not viewport width, governs readability. --t-statement is the
      hero's one-sentence pitch: display-tier by role, so it is the exception. */
-  --t-hero: clamp(2.75rem, 1.4rem + 6.8vw, 7rem);
+  /* The landing h1 is a ~70-character positioning sentence (not the name), so
+     the ceiling is 4.5rem: about three balanced lines beside the portrait at
+     1440, four to five at 320. */
+  --t-hero: clamp(2.125rem, 1.2rem + 3.4vw, 4.5rem);
   --t-display: clamp(1.875rem, 1.35rem + 2.6vw, 3rem);
   --t-statement: clamp(1.2rem, 1rem + 1vw, 1.75rem);
   --t-h3: 1.25rem;
@@ -106,7 +109,7 @@
   --t-eyebrow: 0.6875rem; /* replen uses 10px; 11px clears AA at --faint */
   --t-seq: 0.6875rem;
 
-  --lh-hero: 1;
+  --lh-hero: 1.06;
   --lh-display: 1.08;
   --lh-tight: 1.25;
   --lh-body: 1.7;

@@ -11,12 +11,14 @@ import WorkListItem from '../components/WorkListItem.astro';
 import Icon from '../components/Icon.astro';
 import { site, socials } from '../lib/site';
 import { getPosts } from '../lib/posts';
-import { getLanding, getCareerStages } from '../lib/resume';
+import { getLanding, getCareerStages, getResume } from '../lib/resume';
 import { getWork } from '../lib/work';
 import { approved } from '../lib/gate';
 import { person, webSite } from '../lib/jsonld';
 
 const { hero, focus, proof } = await getLanding();
+// The five positioning axes — same source as the /resume/ masthead, PDF and OG card.
+const { basics } = await getResume();
 // Empty until a case study clears its markers; the section then appears on
 // its own, before the focus list, because it is the evidence for it.
 const work = (await getWork()).slice(0, 4);
@@ -42,28 +44,43 @@ const links = socials.filter((s) => s.primary);
 
   <section class="wrap hero">
     <div class="intro">
-      <p class="enter" style="--i: 0"><Eyebrow>{site.tagline}</Eyebrow></p>
+      {/* The name lives here (and in the wordmark, <title> and JSON-LD); the h1
+          is the positioning sentence, so the role is not repeated above it. */}
+      <p class="enter" style="--i: 0"><Eyebrow>{site.name} · {site.location}</Eyebrow></p>
 
-      {/* No entrance on the name: it is the LCP element on a phone, and Chrome
-          skips anything at opacity 0 when it picks one. */}
-      <h1 class="name">{site.name}</h1>
+      {/* No entrance on the headline: it is the LCP element on a phone, and
+          Chrome skips anything at opacity 0 when it picks one. */}
+      <h1 class="headline">{site.tagline}</h1>
 
       <p class="statement enter" style="--i: 1">{hero.statement}</p>
+
+      {/* The five axes. Not an eyebrow — two tracked uppercase lines in one
+          hero compete — but a quiet mono key line under the pitch. */}
+      <p class="axes enter" style="--i: 2">
+        {
+          basics.focus.map((axis, k) => (
+            <>
+              {k > 0 && <span class="axes-sep" aria-hidden="true">·</span>}
+              <span>{axis}</span>
+            </>
+          ))
+        }
+      </p>
 
       {
         status &&
           (status.href ? (
-            <a class="status enter" style="--i: 2" href={status.href}>
+            <a class="status enter" style="--i: 3" href={status.href}>
               {status.text}
             </a>
           ) : (
-            <p class="status enter" style="--i: 2">
+            <p class="status enter" style="--i: 3">
               {status.text}
             </p>
           ))
       }
 
-      <div class="actions enter" style="--i: 3">
+      <div class="actions enter" style="--i: 4">
         <a class="btn" href={hero.cta.href}>{hero.cta.label}</a>
         {
           hero.secondary && (
@@ -82,7 +99,7 @@ const links = socials.filter((s) => s.primary);
 
     {
       proof && (
-        <dl class="proof enter" style="--i: 4">
+        <dl class="proof enter" style="--i: 5">
           {proof.map((item) => (
             <div>
               <dt>{item.label}</dt>
@@ -93,7 +110,7 @@ const links = socials.filter((s) => s.primary);
       )
     }
 
-    <div class="band-wrap enter" style="--i: 5">
+    <div class="band-wrap enter" style="--i: 6">
       <ForecastBand />
     </div>
   </section>
@@ -231,8 +248,9 @@ const links = socials.filter((s) => s.primary);
     }
   }
 
-  .name {
+  .headline {
     margin-block-start: var(--s-5);
+    max-inline-size: 24ch;
     font-family: var(--face-display);
     font-weight: var(--w-semibold);
     font-size: var(--t-hero);
@@ -243,12 +261,27 @@ const links = socials.filter((s) => s.primary);
 
   .statement {
     margin-block-start: var(--s-5);
-    max-width: 34ch;
+    max-width: 44ch;
     font-size: var(--t-statement);
     line-height: 1.4;
     letter-spacing: -0.012em;
     color: var(--muted);
     text-wrap: pretty;
+  }
+
+  /* The five positioning axes, joined by middots. */
+  .axes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1) var(--s-2);
+    margin-block-start: var(--s-5);
+    font-family: var(--face-mono);
+    font-size: var(--t-meta);
+    color: var(--muted);
+  }
+
+  .axes-sep {
+    color: var(--faint);
   }
 
   /* The availability line. A status indicator, not a sequence marker — hence

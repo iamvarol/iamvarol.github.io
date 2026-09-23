@@ -19,7 +19,7 @@ export function person(extra: Record<string, unknown> = {}) {
     '@id': PERSON_ID,
     name: site.name,
     alternateName: site.shortName,
-    jobTitle: site.tagline,
+    jobTitle: site.role,
     description: site.bio,
     email: `mailto:${site.email}`,
     url: site.url,

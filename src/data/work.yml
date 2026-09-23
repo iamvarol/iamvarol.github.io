@@ -12,69 +12,110 @@
 #   id        URL slug: /work/<id>/
 #   company   must equal an experience[].company in resume.yml — the role,
 #             dates and card line are read from there, never repeated here
-#   sector    the client's world, for the eyebrow (company · sector)
+#   sector    the positioning axis (and the client's world), for the eyebrow
+#             (company · sector) — same vocabulary as basics.focus in resume.yml
 #   summary   optional one-liner for cards; falls back to the role's `blurb`
 #   metrics   value must appear verbatim in that role's highlights (checked at build)
 #   period    optional 'YYYY-MM' start/end override when the case spans less
 #             than the role; end: null means ongoing
 #   links     internal ('/blog/…') or absolute URLs
 #   order     display order, 1 first
+- id: invent-ai-pulse
+  title: Pulse — a forward-deployed delivery platform for retail
+  company: invent.ai
+  sector: Forward-Deployed Engineering
+  problem: >-
+    Retail customer implementations spend a large amount of time in the pre-ETL and
+    ETL stages, where teams manually validate data, investigate anomalies, test business
+    assumptions and decide whether the dataset is ready for the next implementation step.
+    The same problem repeats across projects.
+  approach:
+    - >-
+      Built Pulse independently as a reusable customer-onboarding and analytics platform,
+      automating roughly 90–95% of the manual human-in-the-loop work across pre-ETL and
+      ETL validation and investigation.
+    - >-
+      Built overnight analytical workflows covering like-for-like, product-launch cohorts,
+      WROS and other advanced retail diagnostics, giving project teams early visibility
+      into both data quality and retailer behavior.
+    - >-
+      Designed Pulse to remain useful throughout implementation: when forecasting,
+      replenishment or another capability is implemented, its corresponding analytical
+      views and diagnostics become available for immediate validation.
+    - >-
+      Combined reusable validation rules, severity tiers and scan modes with a delivery
+      workflow that lets project teams investigate issues and reach implementation
+      sign-off faster.
+  outcomes:
+    - >-
+      Reduced repetitive manual investigation while giving project teams a common,
+      evidence-driven starting point for customer implementation.
+    - >-
+      Created a feedback loop between implementation and analytics, so each new
+      capability can be evaluated through the same shared analytical layer.
+  metrics:
+    - value: '90–95%'
+      label: reduction in manual human-in-the-loop work
+  stack: [Python, DuckDB, Delta Lake, Azure Blob Storage, Streamlit, GitHub Actions]
+  links: []
+  order: 1
 
 - id: berlin-tires-forecasting
   title: Demand forecasting and the data function at Berlin Tires
   company: Berlin Tires
-  sector: Tyre retail & distribution
-  problem: 'TODO(emre): the situation before — what was failing, for whom, at what cost (2–3 sentences)'
+  sector: Retail · Supply Chain
+  problem: >-
+    Commercial and operations teams needed more reliable demand signals and a usable
+    analytics foundation across a large legacy dataset. The work combined forecasting,
+    data modernization and operational analytics rather than treating the model as a
+    standalone deliverable.
   approach:
-    - 'TODO(emre): how you framed the problem and what you chose to measure'
-    - 'TODO(emre): the modelling and data decisions that mattered (Darts / Nixtla / Prophet — and why)'
-    - 'TODO(emre): how it reached production and who ran on it'
+    - >-
+      Framed forecasting around seasonal tyre demand and the inventory decisions it was
+      intended to support.
+    - >-
+      Modernized 25 years of legacy data and built an analytics foundation around it.
+    - >-
+      Took the work through production dashboards and an internal AI Q&A interface used
+      by commercial and operations teams.
   outcomes:
-    - 'TODO(emre): what changed for the business, in their terms'
-    - 'TODO(emre): what you would do differently'
+    - >-
+      Forecasting became part of the operational planning workflow, alongside dashboards
+      and searchable company data.
+    - >-
+      The broader lesson was that forecasting value depended as much on the data and
+      delivery layer as on the model itself.
   metrics:
-    - value: '95%'
-      label: quarterly forecast accuracy
-    - value: '22%'
-      label: excess stock reduced
-    - value: '€1.2M'
-      label: saved per year
     - value: '45%'
       label: faster query resolution with the internal AI assistant
   stack: [Python, FastAPI, PostgreSQL, DuckDB, Darts, Nixtla, Prophet, Streamlit]
-  links: []
-  order: 1
-
-- id: invent-ai-data-validation
-  title: A data-validation platform that gates every client project
-  company: invent.ai
-  sector: Retail supply-chain AI
-  # Current employer: publish only what resume.yml already says, nothing more
-  # specific about clients or internals. The decision is recorded in
-  # decisions.yml as `invent-disclosure`.
-  problem: 'TODO(emre): why data validation was the bottleneck before any model could run'
-  approach:
-    - 'TODO(emre): the rule-pool design — YAML-defined checks, severity tiers CRITICAL → LOW, grain-uniqueness enforcement'
-    - 'TODO(emre): APPROX vs EXACT scan modes and the runtime/depth trade-off they give teams'
-    - 'TODO(emre): the pre- / post-operation split into two repositories, and the multi-repo sync with GitHub Actions'
-  outcomes:
-    - 'TODO(emre): days of manual SQL triage → an automated GO / NO-GO — what that changed for delivery'
-  metrics: []
-  stack: [Python, DuckDB, Delta Lake, Azure Blob Storage, Streamlit, GitHub Actions]
   links: []
   order: 2
 
 - id: john-snow-labs-clinical-nlp
   title: Clinical NLP and a knowledge-graph Q&A system for US healthcare
   company: John Snow Labs
-  sector: Healthcare NLP
-  problem: 'TODO(emre): what the healthcare clients needed from clinical text and why off-the-shelf models fell short'
+  sector: AI · Healthcare NLP
+  problem: >-
+    Healthcare teams needed clinical NLP systems that could extract structured medical
+    information from unstructured reports and make that information usable in downstream
+    applications. The work combined domain-specific language models, information extraction,
+    de-identification and a knowledge graph rather than relying on a generic NLP model.
   approach:
-    - 'TODO(emre): fine-tuning BERT-family and BioBERT for NER, relation extraction, negation and de-identification'
-    - 'TODO(emre): the clinical knowledge graph (Spark NLP + Neo4j) behind the Q&A application'
-    - 'TODO(emre): the FastAPI AutoNLP service and what it removed from the deployment path'
+    - >-
+      Fine-tuned BERT-family and BioBERT models for medical NER, relation extraction,
+      negation detection and de-identification of clinical reports.
+    - >-
+      Built a clinical knowledge graph with Spark NLP and Neo4j and used it as the
+      structured layer behind a medical Q&A application.
+    - >-
+      Built a FastAPI AutoNLP service that standardized model deployment and reduced
+      the repeated integration work required to move NLP models into applications.
   outcomes:
-    - 'TODO(emre): proofs of concept delivered for Optum Health, CVS Health, Philips, Veradigm, Boehringer Ingelheim, Onco Health — what they led to'
+    - >-
+      Delivered clinical NLP proofs of concept for Optum Health, CVS Health, Philips,
+      Veradigm, Boehringer Ingelheim and Onco Health, covering extraction, de-identification
+      and knowledge-graph-based question answering.
   metrics:
     - value: '65%'
       label: less model deployment effort with the AutoNLP service
@@ -87,15 +128,29 @@
 - id: defense-decision-support
   title: Enterprise decision support and simulation in the defense sector
   company: Turkish Government — Defense Sector
-  sector: Defense operations research
-  problem: 'TODO(emre): the planning decisions that had no system behind them, and what that cost'
+  sector: Decision Intelligence · Defense
+  problem: >-
+    Large operational planning problems required structured decision support rather than
+    spreadsheet-only analysis: inventory, workforce planning, scenario comparison and
+    maritime operations all involved interacting constraints and uncertain outcomes.
   approach:
-    - 'TODO(emre): the decision-support platform — cost-effectiveness, stock planning, workforce planning, scenario comparison'
-    - 'TODO(emre): discrete-event and agent-based simulation for naval logistics and counter-piracy'
-    - 'TODO(emre): leading the software test division on ADVENT CMS across 30+ vessels'
+    - >-
+      Designed and deployed an enterprise decision-support platform covering
+      cost-effectiveness analysis, stock planning, workforce planning and scenario comparison.
+    - >-
+      Built discrete-event and agent-based simulation models for naval logistics and
+      counter-piracy operations to compare resource-allocation and operational scenarios.
+    - >-
+      Led the software test division for the ADVENT Combat Management System from
+      2016–2019, coordinating validation across engineering teams for a system deployed
+      across 30+ vessels.
   outcomes:
-    - 'TODO(emre): the inventory redesign and duty-scheduling results, and how they were held'
-    - 'TODO(emre): the two peer-reviewed publications that came out of the simulation work'
+    - >-
+      Redesigned inventory management and applied operations research to duty scheduling,
+      cutting inventory cost by 17% while maintaining availability and reducing overtime by 40%.
+    - >-
+      The simulation work resulted in two peer-reviewed publications on maritime piracy
+      prevention and hybrid discrete-event / agent-based simulation.
   metrics:
     - value: '50,000+'
       label: personnel served

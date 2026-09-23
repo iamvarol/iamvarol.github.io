@@ -25,14 +25,14 @@ export interface CaseStudy {
   stack: string[];
   links: { label: string; href: string }[];
   order: number;
-  /** Still carrying a TODO(emre) marker — only ever true in `npm run dev`. */
+  /** Still carrying the marker — only ever true in `npm run dev`. */
   draft: boolean;
 }
 
 /**
  * Case studies a visitor may see, in display order.
  *
- * The gate is the marker: an entry with any TODO(emre) left is dropped in
+ * The gate is the marker: an entry with any marker left is dropped in
  * production (no route, no nav, no sitemap) and shown as a draft in dev. The
  * role, its dates and the card line come from resume.yml by `company`, so
  * there is no second career list to drift — and a company name that matches

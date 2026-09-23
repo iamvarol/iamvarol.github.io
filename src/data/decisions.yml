@@ -16,7 +16,8 @@
     the header now carries five links: below 30rem it wraps to two rows, so
     label length no longer decides whether it fits at 320px.
   default: Blog
-  answer: 'TODO(emre)'
+  applied: '2026-09-23 — nav label, /blog/ heading, <title> and breadcrumbs read "Writing"; the path stays /blog/.'
+  answer: 'Writing — it better matches the editorial positioning of the site.'
 
 - id: photo
   question: Headshot on the About page, or text only?
@@ -36,7 +37,7 @@
     be the only third-party request on the site. Skipping it keeps the page at
     zero external requests.
   default: none
-  answer: 'TODO(emre)'
+  answer: 'Use lightweight privacy-friendly analytics (Plausible or GoatCounter) if needed; keep it off until the site is otherwise finished.'
 
 - id: custom-domain
   question: Is a custom domain imminent?
@@ -45,7 +46,7 @@
     public/CNAME. But if it is close, setting it now avoids a period where
     search engines index the github.io URL and then have to be redirected.
   default: stay on iamvarol.github.io
-  answer: 'TODO(emre)'
+  answer: 'Stay on iamvarol.github.io for now; switch when the custom domain is ready.'
 
 - id: theme-default
   question: Should the site force dark, or keep following the visitor's OS setting?
@@ -77,7 +78,7 @@
     repo and losing --ignore-system-fonts determinism for nothing a reader
     would notice.
   default: keep Libertinus Serif throughout the PDF
-  answer: 'TODO(emre)'
+  answer: 'Keep Libertinus Serif throughout the PDF so the PDF and site share the same visual identity.'
 
 - id: positioning
   question: >-
@@ -91,19 +92,28 @@
     `title`, `description` in src/lib/site.ts (hero eyebrow, <title>, meta
     description, JSON-LD jobTitle). Nothing else needs touching.
   default: keep the current text
-  answer: 'TODO(emre)'
+  applied: >-
+    2026-09-23 — `site.tagline` is the headline "Senior Data Scientist building AI
+    systems for real-world operations." (the landing h1); `hero.statement` in
+    landing.yml is "I work across data, machine learning, and engineering — from
+    ambiguous customer problems to production systems and reusable capabilities.";
+    `basics.focus` in resume.yml is the five axes "Retail · Supply Chain · AI ·
+    Decision Intelligence · Forward-Deployed Engineering" (hero key line, /resume/
+    masthead, PDF, OG card). `basics.label` and the new `site.role` stay "Senior
+    Data Scientist" for the PDF, <title> and JSON-LD; the name moved to the hero
+    eyebrow. Case-study `sector` labels use the axes vocabulary. The focus list
+    keeps Emre's own titles and details.
+  answer: 'Shift toward Senior Data Scientist / Forward-Deployed AI positioning, with retail supply-chain AI and delivery engineering as the core context (decided 2026-09-23).'
 
 - id: proof-numbers
   question: Which four figures belong in the proof strip under the hero?
   note: >-
-    landing.yml `proof[]` — each value must appear verbatim in the named role's
-    highlights in resume.yml, or the build fails. Current set: 95% quarterly
-    forecast accuracy, €1.2M saved per year (both Berlin Tires), 50,000+
-    personnel and 17% inventory cost cut (both defense sector). Candidates not
-    used: 22% excess stock, 45% faster query resolution, 27% lower forecast
-    error at eyva, ~65% less deployment effort at John Snow Labs, 8 hires.
+    Prefer proof points that reinforce the current positioning rather than making
+    the landing page a collection of large performance claims. Pulse's roughly
+    90–95% reduction in manual human-in-the-loop onboarding work is now the primary
+    current-role proof point; the remaining figures provide historical context.
   default: the current four
-  answer: 'TODO(emre)'
+  answer: '90–95% Pulse manual-work reduction, 50,000+ personnel served, 17% inventory cost reduction, and 45% faster query resolution (decided 2026-09-23).'
 
 - id: writing-links
   question: Should the three "Selected writing" entries link to Medium or to the on-site copies?
@@ -113,7 +123,7 @@
     fourth place to edit on a custom-domain move. The on-site copies are one
     click away from the blog.
   default: Medium
-  answer: 'TODO(emre)'
+  answer: 'Medium — link to the original publications.'
 
 - id: blog-tags
   question: Re-tag the 18 Retail Data Playbook posts so the tag pages stop duplicating each other?
@@ -125,7 +135,7 @@
     set per post is editorial — e.g. forecasting, replenishment, assortment,
     allocation, markdown, pricing, planning, metrics, stakeholders, agentic-ai.
   default: keep the tags; tag pages stay noindex
-  answer: 'TODO(emre)'
+  answer: 'Keep the current tags for now; tag pages remain noindex. Re-tag later if the editorial taxonomy is worth the maintenance.'
 
 - id: work-nav-label
   question: Should the case-study section be called "Work", "Case studies" or "Projects"?
@@ -134,7 +144,7 @@
     "Selected work" either way. The nav item is gated until a case study is
     published, so this decides nothing until then.
   default: Work
-  answer: 'TODO(emre)'
+  answer: 'Work — shortest and consistent with /work/ and the Selected work heading.'
 
 - id: languages-on-pdf
   question: Add a languages line to the resume, and should it reach the PDF?
@@ -144,17 +154,17 @@
     PDF is tuned to exactly two pages, so `npm run resume:verify` decides
     whether the extra masthead line fits — if it spills, trim a bullet.
   default: add it if it fits two pages
-  answer: 'TODO(emre)'
+  answer: 'Yes — Turkish native and English professional; include it if the two-page PDF still fits.'
 
 - id: invent-disclosure
-  question: How much of the invent.ai validation platform may the case study describe?
+  question: How much of Pulse may the case study describe?
   note: >-
-    Current employer. The skeleton in src/data/work.yml repeats only what
-    resume.yml already says publicly (rule pools, severity tiers, scan modes,
-    the repo split). Client names, data volumes and internals stay out unless
-    you decide otherwise.
-  default: only what resume.yml already says
-  answer: 'TODO(emre)'
+    Current employer. Pulse can be described as a reusable retail onboarding and
+    analytics platform, including its pre-ETL / ETL human-in-the-loop reduction,
+    overnight retail analyses, and implementation feedback loop. Client names,
+    customer data volumes and non-public internals stay out unless explicitly approved.
+  default: public-safe Pulse capabilities only
+  answer: 'Describe Pulse as an independently built internal delivery platform, using the capabilities and approximate 90–95% manual-work reduction stated in the public-facing resume and work case study (decided 2026-09-23).'
 
 - id: cv-gap
   question: The gap between Two Desperados (ends Mar 2021) and John Snow Labs (starts Aug 2021).
@@ -163,7 +173,7 @@
     have an answer ready than to be surprised by the question. Nothing needs to
     go on the site.
   default: leave as is
-  answer: 'TODO(emre)'
+  answer: 'Leave the five-month gap off the public site; prepare a factual explanation for interviews if asked.'
 
 - id: defense-dates
   question: Confirm the defense-sector role really ran 2005-08 to 2019-03.
@@ -173,4 +183,4 @@
     "fourteen years", which supports 2005. Worth one look because it is the kind
     of discrepancy an interviewer notices against your LinkedIn.
   default: trust resume.yml (2005-08)
-  answer: 'TODO(emre)'
+  answer: 'Use 2005-08 to 2019-03 as the resume source of truth; it is consistent with the fourteen-year description.'

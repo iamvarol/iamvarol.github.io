@@ -6,9 +6,12 @@
 # so if a number changes in the resume, change it here too.
 
 hero:
+  # His positioning statement, verbatim (2026-09-23). The headline above it is
+  # `site.tagline`; the axes line below it is `basics.focus` in resume.yml.
+  # An earlier draft of this sentence is in git history (commit before Phase 9).
   statement: >-
-    I build the forecasting, optimization and data-quality systems that enterprise
-    retailers run their supply chains on — and I answer for the numbers.
+    I build AI and data systems close to real customer problems — from customer data and implementation to production analytics and reusable engineering capabilities.
+    My work spans retail supply chain, forecasting, data quality, and applied AI, from messy customer data to production systems and reusable engineering capabilities.
 
   cta:
     label: Read the resume
@@ -24,52 +27,51 @@ hero:
   # Facts, one line: the level you are open to · remote / hybrid posture · from
   # when. Leave the whole block out to publish without one.
   status:
-    text: 'TODO(emre): availability — level open to · remote/hybrid posture · from when'
+    text: 'Open to Senior / Lead roles in AI, data science and forward-deployed engineering · Istanbul / remote'
     href: '/contact/'
 
 # The proof strip. Three or four figures a hiring manager can carry into a
 # debrief, each quoted verbatim from a resume.yml bullet (`source` names the
 # company). Values, not sentences; the label is the neutral caption.
 proof:
-  - value: '95%'
-    label: quarterly forecast accuracy
-    source: Berlin Tires
-  - value: '€1.2M'
-    label: saved per year in excess stock
-    source: Berlin Tires
+  - value: '90–95%'
+    label: less manual human-in-the-loop work in onboarding
+    source: invent.ai
   - value: '50,000+'
     label: personnel on one decision-support platform
     source: Turkish Government — Defense Sector
   - value: '17%'
     label: inventory cost cut, availability held
     source: Turkish Government — Defense Sector
+  - value: '45%'
+    label: faster query resolution with an internal AI assistant
+    source: Berlin Tires
 
 # The numbered sequence — the 01 / 02 / 03 element from the reference design.
 # Current work first, since the first item renders as the active one; the defense
 # years come last because they are the differentiator, not the headline.
 #
-# `basics.focus` in resume.yml is the shorthand version of this, with one
-# difference: data quality gets its own item here because it is most of the
-# current role, and operations research gets one because fourteen years of it is
-# unusual for a data scientist.
+# `basics.focus` in resume.yml is the five-word version — the hero's key line,
+# the PDF and the OG card. This list is the longer read: titles and details are
+# Emre's own (2026-09-23).
 focus:
   - title: Retail Supply Chain AI
     detail: >-
       Demand forecasting, replenishment, assortment and price optimization for
-      enterprise retailers — owned from raw data ingestion through the production
-      model to the financial and KPI movement it produces.
+      enterprise retailers — working from raw customer data through implementation,
+      production analytics and validation.
 
-  - title: Forecasting
+  - title: Forward-Deployed AI
     detail: >-
-      Demand models that hold up in production rather than in a notebook: 95%
-      quarterly accuracy at Berlin Tires cut excess stock by 22% and saved roughly
-      €1.2M a year.
+      I work close to customer data and implementation, building the validation,
+      analytics and feedback loops that help project teams move from raw data to
+      production capabilities faster.
 
-  - title: Data Quality & Validation
+  - title: Pulse
     detail: >-
-      The validation platform I built at invent.ai gates every active client
-      project, turning days of manual SQL triage into an automated GO / NO-GO
-      decision before any dataset reaches a model.
+      A reusable retail delivery platform I built at invent.ai that reduces roughly
+      90–95% of manual human-in-the-loop onboarding work and runs advanced analyses
+      overnight, then continues supporting teams as forecasting and replenishment go live.
 
   - title: NLP & Knowledge Graphs
     detail: >-

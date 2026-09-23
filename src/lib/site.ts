@@ -16,13 +16,21 @@ export const site = {
   /** How he is addressed day to day — used in the header wordmark. */
   shortName: 'Emre Varol',
 
-  title: 'Ali Emre Varol — Senior Data Scientist',
-  description:
-    'Senior data scientist at invent.ai, building forecasting, optimization and ' +
-    'data-quality systems for enterprise retail. Istanbul, Türkiye.',
+  /** The plain job title — <title>, JSON-LD jobTitle, og:image:alt. Mirrors
+   *  `basics.label` in resume.yml; change both together (see `positioning` in
+   *  decisions.yml). */
+  role: 'Senior Data Scientist',
 
-  /** The subtitle line under the wordmark and on the resume header. */
-  tagline: 'Senior Data Scientist · Retail Supply Chain AI',
+  title: 'Ali Emre Varol — Senior Data Scientist',
+  /** Third person, assembled from his positioning copy (2026-09-23), not written anew. */
+  description:
+    'Senior Data Scientist building AI systems for real-world operations — across data, ' +
+    'machine learning and engineering, from ambiguous customer problems to production ' +
+    'systems. Istanbul, Türkiye.',
+
+  /** The landing-page h1: his positioning sentence, verbatim (2026-09-23). The name
+   *  sits in the eyebrow above it, the header wordmark, <title> and JSON-LD. */
+  tagline: 'Senior Data Scientist building AI systems for real-world operations.',
 
   /** Two sentences, first person. Used for the landing intro and JSON-LD.
    *  The longer narrative belongs on /about; the full professional summary
@@ -86,7 +94,7 @@ export const nav: NavItem[] = [
   { label: 'About', href: '/about/', ready: true },
   { label: 'Work', href: '/work/', ready: true },
   { label: 'Resume', href: '/resume/', ready: true },
-  { label: 'Blog', href: '/blog/', ready: true },
+  { label: 'Writing', href: '/blog/', ready: true },
   { label: 'Contact', href: '/contact/', ready: true },
 ];
 

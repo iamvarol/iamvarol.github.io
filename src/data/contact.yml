@@ -11,10 +11,10 @@ intro: >-
   surest way to reach me; I read everything.
 
 # One clause: how quickly you usually reply.
-responseTime: 'TODO(emre): expected reply time, e.g. "within two working days"'
+responseTime: 'I usually reply within two working days.'
 
 # What makes an approach easy to answer. Up to five short items.
 include:
-  - 'TODO(emre): item 1 — e.g. the role, its level and whether it is remote'
-  - 'TODO(emre): item 2 — e.g. the company or client and the stage of the process'
-  - 'TODO(emre): item 3 — e.g. the compensation range, if you want it up front'
+  - 'The role, level and location or remote setup'
+  - 'The company, team and where you are in the hiring process'
+  - 'Anything specific you would like me to prepare before a conversation'

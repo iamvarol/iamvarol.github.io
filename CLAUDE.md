@@ -299,6 +299,17 @@ Fluid type is reserved for display sizes only — body sizes stay fixed so line 
 viewport width, governs readability. Display sizes (`--t-hero`, `--t-display`, the metric
 figures, `--t-statement`) take `--face-display` at `--w-semibold`; nothing else does.
 
+**The landing `h1` is the positioning sentence, not the name.** `site.tagline` ("Senior Data
+Scientist building AI systems for real-world operations.") is the `h1`; the name sits in the
+eyebrow above it (`name · location`), the header wordmark, `<title>` and JSON-LD. `site.role`
+is the plain job title for `<title>`, `jobTitle` and `og:image:alt`, and mirrors
+`basics.label`. `basics.focus` in `resume.yml` is the five-axis vocabulary — Retail, Supply
+Chain, AI, Decision Intelligence, Forward-Deployed Engineering — rendered as the hero's key
+line, the `/resume/` masthead, the PDF masthead and the OG card, and used by the case-study
+`sector` eyebrows. All of this copy is Emre's (2026-09-23, `positioning` in `decisions.yml`);
+a wording change goes through those fields, never through a component. The nav item for
+`/blog/` reads "Writing" (`nav-label`).
+
 **Ordinal numbering is a finite, shared system, not a free decoration.** The landing "What I
 work on" list and the `/resume` section headings carry `01–0n`, and roles are deliberately
 never numbered — see the comment in

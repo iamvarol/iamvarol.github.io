@@ -24,12 +24,14 @@
 basics:
   name: Ali Emre Varol
   label: Senior Data Scientist
-  # The subtitle line, rendered joined by a middot.
+  # The five positioning axes (his, 2026-09-23), rendered joined by a middot on
+  # the landing hero, the /resume/ masthead, the PDF masthead and the OG card.
   focus:
-    - Retail Supply Chain AI
-    - Forecasting
-    - NLP
-    - Knowledge Graphs
+    - Retail
+    - Supply Chain
+    - AI
+    - Decision Intelligence
+    - Forward-Deployed Engineering
   location: Istanbul, Türkiye
   email: a.emrevarol@gmail.com
   # Present on the PDF sent to recruiters, deliberately not published here — the
@@ -38,22 +40,18 @@ basics:
   # phone: '+90 542 657 6834'
   linkedin: https://www.linkedin.com/in/aliemre-v
   github: https://github.com/iamvarol
-  # TODO(emre): languages, in the shape below. Rendered in the masthead contact
-  # line on /resume/ and in the PDF; the two-page budget decides whether it
-  # fits (`npm run resume:verify`). A comment, not a field — nothing here is
-  # gated, so a marker in a rendered value would print on the PDF.
-  # languages:
-  #   - name: Turkish
-  #     level: native
-  #   - name: English
-  #     level: professional
+  languages:
+    - name: Turkish
+      level: native
+    - name: English
+      level: professional
   summary: >-
-    Industrial engineer turned data scientist: 20+ years in engineering and analytics,
-    7 of them building production machine learning. Fourteen years designing
-    decision-support, logistics and simulation systems in the defense sector, now
-    building forecasting, optimization and data-quality systems for enterprise
-    retailers. I own problems end to end — business framing, data pipeline, model,
-    deployment, and the conversation with the executive who has to trust the output.
+    Industrial engineer turned data scientist with 20+ years across engineering,
+    operations research and applied AI. Fourteen years designing decision-support,
+    logistics and simulation systems in the defense sector, now working on retail
+    supply-chain AI and customer delivery. I work close to real operational problems,
+    owning the loop from business framing and data through production systems,
+    validation and stakeholder feedback — with a focus on making what works reusable.
 
 skills:
   - group: ML & Forecasting
@@ -124,34 +122,35 @@ experience:
       AI platform for retail supply chain: demand forecasting, replenishment,
       assortment & price optimization
     blurb: >-
-      Sole architect of the data-validation platform that gates every client project —
-      days of manual SQL triage replaced by an automated GO / NO-GO decision before any
-      dataset reaches a model.
+      Built Pulse, a reusable delivery platform for retail onboarding and analytics —
+      reducing manual pre-ETL / ETL investigation and giving project teams an
+      evidence-driven feedback loop throughout implementation.
     highlights:
       - >-
         Deliver end-to-end supply-chain data science solutions for enterprise retail
-        clients — from raw data ingestion through production models to measured
-        financial and KPI improvements.
+        clients — from raw data ingestion through production models and analytical
+        validation.
       - >-
-        Sole architect and maintainer of the internal data-validation platform that
-        gates every active client project (Python, DuckDB, Delta Lake, Azure Blob
-        Storage, Streamlit), turning days of manual SQL triage into an automated
-        GO / NO-GO decision before any dataset reaches a model.
+        Built Pulse independently as a reusable customer-onboarding and analytics
+        platform, automating roughly 90–95% of the manual human-in-the-loop work across
+        pre-ETL and ETL validation and investigation.
       - >-
-        Designed the check framework around YAML-defined rule pools, severity tiers
+        Pulse runs advanced retail analyses overnight — including like-for-like,
+        product-launch cohorts, WROS and other domain-specific diagnostics — so project
+        teams can start each day with data-quality findings and early business insight.
+      - >-
+        Designed Pulse to support implementation beyond onboarding: as forecasting,
+        replenishment and other capabilities go live, the corresponding analytical
+        views and diagnostics become available to help teams validate results and
+        reach implementation sign-off faster.
+      - >-
+        Built the validation layer around YAML-defined rule pools, severity tiers
         (CRITICAL → LOW), grain-uniqueness enforcement and customer-profile-aware
-        filtering, with APPROX and EXACT scan modes so teams can trade runtime for
-        depth on large datasets.
-      - >-
-        Split validation along the pre- / post-operation boundary into two coordinated
-        repositories, giving teams a clear contract for where each failure originates.
-      - >-
-        Architected a multi-repository sync system with a single source of truth and
-        GitHub Actions automation, replacing manual change propagation as new consumer
-        applications onboarded.
+        filtering, with APPROX and EXACT scan modes for large datasets.
       - >-
         Work directly with client stakeholders, steering committees and internal product
-        teams to translate business targets into data requirements and report impact back.
+        teams to translate business targets into data requirements and turn delivery
+        lessons into reusable engineering capabilities.
 
   - company: Berlin Tires
     role: Head of Data & AI
@@ -159,18 +158,17 @@ experience:
     start: '2023-02'
     end: '2025-07'
     blurb: >-
-      Owned the data and AI function end to end: forecasting that cut excess stock 22%,
-      and 25 years of legacy data turned into something the commercial teams could
-      actually query.
+      Owned the data and AI function end to end, from legacy-data modernization and
+      forecasting to analytics, dashboards and an internal AI assistant.
     highlights:
       - >-
-        Built demand forecasting models reaching 95% quarterly accuracy, reducing excess
-        stock by 22% and saving roughly €1.2M a year.
+        Built demand forecasting models for seasonal tyre demand and used them to
+        support inventory planning and commercial decisions.
       - >-
         Modernized 25 years of legacy data into a queryable analytics foundation, then
-        built the real-time dashboards commercial and operations teams now run on.
+        built dashboards used by commercial and operations teams.
       - >-
-        Shipped an internal AI Q&A assistant over company documents and data, cutting
+        Shipped an internal AI Q&A assistant over company documents and data, reducing
         query resolution time by 45%.
       - 'Owned the data and AI function end to end: roadmap, tooling decisions, stakeholder alignment.'
     stack: [Python, FastAPI, PostgreSQL, DuckDB, Darts, Nixtla, Prophet, Streamlit]
@@ -314,38 +312,37 @@ education:
     gpa: 3.90 / 4.00
     detail: Graduated 2nd of 240.
 
-# TODO(emre): the publications need a `url` each (DOI or publisher page) and,
-# where known, month precision on `date` — ECIR 2022 (Stavanger), Journal of
-# the Operational Research Society 2015, SCITEPRESS 2013. Nothing is guessed
-# here: a missing `url` renders as plain text, never a dead link. Both sections
-# render newest-first in file order — nothing sorts them — so insert new
-# entries at the top.
+# Publication URLs are primary-source links where available. Entries render newest-first
+# in file order, so insert new entries at the top.
 publications:
   - title: Understanding COVID-19 News Coverage using Medical NLP
     venue: ECIR 2022, Stavanger, Norway
     date: '2022'
+    url: 'https://arxiv.org/abs/2203.10338'
   - title: Simulation Prevention Operations at Sea against Maritime Piracy
     venue: Journal of the Operational Research Society
     date: '2015'
+    url: 'https://doi.org/10.1057/jors.2015.34'
   - title: Simulation Modeling of Maritime Piracy using Discrete Event and Agent-Based Approaches
     venue: SCITEPRESS
     date: '2013'
+    url: 'https://doi.org/10.5220/0004431004380445'
 
 # URLs and dates are the Medium originals, as recorded in the frontmatter of
 # the same three posts under src/content/blog/.
 writing:
-  - title: Analyzing Roland Garros and the US Open via Neo4j
+  - title: 'Building a Canonical Metric Layer: The Foundation of Retail Analytics'
     venue: Medium
-    date: '2022-05-16'
-    url: https://medium.com/@a.emrevarol/analyzing-roland-garros-and-us-open-tennis-tournaments-via-neo4j-9be55e3044a4
-  - title: Exploring the European Natural Gas Network as a Knowledge Graph
+    date: '2026-05-19'
+    url: 'https://medium.com/@a.emrevarol/building-a-canonical-metric-layer-the-foundation-of-retail-analytics-abbe746cd66d'
+  - title: 'Demand Forecasting in Retail: Why It’s Harder Than Predicting the Stock Market'
     venue: Medium
-    date: '2022-04-26'
-    url: https://medium.com/@a.emrevarol/european-natural-gas-network-via-knowledge-graph-3c3decb5f2ec
-  - title: Creating a Clinical Knowledge Graph with Spark NLP & Neo4j
+    date: '2026-04-09'
+    url: 'https://medium.com/@a.emrevarol/demand-forecasting-in-retail-why-its-harder-than-predicting-the-stock-market-2b1aed78a63c'
+  - title: 'The Hidden Language of Retail: A Data Scientist’s Field Guide to Stakeholders'
     venue: Medium
-    date: '2021-09-21'
-    url: https://medium.com/@a.emrevarol/creating-knowledge-graph-by-spark-nlp-neo4j-9d18706aa08b
+    date: '2026-03-28'
+    url: 'https://medium.com/@a.emrevarol/the-hidden-language-of-retail-a-data-scientists-field-guide-to-stakeholders-946787f0fe9d'
 
 certifications:
   - Neo4j Certified Professional

@@ -150,9 +150,10 @@ const resume = defineCollection({
           // with a fallback: `context` exists on one entry only and
           // `highlights[0]` is a 30-word bullet, so there is nothing honest to
           // fall back to. Adding a job therefore forces writing the one-liner.
-          // 200 matches the blog `description` cap for the same reason — a card
-          // that overflows is worse than a build that tells you to shorten it.
-          blurb: z.string().min(1).max(200),
+          // 220 is the most the carousel card takes without growing a line at
+          // --card-w; a card that overflows is worse than a build that tells
+          // you to shorten it. (Was 200; raised 2026-09-23 for the Pulse blurb.)
+          blurb: z.string().min(1).max(220),
           highlights: z.array(z.string()).min(1),
           stack: z.array(z.string()).default([]),
         }),
