@@ -7,9 +7,11 @@ interface Props {
   /** The first row on a page takes the accent — the same rule every sequence
    *  on the site follows. */
   active?: boolean;
+  /** h3 under a section heading (landing); h2 directly under a page h1 (/work/). */
+  level?: 'h2' | 'h3';
 }
 
-const { study: s, active = false } = Astro.props;
+const { study: s, active = false, level: Title = 'h3' } = Astro.props;
 
 // The marker is a year in the .seq slot, not an ordinal: the landing focus
 // list and the /resume headings own 01–0n, and CLAUDE.md says to reach for a
@@ -25,7 +27,7 @@ const { study: s, active = false } = Astro.props;
         <Eyebrow>{s.company} · {s.sector}</Eyebrow>
         {s.draft && <Eyebrow accent>Draft</Eyebrow>}
       </p>
-      <h3 class="title">{s.title}</h3>
+      <Title class="title">{s.title}</Title>
       <p class="summary">{s.summary}</p>
 
       {

@@ -27,7 +27,7 @@ hero:
   # Facts, one line: the level you are open to · remote / hybrid posture · from
   # when. Leave the whole block out to publish without one.
   status:
-    text: 'Open to Senior / Lead roles in AI, data science and forward-deployed engineering · Istanbul / remote'
+    text: 'Open to Senior / Lead roles in AI, data science and forward-deployed engineering · UK / NL / US / CA / Istanbul / remote'
     href: '/contact/'
 
 # The proof strip. Three or four figures a hiring manager can carry into a
@@ -82,5 +82,5 @@ focus:
   - title: Decision Support & Operations Research
     detail: >-
       Fourteen years in the defense sector building simulation and decision-support
-      systems, including an enterprise platform serving 50,000+ personnel and an
+      systems, including an enterprise platform serving 20,000+ personnel and an
       inventory redesign that cut costs 17%.

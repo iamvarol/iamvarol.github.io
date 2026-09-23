@@ -24,7 +24,7 @@ const empty = !(await hasWork());
       studies.length > 0 ? (
         <ol class="cases">
           {studies.map((s, i) => (
-            <WorkListItem study={s} active={i === 0} />
+            <WorkListItem study={s} active={i === 0} level="h2" />
           ))}
         </ol>
       ) : (
