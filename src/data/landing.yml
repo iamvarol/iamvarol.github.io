@@ -37,7 +37,7 @@ proof:
   - value: '90–95%'
     label: less manual human-in-the-loop work in onboarding
     source: invent.ai
-  - value: '50,000+'
+  - value: '20,000+'
     label: personnel on one decision-support platform
     source: Turkish Government — Defense Sector
   - value: '17%'

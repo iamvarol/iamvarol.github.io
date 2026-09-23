@@ -152,7 +152,7 @@
       The simulation work resulted in two peer-reviewed publications on maritime piracy
       prevention and hybrid discrete-event / agent-based simulation.
   metrics:
-    - value: '50,000+'
+    - value: '20,000+'
       label: personnel served
     - value: '17%'
       label: inventory cost cut, availability held
