@@ -52,6 +52,15 @@ const sizes = {
     border-radius: var(--r-2);
   }
 
+  /* Astro wraps the <img> in a <picture>. Without this the wrapper takes its
+     intrinsic height, the image stops short of the frame, and a band of tile
+     shows under the shoulders. */
+  .portrait :global(picture) {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+  }
+
   .portrait :global(img) {
     inline-size: 100%;
     block-size: 100%;
@@ -75,6 +84,13 @@ const sizes = {
     opacity: 0.12;
     mix-blend-mode: soft-light;
     pointer-events: none;
+  }
+
+  /* On white, tone-2 reads as a saturated pastel behind a near-monochrome
+     photograph. Two steps lighter keeps the one-hue tile without pulling focus
+     from the face. No text sits on the tile, so no contrast pair changes. */
+  :global(:root[data-theme='light']) .portrait {
+    background: var(--tone-4);
   }
 
   :global(:root[data-theme='light']) .portrait::after {
