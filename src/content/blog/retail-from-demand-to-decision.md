@@ -1,5 +1,6 @@
 ---
-title: "Retail, From Demand to Decision: The Whole Playbook on One Page"
+
+## title: "Retail, From Demand to Decision: The Whole Playbook on One Page"
 date: 2026-09-26
 description: "Eighteen posts looked at eighteen problems — forecasting, sell-through, brokenness, MFP, assortment, allocation, replenishment, transfers, markdowns, the DC, agentic AI. They aren't eighteen problems. They're parts of one system. This is the map that puts them back together."
 tags: [retail, data-science, inventory-management, data-analytics]
@@ -8,7 +9,7 @@ part: 19
 draft: false
 link:
 link_text: Read on Medium
----
+
 *Part 19 of "The Retail Data Playbook" — The map that connects the whole system*
 
 ---
@@ -21,36 +22,11 @@ They can look like separate problems. They aren't. They're different parts of th
 
 Everything below is an unpacking of what that sentence means — and a map, with links, back to the post that goes deep on each part.
 
-<!-- IMAGE 01: HERO
-
-Create a large 16:9 premium editorial systems map titled conceptually "Retail, From Demand to Decision".
-
-Show retail as one connected decision system rather than a collection of isolated functions.
-
-Build a coherent flow:
-Customer Demand → Demand Forecast → MFP / Financial Plan → Assortment → Buy → Initial Allocation → Inventory → Sales / Demand Signals → Replenishment + Store Transfers → Markdown → Metrics → Reforecast → Decision → Action → Learn → back to Demand.
-
-Also show the physical network underneath:
-Supplier → DC → Stores → Customer.
-
-Show subtle information flows moving backwards from sales and inventory toward forecasting and planning.
-
-The composition should communicate:
-- uncertainty
-- inventory movement
-- connected decisions
-- feedback loops
-- physical retail network
-- data and intelligence
-
-Style: premium editorial technology illustration, sophisticated systems-map aesthetic, clean geometry, light background, restrained blue / indigo / gray / neutral palette, elegant negative space.
-
-No people, no shopping-cart clichés, no futuristic robots, no stock-photo aesthetic.
-
-The image should feel like the definitive visual identity of a professional retail data science playbook.
--->
+image: Retail, From Demand to Decision
 
 ---
+
+
 
 ## The Big Problem: Retail Is a Bet on the Future
 
@@ -65,6 +41,8 @@ That was the argument of [Part 1](/blog/why-retail-is-hard/), and it's the argum
 
 ---
 
+
+
 ## Retail Runs on Two Clocks
 
 The most useful mental model in the whole series is that retail operates on **two clocks at the same time** ([Part 13](/blog/pre-vs-in-season/)).
@@ -72,6 +50,7 @@ The most useful mental model in the whole series is that retail operates on **tw
 **The slow clock is pre-season.** It runs months before the customer arrives:
 **demand forecast → merchandise financial plan → assortment → buy → initial allocation**
 These are large, expensive, hard-to-reverse decisions, made with historical sales, trend signals, weather expectations and competitor intelligence — but without the one thing that matters, because the season hasn't happened yet. Pre-season asks:
+
 > *What do we think the market will want?*
 
 **The fast clock is in-season.**
@@ -79,38 +58,23 @@ These are large, expensive, hard-to-reverse decisions, made with historical sale
 Once selling starts, the retailer can finally observe reality. Sales arrive, inventory moves, stores diverge, some products become winners and some become slow movers. The loop becomes:
 **plan → execute → analyze → adjust → repeat**
 and the levers are open-to-buy management, re-trending the forecast, replenishment, store transfers, markdowns and rebalancing. The question changes to:
+
 > *What is the market actually doing, and what should we change?*
 
-<!-- IMAGE 02: THE TWO CLOCKS
 
-Create a wide 16:9 editorial conceptual diagram titled "The Two Clocks of Retail".
-
-Left side: a slow long-horizon planning cycle representing PRE-SEASON:
-Forecast → MFP → Assortment → Buy → Initial Allocation.
-
-Right side: a fast continuously updating cycle representing IN-SEASON:
-Sales → Inventory → Reforecast → Replenishment → Transfer → Markdown → Re-plan.
-
-Use a large slow clock motif on the left and a fast circular feedback loop on the right.
-
-At the center, show the point where the pre-season plan meets actual market reality.
-
-The visual should communicate:
-- different time horizons
-- low flexibility vs high flexibility
-- planning vs correction
-- uncertainty vs observed demand
-
-Style: premium editorial information design, clean consulting-report aesthetic, light background, restrained blue / indigo / gray palette, minimal labels, no stock photography.
--->
 
 This distinction matters enormously for data science. A model that understands only the slow clock never sees the correction loop. A system that understands only the fast clock doesn't know what plan it is supposed to be correcting. The handoff between the two — where the plan meets reality and someone has to decide whether a deviation is signal or noise — is where much of the value can leak.
 
+image 2: **The Two Clocks of Retail**
+
 ---
+
+
 
 ## Two Retail Universes: Fashion and Grocery
 
 The same concepts behave differently depending on the business, and fashion and grocery are not two categories of one problem — they run on different rhythms ([Part 5](/blog/grocery-vs-fashion/)).
+
 
 |                       | Fashion                    | Grocery                              |
 | --------------------- | -------------------------- | ------------------------------------ |
@@ -122,9 +86,12 @@ The same concepts behave differently depending on the business, and fashion and 
 | Data pattern          | Seasonal, size-granular    | Dense, continuous, promotion-heavy   |
 | Typical fast lever    | Markdown / transfer        | Replenishment / promotion            |
 
+
 Fashion makes one large commitment before demand is visible. Grocery makes thousands of smaller decisions while demand is being observed. That difference propagates through the entire data architecture. "Availability" in fashion may mean the right *size* is there. In grocery it may mean the product is physically on the shelf at the moment the customer reaches for it. The technical skills transfer between the two worlds.The business logic does not.
 
 ---
+
+
 
 ## Who Actually Makes the Decisions
 
@@ -176,6 +143,8 @@ This is why retail data science is partly a **stakeholder problem**: a technical
 
 ---
 
+
+
 ## The Product Journey
 
 A product moves through a sequence of decisions, and each stage answers a different question:
@@ -220,6 +189,8 @@ These decisions are connected. They are not interchangeable.
 
 ---
 
+
+
 ## Allocation, Replenishment and Transfer Are Three Different Levers
 
 If there's one distinction worth carrying out of the series, it's this one. The three levers that move inventory are constantly conflated, and they are not the same thing.
@@ -242,35 +213,11 @@ That makes transfer an economic decision, not a logistics one:
 
 A transfer is an inventory-value trade — and the volume of transfers a network needs can also be a useful report card on how well the original allocation worked.
 
-<!-- IMAGE 03: INVENTORY LEVERS
 
-Create a wide 16:9 editorial systems diagram titled conceptually "Three Inventory Levers".
-
-Show three distinct inventory movements:
-
-1. ALLOCATION:
-Central inventory → multiple stores.
-A one-time distribution establishing the initial position.
-
-2. REPLENISHMENT:
-DC → store repeatedly over time.
-A continuous correction mechanism responding to depletion and demand.
-
-3. TRANSFER:
-Store A ↔ Store B.
-A bidirectional movement of existing inventory across locations.
-
-Use visually different flow patterns:
-- allocation = one-time branching distribution
-- replenishment = repeated directional flow
-- transfer = bidirectional network flow
-
-Include subtle representations of store inventory states.
-
-Style: premium supply-chain systems illustration, clean geometry, light background, restrained blue / indigo / gray palette, editorial rather than technical-software UI. No stock photography.
--->
 
 ---
+
+
 
 ## Inventory Is the Physical State of the System
 
@@ -286,15 +233,17 @@ If an item was unavailable, zero sales does not mean zero demand — the observe
 
 ---
 
+
+
 ## Metrics Are the Language of the System
 
 Once you start measuring retail you meet a large collection of metrics, and they are not interchangeable numbers. Each has:
 
-* a definition
-* a grain
-* an aggregation rule
-* a time interpretation
-* a business meaning
+- a definition
+- a grain
+- an aggregation rule
+- a time interpretation
+- a business meaning
 
 Three families cover much of it.
 
@@ -322,6 +271,8 @@ Ratios must be recalculated from their components at whatever grain you're repor
 
 ---
 
+
+
 ## Forecasting Connects the Past to the Future
 
 With clean measurements in hand, the next question is:
@@ -341,6 +292,7 @@ Forecast
       ↓
 Future Inventory Decision
 ```
+
 The forecast drives buying, assortment, allocation, replenishment, safety stock and markdown timing. That is also why the hard cases are hard. A new product has no history, so the model borrows from similar products, attributes, categories and store clusters. A promotion distorts the signal, so observed sales reflect the discount rather than underlying demand. A stockout censors it entirely.
 
 The lesson the whole series keeps returning to:
@@ -351,6 +303,8 @@ A forecast creates value only when it improves what the retailer does next.
 
 ---
 
+
+
 ## Inventory Optimization Is an Economic Problem
 
 The goal of inventory optimization is not "hold less stock" ([Part 8](/blog/inventory-optimization/)).
@@ -359,22 +313,24 @@ It is a balance.
 
 Too much inventory costs:
 
-* capital
-* storage
-* markdown risk
-* spoilage
-* obsolescence
-* opportunity cost
+- capital
+- storage
+- markdown risk
+- spoilage
+- obsolescence
+- opportunity cost
 
 Too little costs:
 
-* stockouts
-* lost revenue
-* customer availability
+- stockouts
+- lost revenue
+- customer availability
 
 Safety stock exists because demand and lead time are uncertain. Reorder points exist because inventory takes time to arrive. Service levels exist because the retailer has to decide how much availability it is willing to pay for. At the network level the problem gets more interesting, because inventory does not have to sit where the risk occurs. That is the door to multi-echelon optimization.
 
 ---
+
+
 
 ## The Retailer Is a Network, Not a Collection of Stores
 
@@ -404,29 +360,11 @@ These are network questions.
 
 Single-node optimization can get them wrong: optimizing every store independently can stack buffers across the network that pooling could have eliminated. Multi-echelon inventory optimization treats the network as a whole and uses risk pooling to decide where inventory should be held. And the bullwhip effect makes the information side just as important. Downstream orders are not consumer demand, and the further a signal travels upstream, the more distorted it can become.
 
-<!-- IMAGE 04: RETAIL NETWORK
 
-Create a wide 16:9 premium editorial network visualization titled conceptually "Retail Is a Network".
-
-Show:
-SUPPLIERS → DISTRIBUTION CENTER → multiple STORES → CUSTOMERS.
-
-Add bidirectional inventory flows between selected stores to represent transfers.
-
-Add information/data flows moving from customer sales and inventory observations back upstream toward forecasting and planning.
-
-Visually distinguish:
-- physical inventory flow
-- information flow
-
-Show the DC as a pooling node and stores as customer-facing nodes.
-
-The visual should communicate that retail optimization is a network problem rather than independent store optimization.
-
-Style: sophisticated editorial systems-map aesthetic, light background, restrained blue / indigo / gray palette, clean lines, subtle depth but not 3D, no generic logistics stock imagery.
--->
 
 ---
+
+
 
 ## The Entire System Is a Feedback Loop
 
@@ -465,6 +403,8 @@ The retailer starts with imperfect information and makes decisions. The market r
 
 ---
 
+
+
 # Three Layers of the Retail System
 
 At this point, it helps to separate the system into three layers.
@@ -498,6 +438,8 @@ The intelligence layer is what helps the retailer decide better.
 This distinction is useful because many "AI problems" are actually problems in one of the other two layers.
 
 ---
+
+
 
 ## Where Data Science Fits
 
@@ -559,15 +501,19 @@ The framing changes the work. The model becomes one component inside a decision 
 
 ---
 
+
+
 ## From Predictive Models to Decision Intelligence
 
 This is also where AI gets interesting, because three different ideas are usually collapsed into one word ([Part 18](/blog/agentic-ai/)).
+
 
 |                   | Question                         | Examples                                                                           |
 | ----------------- | -------------------------------- | ---------------------------------------------------------------------------------- |
 | **Predictive AI** | What is likely to happen?        | Forecast demand, predict stockouts, estimate lost sales                            |
 | **Generative AI** | What should we consider?         | Explain forecasts, summarize exceptions, help investigate an underperforming store |
 | **Agentic AI**    | What can the system actually do? | Raise a replenishment order, execute a transfer, trigger an exception workflow     |
+
 
 The critical distinction is not model sophistication.
 
@@ -600,6 +546,8 @@ AUTOMATION
 An autonomous system can only be as trustworthy as the state it observes.
 
 ---
+
+
 
 ## The Complete Retail Decision System
 
@@ -660,80 +608,11 @@ Underneath the whole thing sits the infrastructure layer:
 
 Every article in this series is a deep dive into one part of this map.
 
-<!-- IMAGE 05: FINAL DECISION SYSTEM MAP
 
-Create a large 16:9 premium editorial systems map titled conceptually "The Retail Decision System".
-
-This should be the definitive visual summary of the entire Retail Data Playbook.
-
-Build one coherent end-to-end loop:
-
-CUSTOMER DEMAND
-↓
-DEMAND FORECAST
-↓
-MFP / FINANCIAL PLAN
-↓
-ASSORTMENT
-↓
-BUY
-↓
-INITIAL ALLOCATION
-↓
-INVENTORY ACROSS DCs AND STORES
-↓
-SALES / DEMAND SIGNALS
-↓
-REPLENISHMENT + STORE TRANSFERS
-↓
-MARKDOWN / CLEARANCE
-↓
-METRICS + OUTCOMES
-↓
-REFORECAST
-↓
-DECISION
-↓
-ACTION
-↺ back to PLAN / DEMAND
-
-Add the physical network:
-SUPPLIER → DC → STORES → CUSTOMER.
-
-Add a subtle information layer:
-Customer / Sales / Inventory observations → Metrics → Forecast → Decisions.
-
-Visually organize the map into three conceptual layers:
-
-PHYSICAL:
-Supplier → DC → Store → Customer
-
-DECISION:
-MFP → Assortment → Buy → Allocation → Replenishment → Transfer → Markdown
-
-INTELLIGENCE:
-Data → Metrics → Forecast → Optimization → Decisioning → Automation
-
-The overall composition should feel like a map of a living system, not a conventional flowchart.
-
-Style:
-- premium editorial technology illustration
-- consulting-quality systems map
-- sophisticated information hierarchy
-- light background
-- restrained blue, indigo, gray and neutral tones
-- elegant negative space
-- subtle data streams
-- clean geometry
-- no people
-- no shopping-cart clichés
-- no futuristic robots
-- no excessive decoration
-
-This is the signature visual for the final article in a professional retail data science playbook.
--->
 
 ---
+
+
 
 ## The Mental Model to Keep
 
@@ -805,31 +684,33 @@ That is the difference between building a model and building a decision system.
 
 ---
 
+
+
 ## Where Each Piece Lives
 
 Season 1 built the mental models.
 
-1. [**Why Retail Is Hard**](/blog/why-retail-is-hard/) — the bet on the future, and why models alone don't fix it
-2. [**The Stakeholders**](/blog/stakeholders/) — who makes which decision, and how to speak their language
-3. [**Sell-Through Rate**](/blog/sell-through-rate/) — the heartbeat metric
-4. [**Brokenness**](/blog/brokenness/) — why inventory is not availability
-5. [**Grocery vs. Fashion**](/blog/grocery-vs-fashion/) — two rhythms, two failure modes
-6. [**Markdown Optimization**](/blog/markdown-optimization/) — diagnose before discounting
-7. [**Demand Forecasting**](/blog/demand-forecasting/) — censored demand, new products, promotions
-8. [**Inventory Optimization**](/blog/inventory-optimization/) — the economics of safety stock and service levels
-9. [**The 10 DS Problems**](/blog/ds-problems/) — framed by decision, with the money attached
-10. [**The Canonical Metric Layer**](/blog/metric-layer/) — the infrastructure everything else stands on
+1. **[Why Retail Is Hard](/blog/why-retail-is-hard/)** — the bet on the future, and why models alone don't fix it
+2. **[The Stakeholders](/blog/stakeholders/)** — who makes which decision, and how to speak their language
+3. **[Sell-Through Rate](/blog/sell-through-rate/)** — the heartbeat metric
+4. **[Brokenness](/blog/brokenness/)** — why inventory is not availability
+5. **[Grocery vs. Fashion](/blog/grocery-vs-fashion/)** — two rhythms, two failure modes
+6. **[Markdown Optimization](/blog/markdown-optimization/)** — diagnose before discounting
+7. **[Demand Forecasting](/blog/demand-forecasting/)** — censored demand, new products, promotions
+8. **[Inventory Optimization](/blog/inventory-optimization/)** — the economics of safety stock and service levels
+9. **[The 10 DS Problems](/blog/ds-problems/)** — framed by decision, with the money attached
+10. **[The Canonical Metric Layer](/blog/metric-layer/)** — the infrastructure everything else stands on
 
 Season 2 went inside the planning machine.
 
-11. [**Merchandise Financial Planning**](/blog/merchandise-financial-planning/) — the budget decided before anyone buys
-12. [**Assortment**](/blog/assortment-planning/) — what to sell where
-13. [**The Two Clocks**](/blog/pre-vs-in-season/) — pre-season vs. in-season, and the handoff
-14. [**Initial Allocation**](/blog/initial-allocation/) — the first irreversible bet
-15. [**Store Replenishment**](/blog/store-replenishment/) — the continuous engine, and phantom inventory
-16. [**Store Transfers**](/blog/store-transfers/) — the arbitrage in your network
-17. [**DC Replenishment**](/blog/dc-replenishment/) — multi-echelon optimization and the bullwhip
-18. [**The Autonomous Planner**](/blog/agentic-ai/) — what agentic AI actually changes
+1. **[Merchandise Financial Planning](/blog/merchandise-financial-planning/)** — the budget decided before anyone buys
+2. **[Assortment](/blog/assortment-planning/)** — what to sell where
+3. **[The Two Clocks](/blog/pre-vs-in-season/)** — pre-season vs. in-season, and the handoff
+4. **[Initial Allocation](/blog/initial-allocation/)** — the first irreversible bet
+5. **[Store Replenishment](/blog/store-replenishment/)** — the continuous engine, and phantom inventory
+6. **[Store Transfers](/blog/store-transfers/)** — the arbitrage in your network
+7. **[DC Replenishment](/blog/dc-replenishment/)** — multi-echelon optimization and the bullwhip
+8. **[The Autonomous Planner](/blog/agentic-ai/)** — what agentic AI actually changes
 
 The topics differ. The underlying problem never does. It is always some version of:
 
